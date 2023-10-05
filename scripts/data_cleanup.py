@@ -28,7 +28,7 @@ data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['crm_Afspraak_BETREFT_ACC
 
 # Afspraak betreft contact cleaned
 data = pd.read_csv('../data/Afspraak betreft contact_cleaned.csv', sep=",")
-data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace(
+data['crm_Afspraak_BETREFT_CONTACTAFICHE_KeyPhrases'] = data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace(
     '\[NAME\] ,*', '', regex=True)
 
 
@@ -49,8 +49,6 @@ data.columns = data.columns.map(lambda x: re.sub(
     r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
 if 'Anonymous Visitor' in data.columns:
     data.drop(['Anonymous Visitor'], axis=1, inplace=True)
-
-data.head()
 
 
 # CDI visits
