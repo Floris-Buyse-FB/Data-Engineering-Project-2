@@ -86,19 +86,20 @@ subcommands = {
     # Add more subcommands here...
 }
 
-# Create the main argument parser
+"""
+USE
+python3 cleanup_script.py [NAAM SUBCOMMAND]
+"""
+
 parser = argparse.ArgumentParser(description="Process data files")
 
-# Create subparsers and associate them with subcommand functions
 subparsers = parser.add_subparsers(dest='subcommand', title='Subcommands')
 for subcommand, func in subcommands.items():
     subparser = subparsers.add_parser(subcommand)
     subparser.set_defaults(func=func)
 
-# Parse the command-line arguments
 args = parser.parse_args()
 
-# Call the appropriate function based on the subcommand provided
 if hasattr(args, 'func'):
     args.func()
 else:
