@@ -32,6 +32,8 @@ def account_activiteit():
 def account():
     data = pd.read_csv('../data/Account.csv', sep=",")
     titelChange(data)
+    data.reset_index(inplace=True)
+    data['index'] = data['index'] + 1
     if 'crm_Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('crm_Account_Hoofd_NaCe_Code', axis=1, inplace=True)
     data.to_csv('../data_clean/Account_fixed.csv', index=False)
