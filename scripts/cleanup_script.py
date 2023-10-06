@@ -9,16 +9,32 @@ def titelChange(data):
 
 
 def ChangeAllData():
+    account_activiteitscode()
+    account_financiele_data()
     account()
-    account_activiteit()
+    activiteit_vereist_contact()
+    activiteitscode()
+    afspraak_alle()
     afspraak_betreft_account_cleaned()
     afspraak_betreft_contact_cleaned()
     afspraak_account_gelinkt_cleaned()
-    cdi_pageviews()
+    campagne()
+    mailings()
+    sent_email_clicks()
+    pageviews()
     visits()
+    web_content()
+    contact_functie()
     contact()
+    functie()
+    gebruikers()
+    info_en_klachten()
+    inschrijving()
+    Lidmaatschap()
     persoon()
     sessie_inschrijving()
+    sessie()
+    teams()
 
 
 def account_activiteitscode():
