@@ -25,6 +25,7 @@ def account_activiteit():
     data = pd.read_csv('../data/Account activiteitscode.csv', sep=",")
     titelChange(data)
     data.dropna(inplace=True)
+    data.to_csv('../data_clean/Account activiteitscode_fixed.csv', index=False)
     # Add your code to process 'Account Activiteit' here
 
 
@@ -33,6 +34,7 @@ def account_financiele_data():
     titelChange(data)
     if 'crm_Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('crm_Account_Hoofd_NaCe_Code', axis=1, inplace=True)
+    data.to_csv('../data_clean/Account_fixed.csv', index=False)
     # Add your code to process 'Account financiele data' here
 
 
@@ -41,6 +43,8 @@ def afspraak_betreft_account_cleaned():
     data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
     titelChange(data)
+    data.to_csv(
+        '../data_clean/Afspraak betreft account_cleaned_fixed.csv', index=False)
 
     # Add your code to process 'Afspraak betreft account cleaned' here
 
@@ -50,6 +54,8 @@ def afspraak_betreft_contact_cleaned():
     data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
     titelChange(data)
+    data.to_csv(
+        '../data_clean/Afspraak betreft contact_cleaned_fixed.csv', index=False)
 
     # Add your code to process 'Afspraak betreft contact cleaned' here
 
@@ -59,6 +65,8 @@ def afspraak_account_gelinkt_cleaned():
     data['crm_Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['crm_Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
     titelChange(data)
+    data.to_csv(
+        '../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv', index=False)
     # Add your code to process 'Afspraak betreft gelinkt cleaned' here
 
 
@@ -69,6 +77,7 @@ def cdi_pageviews():
         r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
     if 'Anonymous Visitor' in data.columns:
         data.drop(['Anonymous Visitor'], axis=1, inplace=True)
+    data.to_csv('../data_clean/cdi pageviews_fixed.csv', index=False)
     # Add your code to process 'CDI pageviews' here
 
 
@@ -77,6 +86,7 @@ def visits():
     if 'crm_CDI_Visit_Campagne_Code' in data.columns:
         data.drop('crm_CDI_Visit_Campagne_Code', axis=1, inplace=True)
     titelChange(data)
+    data.to_csv('../data_clean/CDI visits_fixed.csv', index=False)
     # Add your code to process 'CDI visits' here
 
 
@@ -84,6 +94,7 @@ def contact():
     data = pd.read_csv('../data/Contact functie.csv', sep=",")
     titelChange(data)
     data = data.dropna()
+    data.to_csv('../data_clean/Contact functie_fixed.csv', index=False)
 
 
 def persoon():
@@ -91,12 +102,14 @@ def persoon():
     data.replace('Nee', 0, inplace=True)
     data.replace('Ja', 1, inplace=True)
     titelChange(data)
+    data.to_csv('../data_clean/persoon_fixed.csv', index=False)
 
 
 def sessie_inschrijving():
     data = pd.read_csv('../data/Sessie inschrijving.csv', sep=",")
     data.dropna(inplace=True)
     titelChange(data)
+    data.to_csv('../data_clean/Sessie inschrijving_fixed.csv', index=False)
 
 
 # Define a dictionary mapping subcommands to functions
