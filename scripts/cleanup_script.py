@@ -21,12 +21,19 @@ def ChangeAllData():
     sessie_inschrijving()
 
 
-def account_activiteit():
+def account_activiteitscode():
     data = pd.read_csv('../data/Account activiteitscode.csv', sep=",")
     titelChange(data)
     data.dropna(inplace=True)
     data.to_csv('../data_clean/Account activiteitscode_fixed.csv', index=False)
     # Add your code to process 'Account Activiteit' here
+
+
+def account_financiele_data():
+    data = pd.read_csv('../data/Account financiele data.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Account financiele data_fixed.csv', index=False)
+    # Add your code to process 'Account financiele data' here
 
 
 def account():
@@ -40,9 +47,23 @@ def account():
     # Add your code to process 'Account financiele data' here
 
 
-def account_financiele_data():
-    data = pd.read_csv('../data/Account financiele data.csv', sep=",")
+def activiteit_vereist_contact():
+    data = pd.read_csv('../data/Activiteit vereist contact.csv', sep=",")
     titelChange(data)
+    data.to_csv(
+        '../data_clean/Activiteit vereist contact_fixed.csv', index=False)
+
+
+def activiteitscode():
+    data = pd.read_csv('../data/Activiteitscode.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Activiteitscode_fixed.csv', index=False)
+
+
+def afspraak_alle():
+    data = pd.read_csv('../data/Afspraak alle.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Afspraak alle_fixed.csv', index=False)
 
 
 def afspraak_betreft_account_cleaned():
@@ -77,7 +98,25 @@ def afspraak_account_gelinkt_cleaned():
     # Add your code to process 'Afspraak betreft gelinkt cleaned' here
 
 
-def cdi_pageviews():
+def campagne():
+    data = pd.read_csv('../data/Campagne.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Campagne_fixed.csv', index=False)
+
+
+def mailings():
+    data = pd.read_csv('../data/CDI mailings.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/CDI mailings_fixed.csv', index=False)
+
+
+def sent_email_clicks():
+    data = pd.read_csv('../data/CDI sent email clicks.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/CDI sent email clicks_fixed.csv', index=False)
+
+
+def pageviews():
     data = pd.read_csv('../data/cdi pageviews.csv',
                        encoding="latin-1", sep=";")
     data.columns = data.columns.map(lambda x: re.sub(
@@ -97,11 +136,53 @@ def visits():
     # Add your code to process 'CDI visits' here
 
 
-def contact():
+def web_content():
+    data = pd.read_csv('../data/CDI web content.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/CDI web content_fixed.csv', index=False)
+
+
+def contact_functie():
     data = pd.read_csv('../data/Contact functie.csv', sep=",")
     titelChange(data)
     data = data.dropna()
     data.to_csv('../data_clean/Contact functie_fixed.csv', index=False)
+
+
+def contact():
+    data = pd.read_csv('../data/Contact.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Contact_fixed.csv', index=False)
+
+
+def functie():
+    data = pd.read_csv('../data/Functie.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Functie_fixed.csv', index=False)
+
+
+def gebruikers():
+    data = pd.read_csv('../data/Gebruikers.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Gebruikers_fixed.csv', index=False)
+
+
+def info_en_klachten():
+    data = pd.read_csv('../data/Info en klachten.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Info en klachten_fixed.csv', index=False)
+
+
+def inschrijving():
+    data = pd.read_csv('../data/Inschrijving.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Inschrijving_fixed.csv', index=False)
+
+
+def Lidmaatschap():
+    data = pd.read_csv('../data/Lidmaatschap.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Lidmaatschap_fixed.csv', index=False)
 
 
 def persoon():
@@ -119,22 +200,48 @@ def sessie_inschrijving():
     data.to_csv('../data_clean/Sessie inschrijving_fixed.csv', index=False)
 
 
+def sessie():
+    data = pd.read_csv('../data/Sessie.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Sessie_fixed.csv', index=False)
+
+
+def teams():
+    data = pd.read_csv('../data/Teams.csv', sep=",")
+    titelChange(data)
+    data.to_csv('../data_clean/Teams_fixed.csv', index=False)
+
+
 # Define a dictionary mapping subcommands to functions
 subcommands = {
-    'account': account,
-    'account_activiteit': account_activiteit,
+    'all': ChangeAllData,
+    '': ChangeAllData,
+    'account_activiteitscode': account_activiteitscode,
     'account_financiele_data': account_financiele_data,
+    'account': account,
+    'activiteit_vereist_contact': activiteit_vereist_contact,
+    'activiteitscode': activiteitscode,
+    'afspraak_alle': afspraak_alle,
     'afspraak_betreft_account_cleaned': afspraak_betreft_account_cleaned,
     'afspraak_betreft_contact_cleaned': afspraak_betreft_contact_cleaned,
     'afspraak_account_gelinkt_cleaned': afspraak_account_gelinkt_cleaned,
-    'cdi_pageviews': cdi_pageviews,
+    'campagne': campagne,
+    'mailings': mailings,
+    'sent_email_clicks': sent_email_clicks,
+    'pageviews': pageviews,
     'visits': visits,
+    'web_content': web_content,
+    'contact_functie': contact_functie,
     'contact': contact,
+    'functie': functie,
+    'gebruikers': gebruikers,
+    'info_en_klachten': info_en_klachten,
+    'inschrijving': inschrijving,
+    'lidmaatschap': Lidmaatschap,
     'persoon': persoon,
     'sessie_inschrijving': sessie_inschrijving,
-    'all': ChangeAllData,
-    '' : ChangeAllData
-
+    'sessie': sessie,
+    'teams': teams
     # Add more subcommands here...
 }
 
