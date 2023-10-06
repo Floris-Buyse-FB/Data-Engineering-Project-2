@@ -39,10 +39,11 @@ def account():
     data.to_csv('../data_clean/Account_fixed.csv', index=False)
     # Add your code to process 'Account financiele data' here
 
+
 def account_financiele_data():
     data = pd.read_csv('../data/Account financiele data.csv', sep=",")
     titelChange(data)
-    
+
 
 def afspraak_betreft_account_cleaned():
     data = pd.read_csv('../data/Afspraak betreft account_cleaned.csv', sep=",")
@@ -120,7 +121,7 @@ def sessie_inschrijving():
 
 # Define a dictionary mapping subcommands to functions
 subcommands = {
-    'account': account,  
+    'account': account,
     'account_activiteit': account_activiteit,
     'account_financiele_data': account_financiele_data,
     'afspraak_betreft_account_cleaned': afspraak_betreft_account_cleaned,
@@ -131,7 +132,9 @@ subcommands = {
     'contact': contact,
     'persoon': persoon,
     'sessie_inschrijving': sessie_inschrijving,
-    'all': ChangeAllData
+    'all': ChangeAllData,
+    '' : ChangeAllData
+
     # Add more subcommands here...
 }
 
