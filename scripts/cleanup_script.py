@@ -130,6 +130,9 @@ for subcommand, func in subcommands.items():
 args = parser.parse_args()
 
 if hasattr(args, 'func'):
+    print("Processing data for subcommand '{}'".format(args.subcommand))
     args.func()
+    print("Done.")
+
 else:
     print("Please specify a valid subcommand.")
