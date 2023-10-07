@@ -161,4 +161,4 @@ cython_debug/
 
 # data folder
 data/
-data_cleaned/
+data_clean/
