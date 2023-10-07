@@ -68,10 +68,10 @@ def account():
     titelChange(data)
     data.replace({'Account_Status': {'Actief': 1, 'Inactief': 0}}, inplace=True)
     data.replace({'Account_Is_Voka_entiteit': {'Ja': 1, 'Nee': 0}}, inplace=True)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
-    if 'crm_Account_Hoofd_NaCe_Code' in data.columns:
-        data.drop('crm_Account_Hoofd_NaCe_Code', axis=1, inplace=True)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
+    if 'Account_Hoofd_NaCe_Code' in data.columns:
+        data.drop('Account_Hoofd_NaCe_Code', axis=1, inplace=True)
     if os.path.exists('../data_clean/Account_fixed.csv'):
         os.remove('../data_clean/Account_fixed.csv')
     data.to_csv('../data_clean/Account_fixed.csv', index=False)
