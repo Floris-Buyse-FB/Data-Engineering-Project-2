@@ -5,8 +5,9 @@ import os
 
 
 def titelChange(data):
-    if 'crm_' in data.columns[0:4]:
-        data.columns = data.columns.str.replace('crm_', '')
+    for col in data.columns:
+        if col.startswith('crm_'):
+            data.columns = data.columns.str.replace('crm_', '')
 
 
 def ChangeAllData():
