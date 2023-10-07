@@ -43,6 +43,7 @@ def ChangeAllData():
 def account_activiteitscode():
     data = pd.read_csv(f"../data/Account activiteitscode.csv", sep=",")
     titelChange(data)
+    data.replace({'ActiviteitsCode_Status': {'Actief': 1,'Inactief': 0}}, inplace=True)
     data.dropna(inplace=True)
     if os.path.exists(f'../data_clean/Account activiteitscode_fixed.csv'):
         os.remove(f'../data_clean/Account activiteitscode_fixed.csv')
@@ -65,6 +66,8 @@ def account_financiele_data():
 def account():
     data = pd.read_csv('../data/Account.csv', sep=",")
     titelChange(data)
+    data.replace({'Account_Status': {'Actief': 1, 'Inactief': 0}}, inplace=True)
+    data.replace({'Account_Is_Voka_entiteit': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
     if 'crm_Account_Hoofd_NaCe_Code' in data.columns:
@@ -181,6 +184,9 @@ def visits():
     if 'crm_CDI_Visit_Campagne_Code' in data.columns:
         data.drop('crm_CDI_Visit_Campagne_Code', axis=1, inplace=True)
     titelChange(data)
+    data.replace({'CDI_Visit_Adobe_Reader': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace({'CDI_Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace({'CDI_Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
     if os.path.exists('../data_clean/CDI visits_fixed.csv'):
         os.remove('../data_clean/CDI visits_fixed.csv')
     data.to_csv('../data_clean/CDI visits_fixed.csv', index=False)
