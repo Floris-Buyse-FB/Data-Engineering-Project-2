@@ -39,25 +39,26 @@ def ChangeAllData():
     teams()
 
 
+
 def account_activiteitscode():
-    data = pd.read_csv('../data/Account activiteitscode.csv', sep=",")
+    data = pd.read_csv(f"../data/Account activiteitscode.csv", sep=",")
     titelChange(data)
     data.dropna(inplace=True)
-    if os.path.exists('../data_clean/Account activiteitscode_fixed.csv'):
-        os.remove('../data_clean/Account activiteitscode_fixed.csv')
+    if os.path.exists(f'../data_clean/Account activiteitscode_fixed.csv'):
+        os.remove(f'../data_clean/Account activiteitscode_fixed.csv')
     data.to_csv(
-        '../data_clean/Account activiteitscode_fixed.csv', index=False)
+        f'../data_clean/Account activiteitscode_fixed.csv', index=False)
 
     # Add your code to process 'Account Activiteit' here
 
 
 def account_financiele_data():
-    data = pd.read_csv('../data/Account financiele data.csv', sep=",")
+    data = pd.read_csv('../data/Account financiële data.csv', sep=",")
     titelChange(data)
-    if os.path.exists('../data_clean/Account financiele data_fixed.csv'):
-        os.remove('../data_clean/Account financiele data_fixed.csv')
+    if os.path.exists('../data_clean/Account financiële data_fixed.csv'):
+        os.remove('../data_clean/Account financiële data_fixed.csv')
     data.to_csv(
-        '../data_clean/Account financiele data_fixed.csv', index=False)
+        '../data_clean/Account financiële data_fixed.csv', index=False)
     # Add your code to process 'Account financiele data' here
 
 
@@ -147,11 +148,11 @@ def campagne():
 
 
 def mailings():
-    data = pd.read_csv('../data/CDI mailings.csv', sep=",")
+    data = pd.read_csv('../data/CDI mailing.csv', sep=",")
     titelChange(data)
-    if os.path.exists('../data_clean/CDI mailings_fixed.csv'):
-        os.remove('../data_clean/CDI mailings_fixed.csv')
-    data.to_csv('../data_clean/CDI mailings_fixed.csv', index=False)
+    if os.path.exists('../data_clean/CDI mailing_fixed.csv'):
+        os.remove('../data_clean/CDI mailing_fixed.csv')
+    data.to_csv('../data_clean/CDI mailing_fixed.csv', index=False)
 
 
 def sent_email_clicks():
@@ -176,7 +177,7 @@ def pageviews():
 
 
 def visits():
-    data = pd.read_csv('../data/CDI visits.csv', sep=",")
+    data = pd.read_csv('../data/CDI visits.csv', sep=",", dtype=str)
     if 'crm_CDI_Visit_Campagne_Code' in data.columns:
         data.drop('crm_CDI_Visit_Campagne_Code', axis=1, inplace=True)
     titelChange(data)
@@ -252,13 +253,13 @@ def Lidmaatschap():
 
 
 def persoon():
-    data = pd.read_csv('../data/persoon.csv', sep=",")
+    data = pd.read_csv('../data/Persoon.csv', sep=",")
     data.replace('Nee', 0, inplace=True)
     data.replace('Ja', 1, inplace=True)
     titelChange(data)
-    if os.path.exists('../data_clean/persoon_fixed.csv'):
-        os.remove('../data_clean/persoon_fixed.csv')
-    data.to_csv('../data_clean/persoon_fixed.csv', index=False)
+    if os.path.exists('../data_clean/Persoon_fixed.csv'):
+        os.remove('../data_clean/Persoon_fixed.csv')
+    data.to_csv('../data_clean/Persoon_fixed.csv', index=False)
 
 
 def sessie_inschrijving():
