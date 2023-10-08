@@ -6,8 +6,9 @@ import os
 
 def titelChange(data):
     for col in data.columns:
-        if col.startswith('crm_'):
+        if col.startswith('crm_') or col.startswith('CDI_'):
             data.columns = data.columns.str.replace('crm_', '')
+            data.columns = data.columns.str.replace('CDI_', '')
 
 
 def ChangeAllData():
@@ -39,11 +40,12 @@ def ChangeAllData():
     teams()
 
 
-
 def account_activiteitscode():
+    print('currently working on Account activiteitscode')
     data = pd.read_csv(f"../data/Account activiteitscode.csv", sep=",")
     titelChange(data)
-    data.replace({'ActiviteitsCode_Status': {'Actief': 1,'Inactief': 0}}, inplace=True)
+    data.replace({'ActiviteitsCode_Status': {
+                 'Actief': 1, 'Inactief': 0}}, inplace=True)
     data.dropna(inplace=True)
     if os.path.exists(f'../data_clean/Account activiteitscode_fixed.csv'):
         os.remove(f'../data_clean/Account activiteitscode_fixed.csv')
@@ -54,6 +56,7 @@ def account_activiteitscode():
 
 
 def account_financiele_data():
+    print('currently working on Account financiele data')
     data = pd.read_csv('../data/Account financiële data.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Account financiële data_fixed.csv'):
@@ -64,10 +67,13 @@ def account_financiele_data():
 
 
 def account():
+    print('currently working on Account')
     data = pd.read_csv('../data/Account.csv', sep=",")
     titelChange(data)
-    data.replace({'Account_Status': {'Actief': 1, 'Inactief': 0}}, inplace=True)
-    data.replace({'Account_Is_Voka_entiteit': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace(
+        {'Account_Status': {'Actief': 1, 'Inactief': 0}}, inplace=True)
+    data.replace({'Account_Is_Voka_entiteit': {
+                 'Ja': 1, 'Nee': 0}}, inplace=True)
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     if 'Account_Hoofd_NaCe_Code' in data.columns:
@@ -80,6 +86,7 @@ def account():
 
 
 def activiteit_vereist_contact():
+    print('currently working on Activiteit vereist contact')
     data = pd.read_csv('../data/Activiteit vereist contact.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Activiteit vereist contact_fixed.csv'):
@@ -89,6 +96,7 @@ def activiteit_vereist_contact():
 
 
 def activiteitscode():
+    print('currently working on Activiteitscode')
     data = pd.read_csv('../data/Activiteitscode.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Activiteitscode_fixed.csv'):
@@ -97,6 +105,7 @@ def activiteitscode():
 
 
 def afspraak_alle():
+    print('currently working on Afspraak alle')
     data = pd.read_csv('../data/Afspraak alle.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Afspraak alle_fixed.csv'):
@@ -105,6 +114,7 @@ def afspraak_alle():
 
 
 def afspraak_betreft_account_cleaned():
+    print('currently working on Afspraak betreft account cleaned')
     data = pd.read_csv('../data/Afspraak betreft account_cleaned.csv', sep=",")
     data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
@@ -118,6 +128,7 @@ def afspraak_betreft_account_cleaned():
 
 
 def afspraak_betreft_contact_cleaned():
+    print('currently working on Afspraak betreft contact cleaned')
     data = pd.read_csv('../data/Afspraak betreft contact_cleaned.csv', sep=",")
     data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
@@ -131,6 +142,7 @@ def afspraak_betreft_contact_cleaned():
 
 
 def afspraak_account_gelinkt_cleaned():
+    print('currently working on Afspraak account gelinkt cleaned')
     data = pd.read_csv('../data/Afspraak_account_gelinkt_cleaned.csv', sep=",")
     data['crm_Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['crm_Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
@@ -143,6 +155,7 @@ def afspraak_account_gelinkt_cleaned():
 
 
 def campagne():
+    print('currently working on Campagne')
     data = pd.read_csv('../data/Campagne.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Campagne_fixed.csv'):
@@ -151,6 +164,7 @@ def campagne():
 
 
 def mailings():
+    print('currently working on Mailings')
     data = pd.read_csv('../data/CDI mailing.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/CDI mailing_fixed.csv'):
@@ -159,6 +173,7 @@ def mailings():
 
 
 def sent_email_clicks():
+    print('currently working on Sent email clicks')
     data = pd.read_csv('../data/CDI sent email clicks.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/CDI sent email clicks_fixed.csv'):
@@ -167,6 +182,7 @@ def sent_email_clicks():
 
 
 def pageviews():
+    print('currently working on Pageviews')
     data = pd.read_csv('../data/cdi pageviews.csv',
                        encoding="latin-1", sep=";")
     data.columns = data.columns.map(lambda x: re.sub(
@@ -180,13 +196,15 @@ def pageviews():
 
 
 def visits():
+    print('currently working on Visits')
     data = pd.read_csv('../data/CDI visits.csv', sep=",", dtype=str)
     if 'crm_CDI_Visit_Campagne_Code' in data.columns:
         data.drop('crm_CDI_Visit_Campagne_Code', axis=1, inplace=True)
     titelChange(data)
     data.replace({'CDI_Visit_Adobe_Reader': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'CDI_Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
-    data.replace({'CDI_Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace({'CDI_Visit_containssocialprofile': {
+                 'Ja': 1, 'Nee': 0}}, inplace=True)
     if os.path.exists('../data_clean/CDI visits_fixed.csv'):
         os.remove('../data_clean/CDI visits_fixed.csv')
     data.to_csv('../data_clean/CDI visits_fixed.csv', index=False)
@@ -194,6 +212,7 @@ def visits():
 
 
 def web_content():
+    print('currently working on Web content')
     data = pd.read_csv('../data/CDI web content.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/CDI web content_fixed.csv'):
@@ -202,6 +221,7 @@ def web_content():
 
 
 def contact_functie():
+    print('currently working on Contact functie')
     data = pd.read_csv('../data/Contact functie.csv', sep=",")
     titelChange(data)
     data = data.dropna()
@@ -211,6 +231,7 @@ def contact_functie():
 
 
 def contact():
+    print('currently working on Contact')
     data = pd.read_csv('../data/Contact.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Contact_fixed.csv'):
@@ -219,6 +240,7 @@ def contact():
 
 
 def functie():
+    print('currently working on Functie')
     data = pd.read_csv('../data/Functie.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Functie_fixed.csv'):
@@ -227,6 +249,7 @@ def functie():
 
 
 def gebruikers():
+    print('currently working on Gebruikers')
     data = pd.read_csv('../data/Gebruikers.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Gebruikers_fixed.csv'):
@@ -235,6 +258,7 @@ def gebruikers():
 
 
 def info_en_klachten():
+    print('currently working on Info en klachten')
     data = pd.read_csv('../data/Info en klachten.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Info en klachten_fixed.csv'):
@@ -243,6 +267,7 @@ def info_en_klachten():
 
 
 def inschrijving():
+    print('currently working on Inschrijving')
     data = pd.read_csv('../data/Inschrijving.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Inschrijving_fixed.csv'):
@@ -251,6 +276,7 @@ def inschrijving():
 
 
 def Lidmaatschap():
+    print('currently working on Lidmaatschap')
     data = pd.read_csv('../data/Lidmaatschap.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Lidmaatschap_fixed.csv'):
@@ -259,6 +285,7 @@ def Lidmaatschap():
 
 
 def persoon():
+    print('currently working on Persoon')
     data = pd.read_csv('../data/Persoon.csv', sep=",")
     data.replace('Nee', 0, inplace=True)
     data.replace('Ja', 1, inplace=True)
@@ -269,6 +296,7 @@ def persoon():
 
 
 def sessie_inschrijving():
+    print('currently working on Sessie inschrijving')
     data = pd.read_csv('../data/Sessie inschrijving.csv', sep=",")
     data.dropna(inplace=True)
     titelChange(data)
@@ -278,6 +306,7 @@ def sessie_inschrijving():
 
 
 def sessie():
+    print('currently working on Sessie')
     data = pd.read_csv('../data/Sessie.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Sessie_fixed.csv'):
@@ -286,6 +315,7 @@ def sessie():
 
 
 def teams():
+    print('currently working on Teams')
     data = pd.read_csv('../data/Teams.csv', sep=",")
     titelChange(data)
     if os.path.exists('../data_clean/Teams_fixed.csv'):
@@ -347,3 +377,5 @@ if hasattr(args, 'func'):
 
 else:
     print("Please specify a valid subcommand.")
+
+
