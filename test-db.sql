@@ -239,10 +239,10 @@ WHERE TABLE_NAME = 'CDI_mailing')
 BEGIN
     CREATE TABLE CDI_mailing
     (
-        CDI_Mailing_Mailing VARCHAR(255) PRIMARY KEY,
-        CDI_Mailing_Name VARCHAR(255),
-        CDI_Mailing_Sent_On VARCHAR(255),
-        CDI_Mailing_Onderwerp VARCHAR(255)
+        Mailing_Mailing VARCHAR(255) PRIMARY KEY,
+        Mailing_Name VARCHAR(255),
+        Mailing_Sent_On VARCHAR(255),
+        Mailing_Onderwerp VARCHAR(255)
     );
 END
 
@@ -253,45 +253,45 @@ WHERE TABLE_NAME = 'CDI_visits')
 BEGIN
     CREATE TABLE CDI_visits
     (
-        CDI_Visit_Adobe_Reader INT,
-        CDI_Visit_Bounce INT,
-        CDI_Visit_Browser VARCHAR(255),
-        CDI_Visit_Campaign VARCHAR(255),
-        CDI_Visit_IP_Stad VARCHAR(255),
-        CDI_Visit_IP_Company VARCHAR(255),
-        CDI_Visit_Contact VARCHAR(255),
-        CDI_Visit_Contact_Naam_ VARCHAR(255),
-        CDI_Visit_containssocialprofile INT,
-        CDI_Visit_IP_Land VARCHAR(255),
-        CDI_Visit_Duration FLOAT,
-        CDI_Visit_Email_Send VARCHAR(255),
-        CDI_Visit_Ended_On VARCHAR(255),
-        CDI_Visit_Entry_Page VARCHAR(255),
-        CDI_Visit_Exit_Page VARCHAR(255),
-        CDI_Visit_First_Visit VARCHAR(255),
-        CDI_Visit_IP_Address VARCHAR(255),
-        CDI_Visit_IP_Organization VARCHAR(255),
-        CDI_Visit_Keywords VARCHAR(255),
-        CDI_Visit_IP_Latitude FLOAT,
-        CDI_Visit_IP_Longitude FLOAT,
-        CDI_Visit_Operating_System VARCHAR(255),
-        CDI_Visit_IP_Postcode VARCHAR(255),
-        CDI_Visit_Referrer VARCHAR(255),
-        CDI_Visit_Referring_Host VARCHAR(255),
-        CDI_Visit_Score FLOAT,
-        CDI_Visit_Referrer_Type VARCHAR(255),
-        CDI_Visit_Started_On VARCHAR(255),
-        CDI_Visit_IP_Status VARCHAR(255),
-        CDI_Visit_Time VARCHAR(255),
-        CDI_Visit_Total_Pages FLOAT,
-        CDI_Visit_Visit VARCHAR(255) PRIMARY KEY,
-        CDI_Visit_Aangemaakt_op VARCHAR(255),
-        CDI_Visit_Gewijzigd_op VARCHAR(255)
-        FOREIGN KEY (CDI_Visit_Campaign) REFERENCES Campagne(Campagne_Campagne),
-        FOREIGN KEY (CDI_Visit_Contact) REFERENCES Contact(Contact_Contactpersoon),
-        FOREIGN KEY (CDI_Visit_Email_Send) REFERENCES CDI_mailing(CDI_Mailing_Mailing)
-        --FOREIGN KEY (CDI_Visit_Entry_Page) REFERENCES CDI_web_content(CDI_WebContent_Web_Content)
-        --FOREIGN KEY (CDI_Visit_Exit_Page) REFERENCES CDI_web_content(CDI_WebContent_Web_Content)
+        Visit_Adobe_Reader INT,
+        Visit_Bounce INT,
+        Visit_Browser VARCHAR(255),
+        Visit_Campaign VARCHAR(255),
+        Visit_IP_Stad VARCHAR(255),
+        Visit_IP_Company VARCHAR(255),
+        Visit_Contact VARCHAR(255),
+        Visit_Contact_Naam_ VARCHAR(255),
+        Visit_containssocialprofile INT,
+        Visit_IP_Land VARCHAR(255),
+        Visit_Duration FLOAT,
+        Visit_Email_Send VARCHAR(255),
+        Visit_Ended_On VARCHAR(255),
+        Visit_Entry_Page VARCHAR(255),
+        Visit_Exit_Page VARCHAR(255),
+        Visit_First_Visit VARCHAR(255),
+        Visit_IP_Address VARCHAR(255),
+        Visit_IP_Organization VARCHAR(255),
+        Visit_Keywords VARCHAR(255),
+        Visit_IP_Latitude FLOAT,
+        Visit_IP_Longitude FLOAT,
+        Visit_Operating_System VARCHAR(255),
+        Visit_IP_Postcode VARCHAR(255),
+        Visit_Referrer VARCHAR(255),
+        Visit_Referring_Host VARCHAR(255),
+        Visit_Score FLOAT,
+        Visit_Referrer_Type VARCHAR(255),
+        Visit_Started_On VARCHAR(255),
+        Visit_IP_Status VARCHAR(255),
+        Visit_Time VARCHAR(255),
+        Visit_Total_Pages FLOAT,
+        Visit_Visit VARCHAR(255) PRIMARY KEY,
+        Visit_Aangemaakt_op VARCHAR(255),
+        Visit_Gewijzigd_op VARCHAR(255)
+        FOREIGN KEY (Visit_Campaign) REFERENCES Campagne(Campagne_Campagne),
+        FOREIGN KEY (Visit_Contact) REFERENCES Contact(Contact_Contactpersoon),
+        FOREIGN KEY (Visit_Email_Send) REFERENCES CDI_mailing(Mailing_Mailing)
+        --FOREIGN KEY (Visit_Entry_Page) REFERENCES CDI_web_content(WebContent_Web_Content)
+        --FOREIGN KEY (Visit_Exit_Page) REFERENCES CDI_web_content(WebContent_Web_Content)
     );
 END
 
@@ -302,17 +302,17 @@ WHERE TABLE_NAME = 'CDI_web_content')
 BEGIN
     CREATE TABLE CDI_web_content
     (
-        CDI_WebContent_Campaign VARCHAR(255),
-        CDI_WebContent_Campaign_Name VARCHAR(255),
-        CDI_WebContent_Name VARCHAR(255),
-        CDI_WebContent_Web_Content VARCHAR(255) PRIMARY KEY,
-        CDI_WebContent_Gemaakt_door_Naam_ VARCHAR(255),
-        CDI_WebContent_Created_On VARCHAR(255),
-        CDI_WebContent_Gewijzigd_door_Naam_ VARCHAR(255),
-        CDI_WebContent_Modified_On VARCHAR(255),
-        CDI_WebContent_Owner VARCHAR(255),
-        CDI_WebContent_Owner_Name VARCHAR(255),
-        CDI_WebContent_Het_bezitten_van_Business_Unit VARCHAR(255)
+        WebContent_Campaign VARCHAR(255),
+        WebContent_Campaign_Name VARCHAR(255),
+        WebContent_Name VARCHAR(255),
+        WebContent_Web_Content VARCHAR(255) PRIMARY KEY,
+        WebContent_Gemaakt_door_Naam_ VARCHAR(255),
+        WebContent_Created_On VARCHAR(255),
+        WebContent_Gewijzigd_door_Naam_ VARCHAR(255),
+        WebContent_Modified_On VARCHAR(255),
+        WebContent_Owner VARCHAR(255),
+        WebContent_Owner_Name VARCHAR(255),
+        WebContent_Het_bezitten_van_Business_Unit VARCHAR(255)
     );
 END
 
@@ -345,8 +345,8 @@ BEGIN
         Reden_van_status VARCHAR(255)
         FOREIGN KEY (Campaign) REFERENCES Campagne(Campagne_Campagne),
         FOREIGN KEY (Contact) REFERENCES Contact(Contact_Contactpersoon),
-        FOREIGN KEY (Web_Content) REFERENCES CDI_web_content(CDI_WebContent_Web_Content),
-        FOREIGN KEY (Visit) REFERENCES CDI_visits(CDI_Visit_Visit)
+        FOREIGN KEY (Web_Content) REFERENCES CDI_web_content(WebContent_Web_Content),
+        FOREIGN KEY (Visit) REFERENCES CDI_visits(Visit_Visit)
     );
 END
 
@@ -357,12 +357,12 @@ WHERE TABLE_NAME = 'CDI_sent_email_clicks')
 BEGIN
     CREATE TABLE CDI_sent_email_clicks
     (
-        CDI_SentEmail_kliks_Clicks INT PRIMARY KEY,
-        CDI_SentEmail_kliks_Contact VARCHAR(255),
-        CDI_SentEmail_kliks_E_mail_versturen VARCHAR(255),
-        CDI_SentEmail_kliks_Sent_Email VARCHAR(255)
-        FOREIGN KEY (CDI_SentEmail_kliks_Contact) REFERENCES Contact(Contact_Contactpersoon),
-        FOREIGN KEY (CDI_SentEmail_kliks_Sent_Email) REFERENCES CDI_mailing(CDI_Mailing_Mailing)
+        SentEmail_kliks_Clicks INT PRIMARY KEY,
+        SentEmail_kliks_Contact VARCHAR(255),
+        SentEmail_kliks_E_mail_versturen VARCHAR(255),
+        SentEmail_kliks_Sent_Email VARCHAR(255)
+        FOREIGN KEY (SentEmail_kliks_Contact) REFERENCES Contact(Contact_Contactpersoon),
+        FOREIGN KEY (SentEmail_kliks_Sent_Email) REFERENCES CDI_mailing(Mailing_Mailing)
     );
 END
 
