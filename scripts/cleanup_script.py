@@ -65,9 +65,9 @@ def account_financiele_data():
     print('currently working on Account financiele data')
     data = pd.read_csv('../data/Account financiële data.csv', sep=",")
     titelChange(data)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
+    # data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
     excluded_ids = [
     "02E2C17D-A213-E211-9DAA-005056B06EB4",
     "5C161136-A768-E111-B43A-00505680000A",
@@ -106,9 +106,9 @@ def activiteit_vereist_contact():
     print('currently working on Activiteit vereist contact')
     data = pd.read_csv('../data/Activiteit vereist contact.csv', sep=",")
     titelChange(data)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'Activiteit_vereist_contact_ID'}, inplace=True)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
+    # data.rename(columns={'index': 'Activiteit_vereist_contact_ID'}, inplace=True)
     if os.path.exists('../data_clean/Activiteit_vereist_contact_fixed.csv'):
         os.remove('../data_clean/Activiteit_vereist_contact_fixed.csv')
     data.to_csv(
@@ -139,9 +139,9 @@ def afspraak_betreft_account_cleaned():
     data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['crm_Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
     titelChange(data)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'Afspraak_BETREFT_ACCOUNT_ID'}, inplace=True)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
+    # data.rename(columns={'index': 'Afspraak_BETREFT_ACCOUNT_ID'}, inplace=True)
     if os.path.exists('../data_clean/Afspraak_betreft_account_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_betreft_account_cleaned_fixed.csv')
     data.to_csv(
@@ -156,9 +156,9 @@ def afspraak_betreft_contact_cleaned():
     data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['crm_Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
     titelChange(data)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'Afspraak_BETREFT_CONTACTFICHE_ID'}, inplace=True)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
+    # data.rename(columns={'index': 'Afspraak_BETREFT_CONTACTFICHE_ID'}, inplace=True)
     if os.path.exists('../data_clean/Afspraak_betreft_contact_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_betreft_contact_cleaned_fixed.csv')
     data.to_csv(
@@ -173,9 +173,9 @@ def afspraak_account_gelinkt_cleaned():
     data['crm_Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['crm_Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace(
         '\[NAME\] ,*', '', regex=True)
     titelChange(data)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'Afspraak_ACCOUNT_GELINKT_ID'}, inplace=True)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
+    # data.rename(columns={'index': 'Afspraak_ACCOUNT_GELINKT_ID'}, inplace=True)
     if os.path.exists('../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv')
     data.to_csv(
@@ -253,9 +253,9 @@ def contact_functie():
     print('currently working on Contact functie')
     data = pd.read_csv('../data/Contact functie.csv', sep=",")
     titelChange(data)
-    data = data.dropna()
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
+    # data = data.dropna()
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
     data.rename(columns={'index': 'ContactFunctie_ID'}, inplace=True)
     if os.path.exists('../data_clean/Contact_functie_fixed.csv'):
         os.remove('../data_clean/Contact_functie_fixed.csv')
@@ -349,9 +349,9 @@ def sessie():
 def teams():
     print('currently working on Teams')
     data = pd.read_csv('../data/Teams.csv', sep=",")
-    titelChange(data)
-    data.reset_index(inplace=True)
-    data['index'] = data['index'] + 1
+    # titelChange(data)
+    # data.reset_index(inplace=True)
+    # data['index'] = data['index'] + 1
     data.rename(columns={'index': 'XLS_Teams_ID'}, inplace=True)
     if os.path.exists('../data_clean/Teams_fixed.csv'):
         os.remove('../data_clean/Teams_fixed.csv')
