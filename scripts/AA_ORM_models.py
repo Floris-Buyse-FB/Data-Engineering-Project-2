@@ -38,13 +38,13 @@ class Account(Base):
 
 class Account_financiële_data(Base):
     __tablename__ = 'Account_financiële_data'
-    FinancieleData_OndernemingID = Column(String(255), ForeignKey('Account.Account_Account'))
+    FinancieleData_ID = Column(Integer, primary_key=True)
+    Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     FinancieleData_Boekjaar = Column(Integer)
     FinancieleData_Aantal_maanden = Column(Float)
     FinancieleData_Toegevoegde_waarde = Column(String(255))
     FinancieleData_FTE = Column(String(255))
     FinancieleData_Gewijzigd_op = Column(String(255))
-    FinancieleData_ID = Column(Integer, primary_key=True)
 
     Account = relationship("Account", backref="account_from_financiële_data")
 
@@ -92,9 +92,9 @@ class Persoon(Base):
 class Contact(Base):
     __tablename__ = 'Contact'
     Contact_Contactpersoon = Column(String(255), primary_key=True)
-    Contact_Account = Column(String(255), ForeignKey('Account.Account_Account'))
+    Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Contact_Functietitel = Column(String(255))
-    Contact_Persoon_ID = Column(String(255), ForeignKey('Persoon.Persoon_persoon'))
+    Persoon_Persoon = Column(String(255), ForeignKey('Persoon.Persoon_persoon'))
     Contact_Status = Column(String(255))
     Contact_Voka_medewerker = Column(Integer)
 
@@ -109,8 +109,8 @@ class Contact(Base):
 class Activiteit_vereist_contact(Base):
     __tablename__ = 'Activiteit_vereist_contact'
     Activiteit_vereist_contact_ID = Column(Integer, primary_key=True)
-    ActiviteitVereistContact_ActivityId = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
-    ActiviteitVereistContact_ReqAttendee = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_van_alle_vereist_contact")
     Contact = relationship("Contact", backref="contact_van_vereist_contact")
@@ -123,11 +123,11 @@ class Activiteitscode(Base):
 
 class Afspraak_betreft_account_cleaned(Base):
     __tablename__ = 'Afspraak_betreft_account_cleaned'
-    Afspraak_BETREFT_ACCOUNT_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
+    Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Afspraak_BETREFT_ACCOUNT_Thema = Column(String(255))
     Afspraak_BETREFT_ACCOUNT_Subthema = Column(String(255))
     Afspraak_BETREFT_ACCOUNT_Onderwerp = Column(String(255))
-    Afspraak_BETREFT_ACCOUNT_Betreft_id = Column(String(255), ForeignKey('Account.Account_Account'))
+    Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Afspraak_BETREFT_ACCOUNT_Eindtijd = Column(String(255))
     Afspraak_BETREFT_ACCOUNT_KeyPhrases = Column(String(255))
     Afspraak_BETREFT_ACCOUNT_ID = Column(Integer, primary_key=True)
@@ -137,11 +137,11 @@ class Afspraak_betreft_account_cleaned(Base):
 
 class Afspraak_betreft_contact_cleaned(Base):
     __tablename__ = 'Afspraak_betreft_contact_cleaned'
-    Afspraak_BETREFT_CONTACTFICHE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
+    Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Afspraak_BETREFT_CONTACTFICHE_Thema = Column(String(255))
     Afspraak_BETREFT_CONTACTFICHE_Subthema = Column(String(255))
     Afspraak_BETREFT_CONTACTFICHE_Onderwerp = Column(String(255))
-    Afspraak_BETREFT_CONTACTFICHE_Betreft_id = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     Afspraak_BETREFT_CONTACTFICHE_Eindtijd = Column(String(255))
     Afspraak_BETREFT_CONTACTFICHE_KeyPhrases = Column(String(255))
     Afspraak_BETREFT_CONTACTFICHE_ID = Column(Integer, primary_key=True)
@@ -151,12 +151,12 @@ class Afspraak_betreft_contact_cleaned(Base):
 
 class Afspraak_account_gelinkt_cleaned(Base):
     __tablename__ = 'Afspraak_account_gelinkt_cleaned'
-    Afspraak_ACCOUNT_GELINKT_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
+    Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Afspraak_ACCOUNT_GELINKT_Thema = Column(String(255))
     Afspraak_ACCOUNT_GELINKT_Subthema = Column(String(255))
     Afspraak_ACCOUNT_GELINKT_Onderwerp = Column(String(255))
     Afspraak_ACCOUNT_GELINKT_Eindtijd = Column(String(255))
-    Afspraak_ACCOUNT_GELINKT_Account = Column(String(255), ForeignKey('Account.Account_Account'))
+    Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Afspraak_ACCOUNT_GELINKT_KeyPhrases = Column(String(255))
     Afspraak_ACCOUNT_GELINKT_ID = Column(Integer, primary_key=True)
 
@@ -196,15 +196,15 @@ class CDI_visits(Base):
     Visit_Adobe_Reader = Column(Integer)
     Visit_Bounce = Column(Integer)
     Visit_Browser = Column(String(255))
-    Visit_Campaign = Column(String(255), ForeignKey('Campagne.Campagne_Campagne'))
+    Campagne_Campagne = Column(String(255), ForeignKey('Campagne.Campagne_Campagne'))
     Visit_IP_Stad = Column(String(255))
     Visit_IP_Company = Column(String(255))
-    Visit_Contact = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     Visit_Contact_Naam_ = Column(String(255))
     Visit_containssocialprofile = Column(Integer)
     Visit_IP_Land = Column(String(255))
     Visit_Duration = Column(Float)
-    Visit_Email_Send = Column(String(255), ForeignKey('CDI_mailing.Mailing_Mailing'))
+    Mailing_Mailing = Column(String(255), ForeignKey('CDI_mailing.Mailing_Mailing'))
     Visit_Ended_On = Column(String(255))
     Visit_Entry_Page = Column(String(255))
     Visit_Exit_Page = Column(String(255))
@@ -252,8 +252,8 @@ class CDI_web_content(Base):
 class cdi_pageviews(Base):
     __tablename__ = 'cdi_pageviews'
     Browser = Column(String(255))
-    Campaign = Column(String(255), ForeignKey('Campagne.Campagne_Campagne'))
-    Contact = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Campagne_Campagne = Column(String(255), ForeignKey('Campagne.Campagne_Campagne'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     Duration = Column(Float)
     Operating_System = Column(String(255))
     Page_View = Column(String(255), primary_key=True)
@@ -263,9 +263,9 @@ class cdi_pageviews(Base):
     Type = Column(String(255))
     Url = Column(String(255))
     Viewed_On = Column(String(255))
-    Visit = Column(String(255), ForeignKey('CDI_visits.Visit_Visit'))
+    Visit_Visit = Column(String(255), ForeignKey('CDI_visits.Visit_Visit'))
     Visitor_Key = Column(String(255))
-    Web_Content = Column(String(255), ForeignKey('CDI_web_content.WebContent_Web_Content'))
+    WebContent_Web_Content = Column(String(255), ForeignKey('CDI_web_content.WebContent_Web_Content'))
     Aangemaakt_op = Column(String(255))
     Gewijzigd_door = Column(String(255))
     Gewijzigd_op = Column(String(255))
@@ -279,9 +279,9 @@ class cdi_pageviews(Base):
 class CDI_sent_email_clicks(Base):
     __tablename__ = 'CDI_sent_email_clicks'
     SentEmail_kliks_Clicks = Column(Integer, primary_key=True)
-    SentEmail_kliks_Contact = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     SentEmail_kliks_E_mail_versturen = Column(String(255))
-    SentEmail_kliks_Sent_Email = Column(String(255), ForeignKey('CDI_mailing.Mailing_Mailing'))
+    Mailing_Mailing = Column(String(255), ForeignKey('CDI_mailing.Mailing_Mailing'))
 
     Contact = relationship("Contact", backref="contact_van_sent_email_clicks")
     CDI_mailing = relationship("CDI_mailing", backref="cdi_mailing_from_sent_email_clicks")
@@ -295,8 +295,8 @@ class Functie(Base):
 
 class Contact_functie(Base):
     __tablename__ = 'Contact_functie'
-    ContactFunctie_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
-    ContactFunctie_Functie = Column(String(255), ForeignKey('Functie.Functie_Functie'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Functie_Functie = Column(String(255), ForeignKey('Functie.Functie_Functie'))
     ContactFunctie_ID = Column(Integer, primary_key=True)
 
     Contact = relationship("Contact", backref="contact_van_functie")
@@ -312,11 +312,11 @@ class Gebruikers(Base):
 class Info_en_klachten(Base):
     __tablename__ = 'Info_en_klachten'
     Info_en_Klachten_Aanvraag = Column(String(255), primary_key=True)
-    Info_en_Klachten_Account = Column(String(255), ForeignKey('Account.Account_Account'))
+    Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Info_en_Klachten_Datum = Column(String(255))
     Info_en_Klachten_Datum_afsluiting = Column(String(255))
     Info_en_Klachten_Status = Column(String(255))
-    Info_en_Klachten_Eigenaar = Column(String(255), ForeignKey('Gebruikers.Gebruikers_CRM_User_ID'))
+    Gebruikers_CRM_User_ID = Column(String(255), ForeignKey('Gebruikers.Gebruikers_CRM_User_ID'))
 
     Account = relationship("Account", backref="account_from_info_en_klachten")
     Gebruikers = relationship("Gebruikers", backref="info_en_klachten_from_gebruikers")
@@ -325,7 +325,7 @@ class Inschrijving(Base):
     __tablename__ = 'Inschrijving'
     Inschrijving_Aanwezig_Afwezig = Column(String(255))
     Inschrijving_Bron = Column(String(255))
-    Inschrijving_Contactfiche = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     Inschrijving_Datum_inschrijving = Column(String(255))
     Inschrijving_Inschrijving = Column(String(255), primary_key=True)
     Inschrijving_Facturatie_Bedrag = Column(String(255))
@@ -337,7 +337,7 @@ class Lidmaatschap(Base):
     __tablename__ = 'Lidmaatschap'
     Lidmaatschap_Datum_Opzeg = Column(String(255))
     Lidmaatschap_Lidmaatschap = Column(String(255), primary_key=True)
-    Lidmaatschap_Onderneming = Column(String(255), ForeignKey('Account.Account_Account'))
+    Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Lidmaatschap_Reden_Aangroei = Column(String(255))
     Lidmaatschap_Reden_Verloop = Column(String(255))
     Lidmaatschap_Startdatum = Column(String(255))
@@ -347,7 +347,7 @@ class Lidmaatschap(Base):
 class Sessie(Base):
     __tablename__ = 'Sessie'
     Sessie_Activiteitstype = Column(String(255))
-    Sessie_Campagne = Column(String(255), ForeignKey('Campagne.Campagne_Campagne'))
+    Campagne_Campagne = Column(String(255), ForeignKey('Campagne.Campagne_Campagne'))
     Sessie_Eind_Datum_Tijd = Column(String(255))
     Sessie_Product = Column(String(255))
     Sessie_Sessie = Column(String(255), primary_key=True)
@@ -361,8 +361,8 @@ class Sessie(Base):
 class Sessie_inschrijving(Base):
     __tablename__ = 'Sessie_inschrijving'
     SessieInschrijving_SessieInschrijving = Column(String(255), primary_key=True)
-    SessieInschrijving_Sessie = Column(String(255), ForeignKey('Sessie.Sessie_Sessie'))
-    SessieInschrijving_Inschrijving = Column(String(255), ForeignKey('Inschrijving.Inschrijving_Inschrijving'))
+    Sessie_Sessie = Column(String(255), ForeignKey('Sessie.Sessie_Sessie'))
+    Inschrijving_Inschrijving = Column(String(255), ForeignKey('Inschrijving.Inschrijving_Inschrijving'))
 
     Inschrijving = relationship("Inschrijving", backref="sessie_inschrijving_from_inschrijving")
     Sessie = relationship("Sessie", backref="sessie_from_sessie_inschrijving")

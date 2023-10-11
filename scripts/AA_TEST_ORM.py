@@ -48,7 +48,9 @@ def bulk_insert_data_from_csv(file_name, model_class):
         csv_reader = csv.DictReader(file)
         data_to_insert = [row for row in csv_reader]
 
+        print(f'\n\n=========================================\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
         session.bulk_insert_mappings(model_class, data_to_insert)
+
 
 # CSV file paths and corresponding model classes
 csv_model_mapping = {

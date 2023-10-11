@@ -49,10 +49,10 @@ def ChangeAllData():
 def account_activiteitscode():
     print('currently working on Account activiteitscode')
     data = pd.read_csv(f"../data/Account activiteitscode.csv", sep=",")
-    titelChange(data)
-    data.replace({'ActiviteitsCode_Status': {
-                 'Actief': 1, 'Inactief': 0}}, inplace=True)
+    
     data.dropna(inplace=True)
+    titelChange(data)
+
     if os.path.exists(f'../data_clean/Account_activiteitscode_fixed.csv'):
         os.remove(f'../data_clean/Account_activiteitscode_fixed.csv')
     data.to_csv(
