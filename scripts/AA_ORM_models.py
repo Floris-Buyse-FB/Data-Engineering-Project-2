@@ -101,7 +101,7 @@ class Contact(Base):
     Activiteit_vereist_contact = relationship("Activiteit_vereist_contact", backref="contact_van_vereist_contact")
     Afspraak_betreft_contact_cleaned = relationship("Afspraak_betreft_contact_cleaned", backref="contact_van_betreft_contact")
     CDI_visits = relationship("CDI_visits", backref="contact_van_visits")
-    cdi_pageviews = relationship("cdi_pageviews", primaryjoin="Contact.Contact_Contactpersoon == cdi_pageviews.Contact")
+    cdi_pageviews = relationship("cdi_pageviews", primaryjoin="Contact.Contact_Contactpersoon == cdi_pageviews.Contact_Contactpersoon")
     CDI_sent_email_clicks = relationship("CDI_sent_email_clicks", backref="contact_van_sent_email_clicks")
     Contact_functie = relationship("Contact_functie", backref="contact_van_functie")
     Inschrijving = relationship("Inschrijving", backref="contact_van_inschrijving")
