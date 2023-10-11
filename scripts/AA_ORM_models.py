@@ -129,7 +129,7 @@ class Afspraak_betreft_account_cleaned(Base):
     Afspraak_BETREFT_ACCOUNT_Onderwerp = Column(String(255))
     Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Afspraak_BETREFT_ACCOUNT_Eindtijd = Column(String(255))
-    Afspraak_BETREFT_ACCOUNT_KeyPhrases = Column(String(255))
+    Afspraak_BETREFT_ACCOUNT_KeyPhrases = Column(String(2000))
     Afspraak_BETREFT_ACCOUNT_ID = Column(Integer, primary_key=True)
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_van_alle_betreft_account")
@@ -143,7 +143,7 @@ class Afspraak_betreft_contact_cleaned(Base):
     Afspraak_BETREFT_CONTACTFICHE_Onderwerp = Column(String(255))
     Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     Afspraak_BETREFT_CONTACTFICHE_Eindtijd = Column(String(255))
-    Afspraak_BETREFT_CONTACTFICHE_KeyPhrases = Column(String(255))
+    Afspraak_BETREFT_CONTACTFICHE_KeyPhrases = Column(String(2000))
     Afspraak_BETREFT_CONTACTFICHE_ID = Column(Integer, primary_key=True)
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_van_alle_betreft_contact")
@@ -157,7 +157,7 @@ class Afspraak_account_gelinkt_cleaned(Base):
     Afspraak_ACCOUNT_GELINKT_Onderwerp = Column(String(255))
     Afspraak_ACCOUNT_GELINKT_Eindtijd = Column(String(255))
     Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
-    Afspraak_ACCOUNT_GELINKT_KeyPhrases = Column(String(255))
+    Afspraak_ACCOUNT_GELINKT_KeyPhrases = Column(String(2000))
     Afspraak_ACCOUNT_GELINKT_ID = Column(Integer, primary_key=True)
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_alle_from_account_gelinkt_cleaned")

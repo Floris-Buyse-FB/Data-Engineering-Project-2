@@ -170,7 +170,7 @@ BEGIN
         Afspraak_BETREFT_ACCOUNT_Onderwerp VARCHAR(255),
         Account_Account VARCHAR(255),
         Afspraak_BETREFT_ACCOUNT_Eindtijd VARCHAR(255),
-        Afspraak_BETREFT_ACCOUNT_KeyPhrases VARCHAR(255)
+        Afspraak_BETREFT_ACCOUNT_KeyPhrases VARCHAR(2000)
         FOREIGN KEY (Afspraak_ALLE_Afspraak) REFERENCES Afspraak_alle(Afspraak_ALLE_Afspraak),
         FOREIGN KEY (Account_Account) REFERENCES Account(Account_Account)
     );
@@ -190,7 +190,7 @@ BEGIN
         Afspraak_BETREFT_CONTACTFICHE_Onderwerp VARCHAR(255),
         Contact_Contactpersoon VARCHAR(255),
         Afspraak_BETREFT_CONTACTFICHE_Eindtijd VARCHAR(255),
-        Afspraak_BETREFT_CONTACTFICHE_KeyPhrases VARCHAR(255)
+        Afspraak_BETREFT_CONTACTFICHE_KeyPhrases VARCHAR(2000)
         FOREIGN KEY (Afspraak_ALLE_Afspraak) REFERENCES Afspraak_alle(Afspraak_ALLE_Afspraak),
         FOREIGN KEY (Contact_Contactpersoon) REFERENCES Contact(Contact_Contactpersoon)
     );
@@ -210,7 +210,7 @@ BEGIN
         Afspraak_ACCOUNT_GELINKT_Onderwerp VARCHAR(255),
         Afspraak_ACCOUNT_GELINKT_Eindtijd VARCHAR(255),
         Account_Account VARCHAR(255),
-        Afspraak_ACCOUNT_GELINKT_KeyPhrases VARCHAR(255)
+        Afspraak_ACCOUNT_GELINKT_KeyPhrases VARCHAR(2000)
         FOREIGN KEY (Afspraak_ALLE_Afspraak) REFERENCES Afspraak_alle(Afspraak_ALLE_Afspraak),
         FOREIGN KEY (Account_Account) REFERENCES Account(Account_Account)
     );
