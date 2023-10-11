@@ -123,6 +123,7 @@ class Activiteitscode(Base):
 
 class Afspraak_betreft_account_cleaned(Base):
     __tablename__ = 'Afspraak_betreft_account_cleaned'
+    Afspraak_BETREFT_ACCOUNT_ID = Column(Integer, primary_key=True)
     Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Afspraak_BETREFT_ACCOUNT_Thema = Column(String(255))
     Afspraak_BETREFT_ACCOUNT_Subthema = Column(String(255))
@@ -130,13 +131,13 @@ class Afspraak_betreft_account_cleaned(Base):
     Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Afspraak_BETREFT_ACCOUNT_Eindtijd = Column(String(255))
     Afspraak_BETREFT_ACCOUNT_KeyPhrases = Column(String(2000))
-    Afspraak_BETREFT_ACCOUNT_ID = Column(Integer, primary_key=True)
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_van_alle_betreft_account")
     Account = relationship("Account", backref="account_from_betreft_account_cleaned")
 
 class Afspraak_betreft_contact_cleaned(Base):
-    __tablename__ = 'Afspraak_betreft_contact_cleaned'
+    __tablename__ = 'Afspraak_betreft_contact_cleaned'    
+    Afspraak_BETREFT_CONTACTFICHE_ID = Column(Integer, primary_key=True)
     Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Afspraak_BETREFT_CONTACTFICHE_Thema = Column(String(255))
     Afspraak_BETREFT_CONTACTFICHE_Subthema = Column(String(255))
@@ -144,13 +145,13 @@ class Afspraak_betreft_contact_cleaned(Base):
     Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
     Afspraak_BETREFT_CONTACTFICHE_Eindtijd = Column(String(255))
     Afspraak_BETREFT_CONTACTFICHE_KeyPhrases = Column(String(2000))
-    Afspraak_BETREFT_CONTACTFICHE_ID = Column(Integer, primary_key=True)
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_van_alle_betreft_contact")
     Contact = relationship("Contact", backref="contact_van_betreft_contact")
 
 class Afspraak_account_gelinkt_cleaned(Base):
     __tablename__ = 'Afspraak_account_gelinkt_cleaned'
+    Afspraak_ACCOUNT_GELINKT_ID = Column(Integer, primary_key=True)
     Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Afspraak_ACCOUNT_GELINKT_Thema = Column(String(255))
     Afspraak_ACCOUNT_GELINKT_Subthema = Column(String(255))
@@ -158,7 +159,6 @@ class Afspraak_account_gelinkt_cleaned(Base):
     Afspraak_ACCOUNT_GELINKT_Eindtijd = Column(String(255))
     Account_Account = Column(String(255), ForeignKey('Account.Account_Account'))
     Afspraak_ACCOUNT_GELINKT_KeyPhrases = Column(String(2000))
-    Afspraak_ACCOUNT_GELINKT_ID = Column(Integer, primary_key=True)
 
     Afspraak_alle = relationship("Afspraak_alle", backref="afspraak_alle_from_account_gelinkt_cleaned")
     Account = relationship("Account", backref="account_from_account_gelinkt_cleaned")
@@ -295,9 +295,9 @@ class Functie(Base):
 
 class Contact_functie(Base):
     __tablename__ = 'Contact_functie'
-    Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
-    Functie_Functie = Column(String(255), ForeignKey('Functie.Functie_Functie'))
     ContactFunctie_ID = Column(Integer, primary_key=True)
+    ContactFunctie_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
+    ContactFunctie_Functie = Column(String(255), ForeignKey('Functie.Functie_Functie'))
 
     Contact = relationship("Contact", backref="contact_van_functie")
     Functie = relationship("Functie", backref="contact_functie_from_functie")
@@ -369,6 +369,7 @@ class Sessie_inschrijving(Base):
 
 class Teams(Base):
     __tablename__ = 'Teams'
+    XLS_Teams_ID = Column(Integer, primary_key=True)
     XLS_Teams_Team_code_selecteer_uit_lijst_ = Column(String(255))
     XLS_Teams_Activiteit_boeking_naam_ter_info_ = Column(String(255))
-    XLS_Teams_ID = Column(Integer, primary_key=True)
+    

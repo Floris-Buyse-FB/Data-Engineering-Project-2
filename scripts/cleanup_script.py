@@ -108,7 +108,7 @@ def activiteit_vereist_contact():
     titelChange(data)
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    data.rename(columns={'index': 'Activiteit_vereist_contact_ID'}, inplace=True)
     if os.path.exists('../data_clean/Activiteit_vereist_contact_fixed.csv'):
         os.remove('../data_clean/Activiteit_vereist_contact_fixed.csv')
     data.to_csv(
@@ -141,7 +141,7 @@ def afspraak_betreft_account_cleaned():
     titelChange(data)
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    data.rename(columns={'index': 'Afspraak_BETREFT_ACCOUNT_ID'}, inplace=True)
     if os.path.exists('../data_clean/Afspraak_betreft_account_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_betreft_account_cleaned_fixed.csv')
     data.to_csv(
@@ -158,7 +158,7 @@ def afspraak_betreft_contact_cleaned():
     titelChange(data)
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    data.rename(columns={'index': 'Afspraak_BETREFT_CONTACTFICHE_ID'}, inplace=True)
     if os.path.exists('../data_clean/Afspraak_betreft_contact_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_betreft_contact_cleaned_fixed.csv')
     data.to_csv(
@@ -175,7 +175,7 @@ def afspraak_account_gelinkt_cleaned():
     titelChange(data)
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    data.rename(columns={'index': 'Afspraak_ACCOUNT_GELINKT_ID'}, inplace=True)
     if os.path.exists('../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv')
     data.to_csv(
@@ -256,7 +256,7 @@ def contact_functie():
     data = data.dropna()
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    data.rename(columns={'index': 'ContactFunctie_ID'}, inplace=True)
     if os.path.exists('../data_clean/Contact_functie_fixed.csv'):
         os.remove('../data_clean/Contact_functie_fixed.csv')
     data.to_csv('../data_clean/Contact_functie_fixed.csv', index=False)
@@ -352,7 +352,7 @@ def teams():
     titelChange(data)
     data.reset_index(inplace=True)
     data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'FinancieleData_ID'}, inplace=True)
+    data.rename(columns={'index': 'XLS_Teams_ID'}, inplace=True)
     if os.path.exists('../data_clean/Teams_fixed.csv'):
         os.remove('../data_clean/Teams_fixed.csv')
     data.to_csv('../data_clean/Teams_fixed.csv', index=False)

@@ -51,7 +51,7 @@ def bulk_insert_data_from_csv(file_name, model_class):
         print(f'\n\n=========================================\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
         session.bulk_insert_mappings(model_class, data_to_insert)
 
-bulk_insert_data_from_csv('Afspraak_betreft_contact_cleaned_fixed.csv', Afspraak_betreft_contact_cleaned)
+bulk_insert_data_from_csv('Contact_functie_fixed.csv', Contact_functie)
 # # CSV file paths and corresponding model classes
 # csv_model_mapping = {
 #     'Account_activiteitscode_fixed.csv': Account_activiteitscode,
