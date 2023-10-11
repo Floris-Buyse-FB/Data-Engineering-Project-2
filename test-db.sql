@@ -135,7 +135,7 @@ WHERE TABLE_NAME = 'Activiteit_vereist_contact')
 BEGIN
     CREATE TABLE Activiteit_vereist_contact
     (   
-        Activiteit_vereist_contact_ID INT PRIMARY KEY,
+        Activiteit_vereist_contact_ID INT IDENTITY(1,1) PRIMARY KEY,
         Afspraak_ALLE_Afspraak VARCHAR(255),
         Contact_Contactpersoon VARCHAR(255)
         FOREIGN KEY (Afspraak_ALLE_Afspraak) REFERENCES Afspraak_alle(Afspraak_ALLE_Afspraak),
@@ -163,14 +163,14 @@ WHERE TABLE_NAME = 'Afspraak_betreft_account_cleaned')
 BEGIN
     CREATE TABLE Afspraak_betreft_account_cleaned
     (
+        Afspraak_BETREFT_ACCOUNT_ID INT IDENTITY(1,1) PRIMARY KEY,
         Afspraak_ALLE_Afspraak VARCHAR(255),
         Afspraak_BETREFT_ACCOUNT_Thema VARCHAR(255),
         Afspraak_BETREFT_ACCOUNT_Subthema VARCHAR(255),
         Afspraak_BETREFT_ACCOUNT_Onderwerp VARCHAR(255),
         Account_Account VARCHAR(255),
         Afspraak_BETREFT_ACCOUNT_Eindtijd VARCHAR(255),
-        Afspraak_BETREFT_ACCOUNT_KeyPhrases VARCHAR(255),
-        Afspraak_BETREFT_ACCOUNT_ID INT PRIMARY KEY
+        Afspraak_BETREFT_ACCOUNT_KeyPhrases VARCHAR(255)
         FOREIGN KEY (Afspraak_ALLE_Afspraak) REFERENCES Afspraak_alle(Afspraak_ALLE_Afspraak),
         FOREIGN KEY (Account_Account) REFERENCES Account(Account_Account)
     );
@@ -183,7 +183,7 @@ WHERE TABLE_NAME = 'Afspraak_betreft_contact_cleaned')
 BEGIN
     CREATE TABLE Afspraak_betreft_contact_cleaned
     (
-        Afspraak_BETREFT_CONTACTFICHE_ID INT PRIMARY KEY,
+        Afspraak_BETREFT_CONTACTFICHE_ID INT IDENTITY(1,1) PRIMARY KEY,
         Afspraak_ALLE_Afspraak VARCHAR(255),
         Afspraak_BETREFT_CONTACTFICHE_Thema VARCHAR(255),
         Afspraak_BETREFT_CONTACTFICHE_Subthema VARCHAR(255),
@@ -203,14 +203,14 @@ WHERE TABLE_NAME = 'Afspraak_account_gelinkt_cleaned')
 BEGIN
     CREATE TABLE Afspraak_account_gelinkt_cleaned
     (
+        Afspraak_ACCOUNT_GELINKT_ID INT IDENTITY(1,1) PRIMARY KEY,
         Afspraak_ALLE_Afspraak VARCHAR(255),
         Afspraak_ACCOUNT_GELINKT_Thema VARCHAR(255),
         Afspraak_ACCOUNT_GELINKT_Subthema VARCHAR(255),
         Afspraak_ACCOUNT_GELINKT_Onderwerp VARCHAR(255),
         Afspraak_ACCOUNT_GELINKT_Eindtijd VARCHAR(255),
         Account_Account VARCHAR(255),
-        Afspraak_ACCOUNT_GELINKT_KeyPhrases VARCHAR(255),
-        Afspraak_ACCOUNT_GELINKT_ID INT PRIMARY KEY
+        Afspraak_ACCOUNT_GELINKT_KeyPhrases VARCHAR(255)
         FOREIGN KEY (Afspraak_ALLE_Afspraak) REFERENCES Afspraak_alle(Afspraak_ALLE_Afspraak),
         FOREIGN KEY (Account_Account) REFERENCES Account(Account_Account)
     );
@@ -390,7 +390,7 @@ WHERE TABLE_NAME = 'Contact_functie')
 BEGIN
     CREATE TABLE Contact_functie
     (        
-        ContactFunctie_ID INT PRIMARY KEY,
+        ContactFunctie_ID INT IDENTITY(1,1) PRIMARY KEY,
         Contact_Contactpersoon VARCHAR(255),
         Functie_Functie VARCHAR(255)
         FOREIGN KEY (Contact_Contactpersoon) REFERENCES Contact(Contact_Contactpersoon),
@@ -504,7 +504,7 @@ WHERE TABLE_NAME = 'Teams')
 BEGIN
     CREATE TABLE Teams
     (
-        XLS_Teams_ID INT PRIMARY KEY,
+        XLS_Teams_ID INT IDENTITY(1,1) PRIMARY KEY,
         XLS_Teams_Team_code_selecteer_uit_lijst_ VARCHAR(255),
         XLS_Teams_Activiteit_boeking_naam_ter_info_ VARCHAR(255),
     );

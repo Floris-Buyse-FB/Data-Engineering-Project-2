@@ -108,7 +108,7 @@ class Contact(Base):
 
 class Activiteit_vereist_contact(Base):
     __tablename__ = 'Activiteit_vereist_contact'
-    Activiteit_vereist_contact_ID = Column(Integer, primary_key=True)
+    Activiteit_vereist_contact_ID = Column(Integer, primary_key=True, autoincrement=True)
     Afspraak_ALLE_Afspraak = Column(String(255), ForeignKey('Afspraak_alle.Afspraak_ALLE_Afspraak'))
     Contact_Contactpersoon = Column(String(255), ForeignKey('Contact.Contact_Contactpersoon'))
 
