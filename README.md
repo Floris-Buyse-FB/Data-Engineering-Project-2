@@ -32,9 +32,9 @@ Voer volgende commandos uit:
 $ pip install virtualenv
 $ python3 -m venv .venv
 
-$ source .venv/bin/activate // In Linux en mac
-$ env/Scripts/activate.bat //In CMD
-$ env/Scripts/Activate.ps1 //In Powershel
+$ source .venv\bin\activate // In Linux en mac
+$ .venv\Scripts\activate.bat //In CMD
+$ .venv\Scripts\Activate.ps1 //In Powershel
 
 $ pip install -r ./data_info/requirements.txt
 ```
