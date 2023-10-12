@@ -114,7 +114,8 @@ WHERE TABLE_NAME = 'Activiteit_vereist_contact')
 BEGIN
     CREATE TABLE Activiteit_vereist_contact
     (
-        activiteitvereistcontact_activityid_id VARCHAR(255) NOT NULL PRIMARY KEY,
+        activiteitvereistcontact_id INT PRIMARY KEY IDENTITY(1,1),
+        activiteitvereistcontact_activityid_id VARCHAR(255),
         activiteitvereistcontact_reqattendee VARCHAR(255),
         FOREIGN KEY (activiteitvereistcontact_activityid_id) REFERENCES Afspraak_alle(afspraak_alle_afspraak_id),
         FOREIGN KEY (activiteitvereistcontact_reqattendee) REFERENCES Contact(contact_contactpersoon_id)

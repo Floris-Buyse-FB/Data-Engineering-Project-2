@@ -88,7 +88,8 @@ class Contact(Base):
 
 class Activiteit_vereist_contact(Base):
     __tablename__ = 'Activiteit_vereist_contact'
-    activiteitvereistcontact_activityid_id = Column(String(255), ForeignKey('Afspraak_alle.afspraak_alle_afspraak_id'), primary_key=True)
+    activiteitvereistcontact_id = Column(Integer, primary_key=True, autoincrement=True)
+    activiteitvereistcontact_activityid_id = Column(String(255), ForeignKey('Afspraak_alle.afspraak_alle_afspraak_id'))
     activiteitvereistcontact_reqattendee = Column(String(255), ForeignKey('Contact.contact_contactpersoon_id'))
 
 class Activiteitscode(Base):
