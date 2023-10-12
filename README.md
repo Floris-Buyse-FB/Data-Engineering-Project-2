@@ -50,7 +50,7 @@ $ pip install -r ./data_info/requirements.txt
 
 ## 5 streamlit
 
-Met streamlit kunnen we een webapplicatie maken. Deze webapplicatie zal de data visualiseren. Om deze webapplicatie te runnen voeren we volgende commando uit:
+Met streamlit kunnen we een webapplicatie maken. Deze webapplicatie zal de data visualiseren. Om deze webapplicatie te runnen voeren gaan we eerst naar de map `app` en voeren we vervolgens volgende commando uit:
 
 ```Bash
 streamlit run ./Hello.py
