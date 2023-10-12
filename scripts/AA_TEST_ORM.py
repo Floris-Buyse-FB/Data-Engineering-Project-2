@@ -2,7 +2,7 @@ import csv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from AA_ORM_models import (
+from AA_ORM_model import (
     Account_activiteitscode,
     Account,
     Account_financiële_data,
@@ -15,11 +15,11 @@ from AA_ORM_models import (
     Afspraak_betreft_contact_cleaned,
     Afspraak_account_gelinkt_cleaned,
     Campagne,
-    CDI_mailing,
-    CDI_visits,
-    CDI_web_content,
-    cdi_pageviews,
-    CDI_sent_email_clicks,
+    Cdi_mailing,
+    Cdi_visits,
+    Cdi_web_content,
+    Cdi_pageviews,
+    Cdi_sent_email_clicks,
     Functie,
     Contact_functie,
     Gebruikers,
@@ -51,7 +51,7 @@ def bulk_insert_data_from_csv(file_name, model_class):
         print(f'\n\n=========================================\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
         session.bulk_insert_mappings(model_class, data_to_insert)
 
-bulk_insert_data_from_csv('Contact_functie_fixed.csv', Contact_functie)
+bulk_insert_data_from_csv('Account_fixed.csv', Account)
 # # CSV file paths and corresponding model classes
 # csv_model_mapping = {
 #     'Account_activiteitscode_fixed.csv': Account_activiteitscode,

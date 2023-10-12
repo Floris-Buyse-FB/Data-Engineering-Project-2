@@ -53,6 +53,13 @@ def account_activiteitscode():
     data.dropna(inplace=True)
     titelChange(data)
 
+    # fill the empty values with -1 if the column is numeric or with 'unknown' if the column is not numeric
+    
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists(f'../data_clean/Account_activiteitscode_fixed.csv'):
         os.remove(f'../data_clean/Account_activiteitscode_fixed.csv')
     data.to_csv(
@@ -76,6 +83,11 @@ def account_financiele_data():
     ]
 
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Account_financiële_data_fixed.csv'):
         os.remove('../data_clean/Account_financiële_data_fixed.csv')
     data.to_csv(
@@ -95,6 +107,11 @@ def account():
     # data['index'] = data['index'] + 1
     if 'Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('Account_Hoofd_NaCe_Code', axis=1, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Account_fixed.csv'):
         os.remove('../data_clean/Account_fixed.csv')
     data.to_csv('../data_clean/Account_fixed.csv', index=False)
@@ -109,6 +126,11 @@ def activiteit_vereist_contact():
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     # data.rename(columns={'index': 'Activiteit_vereist_contact_ID'}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Activiteit_vereist_contact_fixed.csv'):
         os.remove('../data_clean/Activiteit_vereist_contact_fixed.csv')
     data.to_csv(
@@ -119,6 +141,11 @@ def activiteitscode():
     print('currently working on Activiteitscode')
     data = pd.read_csv('../data/Activiteitscode.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Activiteitscode_fixed.csv'):
         os.remove('../data_clean/Activiteitscode_fixed.csv')
     data.to_csv('../data_clean/Activiteitscode_fixed.csv', index=False)
@@ -128,6 +155,11 @@ def afspraak_alle():
     print('currently working on Afspraak alle')
     data = pd.read_csv('../data/Afspraak alle.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Afspraak_alle_fixed.csv'):
         os.remove('../data_clean/Afspraak_alle_fixed.csv')
     data.to_csv('../data_clean/Afspraak_alle_fixed.csv', index=False)
@@ -142,6 +174,11 @@ def afspraak_betreft_account_cleaned():
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     # data.rename(columns={'index': 'Afspraak_BETREFT_ACCOUNT_ID'}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Afspraak_betreft_account_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_betreft_account_cleaned_fixed.csv')
     data.to_csv(
@@ -159,6 +196,11 @@ def afspraak_betreft_contact_cleaned():
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     # data.rename(columns={'index': 'Afspraak_BETREFT_CONTACTFICHE_ID'}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Afspraak_betreft_contact_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_betreft_contact_cleaned_fixed.csv')
     data.to_csv(
@@ -176,6 +218,11 @@ def afspraak_account_gelinkt_cleaned():
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     # data.rename(columns={'index': 'Afspraak_ACCOUNT_GELINKT_ID'}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv'):
         os.remove('../data_clean/Afspraak_account_gelinkt_cleaned_fixed.csv')
     data.to_csv(
@@ -187,6 +234,11 @@ def campagne():
     print('currently working on Campagne')
     data = pd.read_csv('../data/Campagne.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Campagne_fixed.csv'):
         os.remove('../data_clean/Campagne_fixed.csv')
     data.to_csv('../data_clean/Campagne_fixed.csv', index=False)
@@ -196,6 +248,11 @@ def mailings():
     print('currently working on Mailings')
     data = pd.read_csv('../data/CDI mailing.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/CDI_mailing_fixed.csv'):
         os.remove('../data_clean/CDI_mailing_fixed.csv')
     data.to_csv('../data_clean/CDI_mailing_fixed.csv', index=False)
@@ -205,6 +262,11 @@ def sent_email_clicks():
     print('currently working on Sent email clicks')
     data = pd.read_csv('../data/CDI sent email clicks.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/CDI_sent_email_clicks_fixed.csv'):
         os.remove('../data_clean/CDI_sent_email_clicks_fixed.csv')
     data.to_csv('../data_clean/CDI_sent_email_clicks_fixed.csv', index=False)
@@ -234,6 +296,11 @@ def visits():
     data.replace({'CDI_Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'CDI_Visit_containssocialprofile': {
                  'Ja': 1, 'Nee': 0}}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/CDI_visits_fixed.csv'):
         os.remove('../data_clean/CDI_visits_fixed.csv')
     data.to_csv('../data_clean/CDI_visits_fixed.csv', index=False)
@@ -244,6 +311,11 @@ def web_content():
     print('currently working on Web content')
     data = pd.read_csv('../data/CDI web content.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/CDI_web_content_fixed.csv'):
         os.remove('../data_clean/CDI_web_content_fixed.csv')
     data.to_csv('../data_clean/CDI_web_content_fixed.csv', index=False)
@@ -253,10 +325,15 @@ def contact_functie():
     print('currently working on Contact functie')
     data = pd.read_csv('../data/Contact functie.csv', sep=",")
     titelChange(data)
-    # data = data.dropna()
-    # data.reset_index(inplace=True)
+    data = data.dropna()
+    data.reset_index(inplace=True, drop=True)
     # data['index'] = data['index'] + 1
-    data.rename(columns={'index': 'ContactFunctie_ID'}, inplace=True)
+    # data.rename(columns={'index': 'ContactFunctie_ID'}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Contact_functie_fixed.csv'):
         os.remove('../data_clean/Contact_functie_fixed.csv')
     data.to_csv('../data_clean/Contact_functie_fixed.csv', index=False)
@@ -266,6 +343,11 @@ def contact():
     print('currently working on Contact')
     data = pd.read_csv('../data/Contact.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Contact_fixed.csv'):
         os.remove('../data_clean/Contact_fixed.csv')
     data.to_csv('../data_clean/Contact_fixed.csv', index=False)
@@ -275,6 +357,11 @@ def functie():
     print('currently working on Functie')
     data = pd.read_csv('../data/Functie.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Functie_fixed.csv'):
         os.remove('../data_clean/Functie_fixed.csv')
     data.to_csv('../data_clean/Functie_fixed.csv', index=False)
@@ -284,6 +371,11 @@ def gebruikers():
     print('currently working on Gebruikers')
     data = pd.read_csv('../data/Gebruikers.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Gebruikers_fixed.csv'):
         os.remove('../data_clean/Gebruikers_fixed.csv')
     data.to_csv('../data_clean/Gebruikers_fixed.csv', index=False)
@@ -293,6 +385,11 @@ def info_en_klachten():
     print('currently working on Info en klachten')
     data = pd.read_csv('../data/Info en klachten.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Info_en_klachten_fixed.csv'):
         os.remove('../data_clean/Info_en_klachten_fixed.csv')
     data.to_csv('../data_clean/Info_en_klachten_fixed.csv', index=False)
@@ -302,6 +399,11 @@ def inschrijving():
     print('currently working on Inschrijving')
     data = pd.read_csv('../data/Inschrijving.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Inschrijving_fixed.csv'):
         os.remove('../data_clean/Inschrijving_fixed.csv')
     data.to_csv('../data_clean/Inschrijving_fixed.csv', index=False)
@@ -311,6 +413,11 @@ def Lidmaatschap():
     print('currently working on Lidmaatschap')
     data = pd.read_csv('../data/Lidmaatschap.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Lidmaatschap_fixed.csv'):
         os.remove('../data_clean/Lidmaatschap_fixed.csv')
     data.to_csv('../data_clean/Lidmaatschap_fixed.csv', index=False)
@@ -322,6 +429,11 @@ def persoon():
     data.replace('Nee', 0, inplace=True)
     data.replace('Ja', 1, inplace=True)
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Persoon_fixed.csv'):
         os.remove('../data_clean/Persoon_fixed.csv')
     data.to_csv('../data_clean/Persoon_fixed.csv', index=False)
@@ -332,6 +444,11 @@ def sessie_inschrijving():
     data = pd.read_csv('../data/Sessie inschrijving.csv', sep=",")
     data.dropna(inplace=True)
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Sessie_inschrijving_fixed.csv'):
         os.remove('../data_clean/Sessie_inschrijving_fixed.csv')
     data.to_csv('../data_clean/Sessie_inschrijving_fixed.csv', index=False)
@@ -341,6 +458,11 @@ def sessie():
     print('currently working on Sessie')
     data = pd.read_csv('../data/Sessie.csv', sep=",")
     titelChange(data)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Sessie_fixed.csv'):
         os.remove('../data_clean/Sessie_fixed.csv')
     data.to_csv('../data_clean/Sessie_fixed.csv', index=False)
@@ -353,6 +475,11 @@ def teams():
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     data.rename(columns={'index': 'XLS_Teams_ID'}, inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    data.fillna(-1, inplace=True)
     if os.path.exists('../data_clean/Teams_fixed.csv'):
         os.remove('../data_clean/Teams_fixed.csv')
     data.to_csv('../data_clean/Teams_fixed.csv', index=False)
