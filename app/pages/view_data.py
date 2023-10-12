@@ -1,5 +1,7 @@
 import streamlit as st
-import pyodbc
+from sqlalchemy import create_engine
+from sqlalchemy import Table, MetaData, desc, inspect
+from sqlalchemy.orm import declarative_base
 import pandas as pd
 
 st.set_page_config(page_title="View Data")
@@ -16,31 +18,32 @@ connection_string = r'DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-MAX;D
 # Create a function to connect to the SQL Server database
 def connect_to_database():
     try:
-        conn = pyodbc.connect(connection_string)
+        URL = f'mssql+pyodbc://{st.secrets["SERVER_NAME"]}/{st.secrets["DB_NAME"]}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
+        engine = create_engine(URL)
+        conn = engine.connect()
         return conn
-    except pyodbc.Error as e:
-        return None
+    except:
+        return 'Error while connecting to database.'
     
-if st.button("Select Accounts"):
-    st.subheader('Data from SQL Server')
+# Retrieve data from the database
+conn = connect_to_database()
 
-    conn = connect_to_database()
+inspect = inspect(conn)
+table_list = inspect.get_table_names()
+table_list.sort()
+table_name= st.selectbox('Select a table', table_list)
+if table_name:
+    st.subheader('Data from  ' + table_name + ' table')
+
     if conn:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Account")  # Replace 'Accounts' with your table name
-        data = cursor.fetchall()
-        cursor.execute("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Account'")
-        column_names = [row.COLUMN_NAME for row in cursor.fetchall()]
-    
+        
+        query = f"SELECT * FROM {table_name}"
+        data = pd.read_sql(query, conn)
+            
         conn.close()
 
         # Display the retrieved data in a table
-        if data:
-            st.write(column_names)
-            df = pd.DataFrame(data, columns=column_names)
+        st.dataframe(data)
 
-            st.table(df)
-        else:
-            st.warning('No data found.')
     else:
         st.error('Connection to the database failed. Check the connection string.')
