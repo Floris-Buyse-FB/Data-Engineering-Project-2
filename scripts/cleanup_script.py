@@ -123,6 +123,7 @@ def activiteit_vereist_contact():
     print('currently working on Activiteit vereist contact')
     data = pd.read_csv('../data/Activiteit vereist contact.csv', sep=",")
     titelChange(data)
+    data.drop_duplicates(inplace=True)
     # data.reset_index(inplace=True)
     # data['index'] = data['index'] + 1
     # data.rename(columns={'index': 'Activiteit_vereist_contact_ID'}, inplace=True)
@@ -343,6 +344,7 @@ def contact():
     print('currently working on Contact')
     data = pd.read_csv('../data/Contact.csv', sep=",")
     titelChange(data)
+
     numeric = data.select_dtypes(include='number').columns
     non_numeric = data.select_dtypes(exclude='number').columns
     data[numeric] = data[numeric].fillna(-1)

@@ -48,11 +48,12 @@ def bulk_insert_data_from_csv(file_name, model_class):
         csv_reader = csv.DictReader(file)
         data_to_insert = [row for row in csv_reader]
 
-        print(f'\n\n=========================================\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
+        print(f'\n\n=========================================\n\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
         session.bulk_insert_mappings(model_class, data_to_insert)
 
 bulk_insert_data_from_csv('Account_fixed.csv', Account)
 # CSV file paths and corresponding model classes
+<<<<<<< HEAD
 # csv_model_mapping = {
 #     'Account_activiteitscode_fixed.csv': Account_activiteitscode,
 #     'Account_fixed.csv': Account,
@@ -81,6 +82,36 @@ bulk_insert_data_from_csv('Account_fixed.csv', Account)
 #     'Sessie_inschrijving_fixed.csv': Sessie_inschrijving,
 #     'Teams_fixed.csv': Teams
 # }
+=======
+csv_model_mapping = {
+    # 'Account_fixed.csv': Account,
+    # 'Account_financiële_data_fixed.csv': Account_financiële_data,
+    # 'Afspraak_alle_fixed.csv': Afspraak_alle,
+    # 'Persoon_fixed.csv': Persoon,
+    # 'Contact_fixed.csv': Contact,
+    'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact,
+    'Activiteitscode_fixed.csv': Activiteitscode,
+    'Account_activiteitscode_fixed.csv': Account_activiteitscode,
+    'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned,
+    'Afspraak_betreft_contact_cleaned_fixed.csv': Afspraak_betreft_contact_cleaned,
+    'Afspraak_account_gelinkt_cleaned_fixed.csv': Afspraak_account_gelinkt_cleaned,
+    'Campagne_fixed.csv': Campagne,
+    'CDI_mailing_fixed.csv': Cdi_mailing,
+    'CDI_sent_email_clicks_fixed.csv': Cdi_sent_email_clicks,
+    'CDI_visits_fixed.csv': Cdi_visits,
+    'CDI_web_content_fixed.csv': Cdi_web_content,
+    'cdi_pageviews_fixed.csv': Cdi_pageviews,
+    'Functie_fixed.csv': Functie,
+    'Contact_functie_fixed.csv': Contact_functie,
+    'Gebruikers_fixed.csv': Gebruikers,
+    'Info_en_klachten_fixed.csv': Info_en_klachten,
+    'Inschrijving_fixed.csv': Inschrijving,
+    'Lidmaatschap_fixed.csv': Lidmaatschap,
+    'Sessie_fixed.csv': Sessie,
+    'Sessie_inschrijving_fixed.csv': Sessie_inschrijving,
+    'Teams_fixed.csv': Teams
+}
+>>>>>>> 4357511 (aanpassing aan sql schema, en aan ORM)
 
 
 # Insert data from CSV into the corresponding models

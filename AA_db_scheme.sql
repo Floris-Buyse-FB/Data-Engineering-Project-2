@@ -1,21 +1,6 @@
 --CREATE DATABASE Voka;
 
---USE Voka;
-
-IF NOT EXISTS (SELECT *
-FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_NAME = 'Account_activiteitscode')
-BEGIN
-    CREATE TABLE Account_activiteitscode
-    (
-        account_activiteitscode_id INT PRIMARY KEY IDENTITY(1,1),
-        account_activiteitscode_account VARCHAR(255),
-        account_activiteitscode_activiteitscode VARCHAR(255),
-        account_activiteitscode_inf_account_inf_activiteitscodeid VARCHAR(255),
-        FOREIGN KEY (account_activiteitscode_account) REFERENCES Account(account_account_id),
-        FOREIGN KEY (account_activiteitscode_activiteitscode) REFERENCES Activiteitscode(activiteitscode_activiteitscode_id)
-    );
-END
+USE Voka;
 
 IF NOT EXISTS (SELECT *
 FROM INFORMATION_SCHEMA.TABLES
@@ -119,7 +104,6 @@ BEGIN
         contact_persoon_id VARCHAR(255),
         contact_status VARCHAR(255),
         contact_voka_medewerker INT,
-        FOREIGN KEY (contact_persoon_id) REFERENCES Persoon(persoon_persoon_id),
         FOREIGN KEY (contact_account) REFERENCES Account(account_account_id)
     );
 END
@@ -146,6 +130,21 @@ BEGIN
         activiteitscode_naam VARCHAR(255),
         activiteitscode_activiteitscode_id VARCHAR(255) NOT NULL PRIMARY KEY,
         activiteitscode_status VARCHAR(255)
+    );
+END
+
+IF NOT EXISTS (SELECT *
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_NAME = 'Account_activiteitscode')
+BEGIN
+    CREATE TABLE Account_activiteitscode
+    (
+        account_activiteitscode_id INT PRIMARY KEY IDENTITY(1,1),
+        account_activiteitscode_account VARCHAR(255),
+        account_activiteitscode_activiteitscode VARCHAR(255),
+        account_activiteitscode_inf_account_inf_activiteitscodeid VARCHAR(255),
+        FOREIGN KEY (account_activiteitscode_account) REFERENCES Account(account_account_id),
+        FOREIGN KEY (account_activiteitscode_activiteitscode) REFERENCES Activiteitscode(activiteitscode_activiteitscode_id)
     );
 END
 
@@ -238,39 +237,6 @@ END
 
 IF NOT EXISTS (SELECT *
 FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_NAME = 'Cdi_pageviews')
-BEGIN
-    CREATE TABLE Cdi_pageviews
-    (
-        browser VARCHAR(255),
-        campaign VARCHAR(255),
-        contact VARCHAR(255),
-        duration FLOAT,
-        operatingsystem VARCHAR(255),
-        pageview_id VARCHAR(255) NOT NULL PRIMARY KEY,
-        referrertype VARCHAR(255),
-        time VARCHAR(255),
-        pagetitle VARCHAR(255),
-        type VARCHAR(255),
-        url VARCHAR(255),
-        viewedon VARCHAR(255),
-        visit VARCHAR(255),
-        visitorkey VARCHAR(255),
-        webcontent VARCHAR(255),
-        aangemaaktop VARCHAR(255),
-        gewijzigddoor VARCHAR(255),
-        gewijzigdop VARCHAR(255),
-        status VARCHAR(255),
-        redenvanstatus VARCHAR(255),
-        FOREIGN KEY (campaign) REFERENCES Campagne(campagne_campagne_id),
-        FOREIGN KEY (contact) REFERENCES Contact(contact_contactpersoon_id),
-        FOREIGN KEY (webcontent) REFERENCES Cdi_web_content(webcontent_web_content_id),
-        FOREIGN KEY (visit) REFERENCES Cdi_visits(visit_visit_id)
-    );
-END
-
-IF NOT EXISTS (SELECT *
-FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_NAME = 'Cdi_sent_email_clicks')
 BEGIN
     CREATE TABLE Cdi_sent_email_clicks
@@ -348,6 +314,39 @@ BEGIN
         webcontent_owner_name VARCHAR(255),
         webcontent_het_bezitten_van_business_unit VARCHAR(255),
         FOREIGN KEY (webcontent_campaign) REFERENCES Campagne(campagne_campagne_id)
+    );
+END
+
+IF NOT EXISTS (SELECT *
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_NAME = 'Cdi_pageviews')
+BEGIN
+    CREATE TABLE Cdi_pageviews
+    (
+        browser VARCHAR(255),
+        campaign VARCHAR(255),
+        contact VARCHAR(255),
+        duration FLOAT,
+        operatingsystem VARCHAR(255),
+        pageview_id VARCHAR(255) NOT NULL PRIMARY KEY,
+        referrertype VARCHAR(255),
+        time VARCHAR(255),
+        pagetitle VARCHAR(255),
+        type VARCHAR(255),
+        url VARCHAR(255),
+        viewedon VARCHAR(255),
+        visit VARCHAR(255),
+        visitorkey VARCHAR(255),
+        webcontent VARCHAR(255),
+        aangemaaktop VARCHAR(255),
+        gewijzigddoor VARCHAR(255),
+        gewijzigdop VARCHAR(255),
+        status VARCHAR(255),
+        redenvanstatus VARCHAR(255),
+        FOREIGN KEY (campaign) REFERENCES Campagne(campagne_campagne_id),
+        FOREIGN KEY (contact) REFERENCES Contact(contact_contactpersoon_id),
+        FOREIGN KEY (webcontent) REFERENCES Cdi_web_content(webcontent_web_content_id),
+        FOREIGN KEY (visit) REFERENCES Cdi_visits(visit_visit_id)
     );
 END
 

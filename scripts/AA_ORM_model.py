@@ -82,7 +82,7 @@ class Contact(Base):
     contact_contactpersoon_id = Column(String(255), primary_key=True)
     contact_account = Column(String(255), ForeignKey('Account.account_account_id'))
     contact_functietitel = Column(String(255))
-    contact_persoon_id = Column(String(255), ForeignKey('Persoon.persoon_persoon_id'))
+    contact_persoon_id = Column(String(255))
     contact_status = Column(String(255))
     contact_voka_medewerker = Column(Integer)
 
