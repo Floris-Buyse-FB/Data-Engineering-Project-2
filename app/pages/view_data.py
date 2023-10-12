@@ -1,5 +1,6 @@
 import streamlit as st
 import pyodbc
+import pandas as pd
 
 st.set_page_config(page_title="View Data")
 
@@ -28,11 +29,17 @@ if st.button("Select Accounts"):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM Account")  # Replace 'Accounts' with your table name
         data = cursor.fetchall()
+        cursor.execute("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Account'")
+        column_names = [row.COLUMN_NAME for row in cursor.fetchall()]
+    
         conn.close()
 
         # Display the retrieved data in a table
         if data:
-            st.dataframe(data)  # Display the data in a table
+            st.write(column_names)
+            df = pd.DataFrame(data, columns=column_names)
+
+            st.table(df)
         else:
             st.warning('No data found.')
     else:
