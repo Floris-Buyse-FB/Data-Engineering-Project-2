@@ -2,7 +2,7 @@ import csv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from AA_ORM_MODEL import (
+from AA_ORM_model import (
     Account_activiteitscode,
     Account,
     Account_financiële_data,
