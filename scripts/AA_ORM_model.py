@@ -161,10 +161,10 @@ class Cdi_pageviews(Base):
     time = Column(String(255))
     pagetitle = Column(String(255))
     type = Column(String(255))
-    url = Column(String(255))
+    url = Column(String(2000))
     viewedon = Column(String(255))
     visit = Column(String(255), ForeignKey('Cdi_visits.visit_visit_id'))
-    webcontent = Column(String(255), ForeignKey('Cdi_web_content.webcontent_web_content_id'))
+    webcontent = Column(String(255)) # , ForeignKey('Cdi_web_content.webcontent_web_content_id')
     aangemaaktop = Column(String(255))
     gewijzigddoor = Column(String(255))
     gewijzigdop = Column(String(255))
@@ -214,18 +214,18 @@ class Cdi_visits(Base):
     visit_aangemaakt_op = Column(String(255))
     visit_gewijzigd_op = Column(String(255))
 
-class Cdi_web_content(Base):
-    __tablename__ = 'Cdi_web_content'
-    webcontent_campaign = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
-    webcontent_name = Column(String(255))
-    webcontent_web_content_id = Column(String(255), primary_key=True)
-    webcontent_gemaakt_door_naam_ = Column(String(255))
-    webcontent_created_on = Column(String(255))
-    webcontent_gewijzigd_door_naam_ = Column(String(255))
-    webcontent_modified_on = Column(String(255))
-    webcontent_owner = Column(String(255))
-    webcontent_owner_name = Column(String(255))
-    webcontent_het_bezitten_van_business_unit = Column(String(255))
+# class Cdi_web_content(Base):
+#     __tablename__ = 'Cdi_web_content'
+#     webcontent_campaign = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
+#     webcontent_name = Column(String(255))
+#     webcontent_web_content_id = Column(String(255), primary_key=True)
+#     webcontent_gemaakt_door_naam_ = Column(String(255))
+#     webcontent_created_on = Column(String(255))
+#     webcontent_gewijzigd_door_naam_ = Column(String(255))
+#     webcontent_modified_on = Column(String(255))
+#     webcontent_owner = Column(String(255))
+#     webcontent_owner_name = Column(String(255))
+#     webcontent_het_bezitten_van_business_unit = Column(String(255))
 
 class Functie(Base):
     __tablename__ = 'Functie'

@@ -17,7 +17,7 @@ from AA_ORM_model import (
     Campagne,
     Cdi_mailing,
     Cdi_visits,
-    Cdi_web_content,
+    # Cdi_web_content,
     Cdi_pageviews,
     Cdi_sent_email_clicks,
     Functie,
@@ -51,17 +51,6 @@ def bulk_insert_data_from_csv(file_name, model_class):
         print(f'\n\n=========================================\n\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
         session.bulk_insert_mappings(model_class, data_to_insert)
 
-######################################################
-# Verdacht weinig data in de volgende tabellen:
-### Cdi_visits
-### Cdi_web_content
-### Cdi_pageviews
-### Info_en_klachten
-### Sessie
-### Sessie_inschrijving
-# Zeker nog nakijken in cleanup_script.py
-######################################################
-
 # CSV file paths and corresponding model classes
 csv_model_mapping = {
     'Account_fixed.csv': Account,
@@ -69,7 +58,7 @@ csv_model_mapping = {
     'Afspraak_alle_fixed.csv': Afspraak_alle,
     'Persoon_fixed.csv': Persoon,
     'Contact_fixed.csv': Contact,
-    'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact,
+    'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact, # hier fout
     'Activiteitscode_fixed.csv': Activiteitscode,
     'Account_activiteitscode_fixed.csv': Account_activiteitscode,                   
     'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned, 
@@ -79,8 +68,8 @@ csv_model_mapping = {
     'CDI_mailing_fixed.csv': Cdi_mailing,
     'CDI_sent_email_clicks_fixed.csv': Cdi_sent_email_clicks,
     'CDI_visits_fixed.csv': Cdi_visits,
-    'CDI_web_content_fixed.csv': Cdi_web_content,
-    'cdi_pageviews_fixed.csv': Cdi_pageviews,
+    # 'CDI_web_content_fixed.csv': Cdi_web_content,
+    'CDI_pageviews_fixed.csv': Cdi_pageviews,
     'Functie_fixed.csv': Functie,
     'Contact_functie_fixed.csv': Contact_functie,
     'Gebruikers_fixed.csv': Gebruikers,

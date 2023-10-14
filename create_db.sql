@@ -297,26 +297,26 @@ BEGIN
     );
 END
 
-IF NOT EXISTS (SELECT *
-FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_NAME = 'Cdi_web_content')
-BEGIN
-    CREATE TABLE Cdi_web_content
-    (
-        webcontent_campaign VARCHAR(255),
-        webcontent_campaign_name VARCHAR(255),
-        webcontent_name VARCHAR(255),
-        webcontent_web_content_id VARCHAR(255) NOT NULL PRIMARY KEY,
-        webcontent_gemaakt_door_naam_ VARCHAR(255),
-        webcontent_created_on VARCHAR(255),
-        webcontent_gewijzigd_door_naam_ VARCHAR(255),
-        webcontent_modified_on VARCHAR(255),
-        webcontent_owner VARCHAR(255),
-        webcontent_owner_name VARCHAR(255),
-        webcontent_het_bezitten_van_business_unit VARCHAR(255),
-        FOREIGN KEY (webcontent_campaign) REFERENCES Campagne(campagne_campagne_id)
-    );
-END
+-- IF NOT EXISTS (SELECT *
+-- FROM INFORMATION_SCHEMA.TABLES
+-- WHERE TABLE_NAME = 'Cdi_web_content')
+-- BEGIN
+--     CREATE TABLE Cdi_web_content
+--     (
+--         webcontent_campaign VARCHAR(255),
+--         webcontent_campaign_name VARCHAR(255),
+--         webcontent_name VARCHAR(255),
+--         webcontent_web_content_id VARCHAR(255) NOT NULL PRIMARY KEY,
+--         webcontent_gemaakt_door_naam_ VARCHAR(255),
+--         webcontent_created_on VARCHAR(255),
+--         webcontent_gewijzigd_door_naam_ VARCHAR(255),
+--         webcontent_modified_on VARCHAR(255),
+--         webcontent_owner VARCHAR(255),
+--         webcontent_owner_name VARCHAR(255),
+--         webcontent_het_bezitten_van_business_unit VARCHAR(255),
+--         FOREIGN KEY (webcontent_campaign) REFERENCES Campagne(campagne_campagne_id)
+--     );
+-- END
 
 IF NOT EXISTS (SELECT *
 FROM INFORMATION_SCHEMA.TABLES
@@ -334,7 +334,7 @@ BEGIN
         time VARCHAR(255),
         pagetitle VARCHAR(255),
         type VARCHAR(255),
-        url VARCHAR(255),
+        url VARCHAR(2000),
         viewedon VARCHAR(255),
         visit VARCHAR(255),
         visitorkey VARCHAR(255),
@@ -346,7 +346,7 @@ BEGIN
         redenvanstatus VARCHAR(255),
         FOREIGN KEY (campaign) REFERENCES Campagne(campagne_campagne_id),
         FOREIGN KEY (contact) REFERENCES Contact(contact_contactpersoon_id),
-        FOREIGN KEY (webcontent) REFERENCES Cdi_web_content(webcontent_web_content_id),
+        -- FOREIGN KEY (webcontent) REFERENCES Cdi_web_content(webcontent_web_content_id),
         FOREIGN KEY (visit) REFERENCES Cdi_visits(visit_visit_id)
     );
 END
