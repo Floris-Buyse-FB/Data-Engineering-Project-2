@@ -181,7 +181,7 @@ BEGIN
         afspraak_betreft_contactfiche_eindtijd VARCHAR(255),
         afspraak_betreft_contactfiche_keyphrases VARCHAR(2000),
         FOREIGN KEY (afspraak_betreft_contactfiche_afspraak_id) REFERENCES Afspraak_alle(afspraak_alle_afspraak_id),
-        FOREIGN KEY (afspraak_betreft_contactfiche_betreft_id) REFERENCES Account(account_account_id)
+        FOREIGN KEY (afspraak_betreft_contactfiche_betreft_id) REFERENCES Contact(contact_contactpersoon_id)
     );
 END
 
@@ -270,8 +270,8 @@ BEGIN
         visit_duration FLOAT,
         visit_email_send VARCHAR(255),
         visit_ended_on VARCHAR(255),
-        visit_entry_page VARCHAR(255),
-        visit_exit_page VARCHAR(255),
+        visit_entry_page VARCHAR(2000),
+        visit_exit_page VARCHAR(2000),
         visit_first_visit VARCHAR(255),
         visit_ip_address VARCHAR(255),
         visit_ip_organization VARCHAR(255),
@@ -280,7 +280,7 @@ BEGIN
         visit_ip_longitude FLOAT,
         visit_operating_system VARCHAR(255),
         visit_ip_postcode VARCHAR(255),
-        visit_referrer VARCHAR(255),
+        visit_referrer VARCHAR(2000),
         visit_referring_host VARCHAR(255),
         visit_score FLOAT,
         visit_referrer_type VARCHAR(255),

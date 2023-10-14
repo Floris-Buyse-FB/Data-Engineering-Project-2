@@ -1,4 +1,5 @@
 import argparse
+from json import load
 import re
 import pandas as pd
 import os
@@ -16,7 +17,92 @@ def titelChange(data):
             data.columns = data.columns.str.replace('CDI_', '')
 
 
-def default_process(filename, datafolder=DATA_FOLDER, cleandatafolder=CLEAN_DATA_FOLDER, dropna=False):
+def load_unique_values(file_name, column_name):
+    df = pd.read_csv(os.path.join(CLEAN_DATA_FOLDER, file_name), sep=",")
+    unique_values = df[column_name].unique()
+    del df  # Release DataFrame from memory
+    return unique_values
+
+
+def remove_non_existing_pk(file, fk_arr, col_name_arr):
+    df = pd.read_csv(os.path.join(CLEAN_DATA_FOLDER, file), sep=",")
+
+    if 'account' in fk_arr:
+        acc_unique = load_unique_values('Account_fixed.csv', 'account_account_id')
+        fk_arr_index = fk_arr.index('account')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(acc_unique)]
+
+    if 'contact' in fk_arr:
+        contact_unique = load_unique_values('Contact_fixed.csv', 'contact_contactpersoon_id')
+        fk_arr_index = fk_arr.index('contact')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(contact_unique)]
+
+    if 'afspraak' in fk_arr:
+        afspraak_alle_unique = load_unique_values('Afspraak_alle_fixed.csv', 'afspraak_alle_afspraak_id')
+        fk_arr_index = fk_arr.index('afspraak')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(afspraak_alle_unique)]
+
+    if 'campagne' in fk_arr:
+        campagne_unique = load_unique_values('Campagne_fixed.csv', 'campagne_campagne_id')
+        fk_arr_index = fk_arr.index('campagne')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(campagne_unique)]
+
+    if 'mailing' in fk_arr:
+        mailing_unique = load_unique_values('CDI_mailing_fixed.csv', 'mailing_mailing_id')
+        fk_arr_index = fk_arr.index('mailing')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(mailing_unique)]
+
+    if 'activiteitscode' in fk_arr:
+        activiteitscode_unique = load_unique_values('Activiteitscode_fixed.csv', 'activiteitscode_activiteitscode_id')
+        fk_arr_index = fk_arr.index('activiteitscode')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(activiteitscode_unique)]
+
+    if 'webcontent' in fk_arr:
+        webcontent_unique = load_unique_values('CDI_web_content_fixed.csv', 'webcontent_web_content_id')
+        fk_arr_index = fk_arr.index('webcontent')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(webcontent_unique)]
+
+    if 'visit' in fk_arr:
+        visit_unique = load_unique_values('CDI_visits_fixed.csv', 'visit_visit_id')
+        fk_arr_index = fk_arr.index('visit')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(visit_unique)]
+
+    if 'functie' in fk_arr:
+        functie_unique = load_unique_values('Functie_fixed.csv', 'functie_functie_id')
+        fk_arr_index = fk_arr.index('functie')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(functie_unique)]
+
+    if 'gebruiker' in fk_arr:
+        gebruiker_unique = load_unique_values('Gebruikers_fixed.csv', 'gebruikers_crm_user_id_id')
+        fk_arr_index = fk_arr.index('gebruiker')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(gebruiker_unique)]
+
+    if 'sessie' in fk_arr:
+        sessie_unique = load_unique_values('Sessie_fixed.csv', 'sessie_sessie_id')
+        fk_arr_index = fk_arr.index('sessie')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(sessie_unique)]
+
+    if 'inschrijving' in fk_arr:
+        inschrijving_unique = load_unique_values('Inschrijving_fixed.csv', 'inschrijving_inschrijving_id')
+        fk_arr_index = fk_arr.index('inschrijving')
+        col_name = col_name_arr[fk_arr_index]
+        df = df[df[col_name].isin(inschrijving_unique)]
+
+    df.to_csv(os.path.join(CLEAN_DATA_FOLDER, file), index=False)     
+
+
+def default_process(filename, datafolder=DATA_FOLDER, dropna=False):
 
     print(f'currently working on {filename}')
 
@@ -129,7 +215,30 @@ def ChangeAllData():
     time.sleep(2)
 
     columnNameChangeBis()
+    print("Column names changed successfully!\n")
 
+    time.sleep(2)
+
+    print("Removing non existing primary keys...\nThis might take some time...")
+    remove_non_existing_pk('Account_financiële_data_fixed.csv', ['account'], ['financieledata_ondernemingid'])
+    remove_non_existing_pk('Contact_fixed.csv', ['account'], ['contact_account'])
+    remove_non_existing_pk('Activiteit_vereist_contact_fixed.csv', ['afspraak, contact'], ['activiteitvereistcontact_activityid_id', 'activiteitvereistcontact_reqattendee'])
+    remove_non_existing_pk('Account_activiteitscode_fixed.csv', ['account', 'activiteitscode'], ['account_activiteitscode_account', 'account_activiteitscode_activiteitscode'])
+    remove_non_existing_pk('Afspraak_betreft_account_cleaned_fixed.csv', ['account', 'afspraak'], ['afspraak_betreft_account_betreft_id', 'afspraak_betreft_account_afspraak_id'])
+    remove_non_existing_pk('Afspraak_betreft_contact_cleaned_fixed.csv', ['contact', 'afspraak'], ['afspraak_betreft_contactfiche_betreft_id', 'afspraak_betreft_contactfiche_afspraak_id'])
+    remove_non_existing_pk('Afspraak_account_gelinkt_cleaned_fixed.csv', ['account', 'afspraak'], ['afspraak_account_gelinkt_account', 'afspraak_account_gelinkt_afspraak_id'])
+    remove_non_existing_pk('Cdi_sent_email_clicks_fixed.csv', ['mailing', 'contact'], ['sentemail_kliks_e_mail_versturen', 'sentemail_kliks_contact'])
+    remove_non_existing_pk('Cdi_visits_fixed.csv', ['contact', 'campagne', 'mailing'], ['visit_contact', 'visit_campaign', 'visit_email_send'])
+    remove_non_existing_pk('Cdi_web_content_fixed.csv', ['campagne'], ['webcontent_campaign'])
+    remove_non_existing_pk('Cdi_pageviews_fixed.csv', ['contact', 'campagne', 'webcontent', 'visit'], ['contact', 'campaign', 'webcontent', 'visit'])
+    remove_non_existing_pk('Contact_functie_fixed.csv', ['contact', 'functie'], ['contactfunctie_contactpersoon', 'contactfunctie_functie'])
+    remove_non_existing_pk('Info_en_klachten_fixed.csv', ['account', 'gebruiker'], ['info_en_klachten_account', 'info_en_klachten_eigenaar'])
+    remove_non_existing_pk('Inschrijving_fixed.csv', ['contact'], ['inschrijving_contactfiche'])
+    remove_non_existing_pk('Lidmaatschap_fixed.csv', ['account'], ['lidmaatschap_onderneming'])
+    remove_non_existing_pk('Sessie_fixed.csv', ['campagne'], ['sessie_campagne'])
+    remove_non_existing_pk('Sessie_inschrijving_fixed.csv', ['sessie', 'inschrijving'], ['sessieinschrijving_sessie', 'sessieinschrijving_inschrijving'])
+
+    print("Non existing primary keys removed successfully!\n")
 
 def account():
     FILENAME = 'Account.csv'

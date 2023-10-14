@@ -51,19 +51,29 @@ def bulk_insert_data_from_csv(file_name, model_class):
         print(f'\n\n=========================================\n\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
         session.bulk_insert_mappings(model_class, data_to_insert)
 
-# bulk_insert_data_from_csv('Account_fixed.csv', Account)
+######################################################
+# Verdacht weinig data in de volgende tabellen:
+### Cdi_visits
+### Cdi_web_content
+### Cdi_pageviews
+### Info_en_klachten
+### Sessie
+### Sessie_inschrijving
+# Zeker nog nakijken in cleanup_script.py
+######################################################
+
 # CSV file paths and corresponding model classes
 csv_model_mapping = {
-    # 'Account_fixed.csv': Account,
-    # 'Account_financiële_data_fixed.csv': Account_financiële_data,
-    # 'Afspraak_alle_fixed.csv': Afspraak_alle,
-    # 'Persoon_fixed.csv': Persoon,
-    # 'Contact_fixed.csv': Contact,
-    # 'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact,
-    # 'Activiteitscode_fixed.csv': Activiteitscode,
-    # 'Account_activiteitscode_fixed.csv': Account_activiteitscode,                   #######################################################
-    # 'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned, # TOT HIER LUKT DAARNA MOET DATA NOG GECLEANED WORDEN #
-    'Afspraak_betreft_contact_cleaned_fixed.csv': Afspraak_betreft_contact_cleaned,   #######################################################
+    'Account_fixed.csv': Account,
+    'Account_financiële_data_fixed.csv': Account_financiële_data,
+    'Afspraak_alle_fixed.csv': Afspraak_alle,
+    'Persoon_fixed.csv': Persoon,
+    'Contact_fixed.csv': Contact,
+    'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact,
+    'Activiteitscode_fixed.csv': Activiteitscode,
+    'Account_activiteitscode_fixed.csv': Account_activiteitscode,                   
+    'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned, 
+    'Afspraak_betreft_contact_cleaned_fixed.csv': Afspraak_betreft_contact_cleaned,   
     'Afspraak_account_gelinkt_cleaned_fixed.csv': Afspraak_account_gelinkt_cleaned,
     'Campagne_fixed.csv': Campagne,
     'CDI_mailing_fixed.csv': Cdi_mailing,
