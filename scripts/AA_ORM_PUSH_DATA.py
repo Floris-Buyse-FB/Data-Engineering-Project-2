@@ -33,12 +33,13 @@ from AA_ORM_model import (
 
 # Database URL
 DB_NAME = 'Voka'
-SERVER_NAME = 'ASUS_FLORIS'
+SERVER_NAME = '127.0.0.1,1433'
 URL = f'mssql+pyodbc://{SERVER_NAME}/{DB_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
+URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/{DB_NAME}?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
 DATA_DIR = os.path.join(os.getcwd(), 'data_clean')
 
 # Define your database engine
-engine = create_engine(URL)
+engine = create_engine(URL_EMMA)
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -60,9 +61,9 @@ csv_model_mapping = {
     'Contact_fixed.csv': Contact,
     'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact, # hier fout
     'Activiteitscode_fixed.csv': Activiteitscode,
-    'Account_activiteitscode_fixed.csv': Account_activiteitscode,                   
-    'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned, 
-    'Afspraak_betreft_contact_cleaned_fixed.csv': Afspraak_betreft_contact_cleaned,   
+    'Account_activiteitscode_fixed.csv': Account_activiteitscode,                   #######################################################
+    'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned, # TOT HIER LUKT DAARNA MOET DATA NOG GECLEANED WORDEN #
+    'Afspraak_betreft_contact_cleaned_fixed.csv': Afspraak_betreft_contact_cleaned,   #######################################################
     'Afspraak_account_gelinkt_cleaned_fixed.csv': Afspraak_account_gelinkt_cleaned,
     'Campagne_fixed.csv': Campagne,
     'CDI_mailing_fixed.csv': Cdi_mailing,
