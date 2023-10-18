@@ -2,7 +2,10 @@ import streamlit as st
 from sqlalchemy import create_engine
 from sqlalchemy import Table, MetaData, desc, inspect
 from sqlalchemy.orm import declarative_base
+from sqlalchemy.exc import ProgrammingError
+import re
 import pandas as pd
+import ta
 
 st.set_page_config(page_title="View Data")
 
@@ -13,7 +16,7 @@ st.write(
 )
 
 # Define the connection string
-connection_string = r'DRIVER={ODBC Driver 17 for SQL Server};SERVER=LAPTOP-MAX;DATABASE=Voka;Trusted_Connection=yes;'
+connection_string = r'DRIVER={ODBC Driver 17 for SQL Server};SERVER=ASUS_FLORIS;DATABASE=Voka;Trusted_Connection=yes;'
 
 # Create a function to connect to the SQL Server database
 def connect_to_database():
@@ -28,22 +31,79 @@ def connect_to_database():
 # Retrieve data from the database
 conn = connect_to_database()
 
+# Get a list of all tables in the database
 inspect = inspect(conn)
 table_list = inspect.get_table_names()
 table_list.sort()
+
+# Check if the user wants to see the column names of a table
+see_col_names = st.checkbox('See column names')
+
+# Get the list of columnnames for the selected table and determine ID column
 table_name= st.selectbox('Select a table', table_list)
+table_name_index = table_list.index(table_name)
+columns_list = inspect.get_columns(table_list[table_name_index])
+
+if see_col_names:
+
+    ###########################################
+    # List representation of the column names #
+    ###########################################
+    st.write([x['name'] for x in columns_list])
+
+    ###############################################
+    # Markdown representation of the column names #
+    ###############################################
+    # cols_list_name = [x['name'] for x in columns_list]
+    # list_as_text = '\n'.join([f'- {item}' for item in cols_list_name])
+    # st.markdown(list_as_text)
+
+# Give a list of possible queries to select from
+query_list = ['SELECT * FROM ' + table_name
+              , 'KIES ZELF EEN QUERY'
+              , 'SELECT TOP 100 * FROM ' + table_name
+              , 'SELECT TOP 1000 * FROM ' + table_name
+              ,
+]
+
+# Generate a list of possible queries to select from
+for col in columns_list:
+    query_list.append('SELECT ' + col['name'] + ' FROM ' + table_name)
+
+query = st.selectbox('Select a query to retrieve data from the database', query_list)
+
+# If the user wants to enter a custom query, give the option to do so
+if query == 'KIES ZELF EEN QUERY':
+    custom_query = st.text_input('Enter a query to retrieve data from the database')
+    if custom_query:
+        query = custom_query
+
+# Display the data from the selected table
 if table_name:
     st.subheader('Data from  ' + table_name + ' table')
 
     if conn:
         
-        query = f"SELECT * FROM {table_name}"
-        data = pd.read_sql(query, conn)
+        if query:
+            try:
+                data = pd.read_sql(query, conn)
             
-        conn.close()
+                conn.close()
 
-        # Display the retrieved data in a table
-        st.dataframe(data)
+                # Display the retrieved data in a table
+                st.dataframe(data)
+
+            except ProgrammingError as e:
+                error_lines = str(e).split('\n')
+
+                pattern = r"Invalid column name '([^']+)"
+
+                match = re.search(pattern, error_lines[0])
+
+                if match:
+                    column_name_error = match.group(0)
+                    st.error(f"{column_name_error}'")
+
 
     else:
         st.error('Connection to the database failed. Check the connection string.')
