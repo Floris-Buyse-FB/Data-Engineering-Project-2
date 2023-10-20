@@ -416,7 +416,10 @@ BEGIN
         inschrijving_datum_inschrijving VARCHAR(255),
         inschrijving_inschrijving_id VARCHAR(255) NOT NULL PRIMARY KEY,
         inschrijving_facturatie_bedrag VARCHAR(255),
-        FOREIGN KEY (inschrijving_contactfiche) REFERENCES Contact(contact_contactpersoon_id)
+        inschrijving_campagne VARCHAR(255),
+        inschrijving_campagne_naam_ VARCHAR(255),
+        FOREIGN KEY (inschrijving_contactfiche) REFERENCES Contact(contact_contactpersoon_id),
+        FOREIGN KEY (inschrijving_campagne) REFERENCES Campagne(campagne_campagne_id)
     );
 END
 

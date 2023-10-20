@@ -260,6 +260,8 @@ class Inschrijving(Base):
     inschrijving_datum_inschrijving = Column(String(255))
     inschrijving_inschrijving_id = Column(String(255), primary_key=True)
     inschrijving_facturatie_bedrag = Column(String(255))
+    inschrijving_campagne = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
+    inschrijving_campagne_naam_ = Column(String(255))
 
 class Lidmaatschap(Base):
     __tablename__ = 'Lidmaatschap'

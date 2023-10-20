@@ -250,7 +250,7 @@ def ChangeAllData():
     remove_non_existing_pk('CDI_pageviews_fixed.csv', ['contact', 'campagne', 'visit'], ['contact', 'campaign', 'visit']) # normaal gezien is webcontent ook FK
     remove_non_existing_pk('Contact_functie_fixed.csv', ['contact', 'functie'], ['contactfunctie_contactpersoon', 'contactfunctie_functie']) # weinig veranderd
     remove_non_existing_pk('Info_en_klachten_fixed.csv', ['account', 'gebruiker'], ['info_en_klachten_account', 'info_en_klachten_eigenaar']) # veel onbestaande gebruikers
-    remove_non_existing_pk('Inschrijving_fixed.csv', ['contact'], ['inschrijving_contactfiche']) # ongv 10k vd 300k weg
+    remove_non_existing_pk('Inschrijving_fixed.csv', ['contact', 'campagne'], ['inschrijving_contactfiche', 'inschrijving_campagne']) # ongv 10k vd 300k weg
     remove_non_existing_pk('Lidmaatschap_fixed.csv', ['account'], ['lidmaatschap_onderneming']) # veranderd niks
     remove_non_existing_pk('Sessie_fixed.csv', ['campagne'], ['sessie_campagne']) #
     remove_non_existing_pk('Sessie_inschrijving_fixed.csv', ['sessie', 'inschrijving'], ['sessieinschrijving_sessie', 'sessieinschrijving_inschrijving']) # 1/2 weg
