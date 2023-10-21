@@ -53,7 +53,7 @@ $ pip install -r ./data_info/requirements.txt
 Met streamlit kunnen we een webapplicatie maken. Deze webapplicatie zal de data visualiseren.
 
 Maak een folder `.streamlit` aan.
-In deze folder zet je vervolgens het bestand `config.toml`. Dit bestand bevat de configuratie van de webapplicatie, dus ` DB_NAME` en `SERVER_NAME`.
+In deze folder zet je vervolgens het bestand `config.toml`. Dit bestand bevat de configuratie van de webapplicatie, dus `DB_NAME` en `SERVER_NAME`.
 
 Om deze webapplicatie te runnen gaan we eerst naar de map `app` en voeren we vervolgens onderstaand commando uit:
 
