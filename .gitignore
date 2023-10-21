@@ -162,6 +162,7 @@ cython_debug/
 # data folder
 data/
 data_clean/
+data_merged/
 
 #streamlit secrets
 app/.streamlit/secrets.toml
