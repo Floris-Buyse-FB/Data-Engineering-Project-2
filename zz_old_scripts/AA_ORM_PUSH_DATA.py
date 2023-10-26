@@ -32,10 +32,10 @@ from AA_ORM_model import (
 
 # Database URL
 DB_NAME = 'Voka'
-SERVER_NAME = 'ASUS_FLORIS'
+SERVER_NAME = 'sql1'
 URL = f'mssql+pyodbc://{SERVER_NAME}/{DB_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
 URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/{DB_NAME}?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
-DATA_DIR = os.path.join(os.getcwd(), 'data_clean')
+DATA_DIR = os.path.join(os.getcwd(), '../data_clean')
 
 # Define your database engine
 engine = create_engine(URL)
