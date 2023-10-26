@@ -2,6 +2,7 @@ import csv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import pymssql
 from AA_ORM_model import (
     Account_activiteitscode,
     Account,
@@ -30,11 +31,19 @@ from AA_ORM_model import (
     Teams
 )
 
+
 # Database URL
 DB_NAME = 'Voka'
 SERVER_NAME = 'sql1'
-URL = f'mssql+pyodbc://{SERVER_NAME}/{DB_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
-URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/{DB_NAME}?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
+DB_USER = 'sa'
+DB_PASSWORD = 'Dep2Groep2@VIC'
+URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DB_NAME}'
+
+# Database URL
+# DB_NAME = 'Voka'
+# SERVER_NAME = 'sql1'
+# URL = f'mssql+pyodbc://{SERVER_NAME}/{DB_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
+# URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/{DB_NAME}?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
 DATA_DIR = os.path.join(os.getcwd(), '../data_clean')
 
 # Define your database engine
