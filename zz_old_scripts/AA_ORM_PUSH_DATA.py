@@ -2,6 +2,7 @@ import csv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import IntegrityError
 import pymssql
 from AA_ORM_model import (
     Account_activiteitscode,
@@ -58,7 +59,16 @@ def bulk_insert_data_from_csv(file_name, model_class):
         data_to_insert = [row for row in csv_reader]
 
         print(f'\n\n=========================================\n\nInserting {len(data_to_insert)} rows into {model_class.__name__}\n\n=========================================\n')
-        session.bulk_insert_mappings(model_class, data_to_insert)
+        for row in data_to_insert:
+            try:
+                # Attempt to insert the row
+                session.add(model_class(**row))
+                session.commit()
+            except IntegrityError as e:
+                session.rollback()
+                pass
+                
+        # session.bulk_insert_mappings(model_class, data_to_insert)
 
 # CSV file paths and corresponding model classes
 csv_model_mapping = {
