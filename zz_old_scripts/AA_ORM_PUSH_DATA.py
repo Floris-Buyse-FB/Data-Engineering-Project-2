@@ -36,7 +36,7 @@ from AA_ORM_model import (
 DB_NAME = 'Voka'
 SERVER_NAME = 'sql1'
 DB_USER = 'sa'
-DB_PASSWORD = 'Dep2Groep2@VIC'
+DB_PASSWORD = 'Dep2Groep2VIC'
 URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DB_NAME}'
 
 # Database URL
