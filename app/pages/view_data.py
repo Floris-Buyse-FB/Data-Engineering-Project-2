@@ -15,9 +15,6 @@ st.write(
     """Use the buttons below to view data from the Voka Database."""
 )
 
-# Define the connection string
-connection_string = r'DRIVER={ODBC Driver 17 for SQL Server};SERVER=ASUS_FLORIS;DATABASE=Voka;Trusted_Connection=yes;'
-
 # Create a function to connect to the SQL Server database
 def connect_to_database():
     try:
