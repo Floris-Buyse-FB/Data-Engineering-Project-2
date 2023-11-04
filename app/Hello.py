@@ -17,6 +17,6 @@ st.markdown(
 
     View Data: View the data in the database.
 
-    Input Data: Input data into the database.
+    Recommendations: Upload a csv file with a campaign and get recommendations for contacts.
 """
 )
