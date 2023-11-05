@@ -1,9 +1,9 @@
 ### Recommendation Engine
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import re
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -14,12 +14,8 @@ from nltk.stem.snowball import SnowballStemmer
 
 nltk.download('stopwords')
 nltk.download('punkt')
-df = pd.read_csv(rf'C:\Users\buyse\AA_WORKSPACE\Data-Engineering-Project-2\data_clean\final_merge_clean.csv')
-df.drop(['avg_waarde_jaar', 'afspraak_account_gelinkt', 'campagne_campagne_id', 'inschrijving_aanwezig_afwezig', 'inschrijving_facturatie_bedrag'], axis=1, inplace=True)
-df = df.groupby('contact_contactpersoon_id').agg(list)
-df['marketing_pressure'] = df['marketing_pressure'].apply(lambda x: np.mean(x).round(0).astype(int))
-df['keyphrases'] = df['keyphrases'].apply(lambda x: ','.join(list(set(x))))
-df.reset_index(inplace=True)
+
+CSV_FILE = rf'C:\Users\buyse\AA_WORKSPACE\Data-Engineering-Project-2\data_clean\final_merge_clean.csv'
 
 def remove_stopwords(text):
     stop_words_nl = set(stopwords.words('dutch'))
@@ -90,8 +86,42 @@ def clean_text(df, col='keyphrase'):
     return df_copy
 
 
+def titelChange(data):
+    for col in data.columns:
+        if col.startswith('crm_') or col.startswith('CDI_'):
+            data.columns = data.columns.str.replace('crm_', '')
+            data.columns = data.columns.str.replace('CDI_', '')
+
+
+def create_column_names(dataframe, pk='Campagne_Campagne'):
+    columns = dataframe.columns
+    columns = [col + '_id' if col == pk else col for col in columns]
+    columns = [re.sub(r'\W+', '', col) for col in columns]
+    columns = [col.lower() for col in columns]
+    dict_columns = dict(zip(dataframe.columns, columns))
+    return dict_columns
+
+
+def basic_clean(df):
+    data = df.copy()
+    data.drop_duplicates(inplace=True)
+    numeric = data.select_dtypes(include='number').columns
+    non_numeric = data.select_dtypes(exclude='number').columns
+    data[numeric] = data[numeric].fillna(-1)
+    data[non_numeric] = data[non_numeric].fillna('unknown')
+    return data
+
+
 def clean_new_campaign_data(df):
-    df_campagne = df.copy()
+
+    preclean_df = df.copy()
+
+    titelChange(preclean_df)
+
+    preclean_df.rename(columns=create_column_names(preclean_df), inplace=True)
+
+    df_campagne = basic_clean(preclean_df)
+
     # campagne naam cleanen
     df_campagne['campagne_naam'] = df_campagne['campagne_naam'].str.replace('OV-', '').str.replace('ov-', '') \
                                                             .str.replace('-', ' ').str.replace(r'[^\w\s]', '', regex=True) \
@@ -117,7 +147,7 @@ def clean_new_campaign_data(df):
     
     final_df = clean_text(df_campagne, 'keyphrase') 
 
-    return final_df['keyphrase']
+    return final_df
 
 
 def recommend(df, new_keyphrase: str, top_n=10):
@@ -157,41 +187,11 @@ def recommend(df, new_keyphrase: str, top_n=10):
     return results_list
 
 
-### Flask API
-from flask import Flask, request, jsonify
-
-app = Flask(__name__)
-
-# A simple in-memory database to store the posted data
-data_store = []
-
-@app.route('/post_data', methods=['POST'])
-def post_data():
-    try:
-        # Get the JSON data from the request
-        data = request.json
-
-        # Add the data to the data store
-        data_store.append(data)
-
-        # Get the new campaign data
-        new_campaign_data = pd.DataFrame(data)
-
-        # Clean the new campaign data
-        new_campaign_data_clean = clean_new_campaign_data(new_campaign_data)
-
-        # Get the recommended contact persons
-        results = recommend(df, str(new_campaign_data_clean))
-
-        # Return a response
-        return jsonify({"Recommended Contact Persons for the New Campaign": results})
-    except Exception as e:
-        return jsonify({"error": str(e)})
-
-@app.route('/get_data', methods=['GET'])
-def get_data():
-    # Return the data from the data store
-    return jsonify(data_store)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+def preproces_df(link=CSV_FILE):
+    df = pd.read_csv(link)
+    df.drop(['avg_waarde_jaar', 'afspraak_account_gelinkt', 'campagne_campagne_id', 'inschrijving_aanwezig_afwezig', 'inschrijving_facturatie_bedrag'], axis=1, inplace=True)
+    df = df.groupby('contact_contactpersoon_id').agg(list)
+    df['marketing_pressure'] = df['marketing_pressure'].apply(lambda x: np.mean(x).round(0).astype(int))
+    df['keyphrases'] = df['keyphrases'].apply(lambda x: ','.join(list(set(x))))
+    df.reset_index(inplace=True)
+    return df
