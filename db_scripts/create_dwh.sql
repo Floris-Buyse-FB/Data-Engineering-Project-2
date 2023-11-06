@@ -148,13 +148,13 @@ CREATE TABLE FactAccount (
     contactID VARCHAR(255),
     afspraakID VARCHAR(255),
     activiteitID VARCHAR(255), 
+    activiteitNaam VARCHAR(255),
     PRIMARY KEY (accountID),
     FOREIGN KEY (financialDataID) REFERENCES DimFinanciëleDataAccount(financialDataID),
     FOREIGN KEY (aanvraagID) REFERENCES DimInfoEnKlachten(aanvraagID),
     FOREIGN KEY (lidmaatschapID) REFERENCES DimLidmaatschap(lidmaatschapID),
     FOREIGN KEY (contactID) REFERENCES DimContactfiche(contactID),
     FOREIGN KEY (afspraakID) REFERENCES DimAfspraak(afspraakID),
-    FOREIGN KEY (activiteitID) REFERENCES DimActiviteit(activiteitID),
     FOREIGN KEY (oprichtingsdatumID) REFERENCES DimDate(dateID),
     -- kolommen die ik hier heb laten vallen (voorlopig): geografische regio, subregio (zou er eig nog laten vallen ma bon)
 );

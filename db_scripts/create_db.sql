@@ -18,7 +18,7 @@ BEGIN
         account_is_voka_entiteit INT,
         account_ondernemingsaard VARCHAR(255),
         account_ondernemingstype VARCHAR(255),
-        account_oprichtingsdatum VARCHAR(255),
+        account_oprichtingsdatum DATE,
         account_primaire_activiteit VARCHAR(255),
         account_reden_van_status VARCHAR(255),
         account_status INT,
@@ -39,7 +39,7 @@ BEGIN
         financieledata_aantal_maanden FLOAT,
         financieledata_toegevoegde_waarde VARCHAR(255),
         financieledata_fte VARCHAR(255),
-        financieledata_gewijzigd_op VARCHAR(255),
+        financieledata_gewijzigd_op DATE,
         FOREIGN KEY (financieledata_ondernemingid) REFERENCES Account(account_account_id)
     );
 END
@@ -160,7 +160,7 @@ BEGIN
         afspraak_betreft_account_subthema VARCHAR(255),
         afspraak_betreft_account_onderwerp VARCHAR(255),
         afspraak_betreft_account_betreft_id VARCHAR(255),
-        afspraak_betreft_account_eindtijd VARCHAR(255),
+        afspraak_betreft_account_eindtijd Date,
         afspraak_betreft_account_keyphrases VARCHAR(2000),
         FOREIGN KEY (afspraak_betreft_account_afspraak_id) REFERENCES Afspraak_alle(afspraak_alle_afspraak_id),
         FOREIGN KEY (afspraak_betreft_account_betreft_id) REFERENCES Account(account_account_id)
@@ -178,7 +178,7 @@ BEGIN
         afspraak_betreft_contactfiche_subthema VARCHAR(255),
         afspraak_betreft_contactfiche_onderwerp VARCHAR(255),
         afspraak_betreft_contactfiche_betreft_id VARCHAR(255),
-        afspraak_betreft_contactfiche_eindtijd VARCHAR(255),
+        afspraak_betreft_contactfiche_eindtijd DATE,
         afspraak_betreft_contactfiche_keyphrases VARCHAR(2000),
         FOREIGN KEY (afspraak_betreft_contactfiche_afspraak_id) REFERENCES Afspraak_alle(afspraak_alle_afspraak_id),
         FOREIGN KEY (afspraak_betreft_contactfiche_betreft_id) REFERENCES Contact(contact_contactpersoon_id)
@@ -195,7 +195,7 @@ BEGIN
         afspraak_account_gelinkt_thema VARCHAR(255),
         afspraak_account_gelinkt_subthema VARCHAR(255),
         afspraak_account_gelinkt_onderwerp VARCHAR(255),
-        afspraak_account_gelinkt_eindtijd VARCHAR(255),
+        afspraak_account_gelinkt_eindtijd DATE,
         afspraak_account_gelinkt_account VARCHAR(255),
         afspraak_account_gelinkt_keyphrases VARCHAR(2000),
         FOREIGN KEY (afspraak_account_gelinkt_account) REFERENCES Account(account_account_id),
@@ -211,11 +211,11 @@ BEGIN
     (
         campagne_campagne_id VARCHAR(255) NOT NULL PRIMARY KEY,
         campagne_campagne_nr VARCHAR(255),
-        campagne_einddatum VARCHAR(255),
+        campagne_einddatum DATE,
         campagne_naam VARCHAR(255),
         campagne_naam_in_email VARCHAR(255),
         campagne_reden_van_status VARCHAR(255),
-        campagne_startdatum VARCHAR(255),
+        campagne_startdatum DATE,
         campagne_status VARCHAR(255),
         campagne_type_campagne VARCHAR(255),
         campagne_url_voka_be VARCHAR(255),
@@ -269,7 +269,7 @@ BEGIN
         visit_ip_land VARCHAR(255),
         visit_duration FLOAT,
         visit_email_send VARCHAR(255),
-        visit_ended_on VARCHAR(255),
+        visit_ended_on DATE,
         visit_entry_page VARCHAR(2000),
         visit_exit_page VARCHAR(2000),
         visit_first_visit VARCHAR(255),
@@ -284,13 +284,12 @@ BEGIN
         visit_referring_host VARCHAR(255),
         visit_score FLOAT,
         visit_referrer_type VARCHAR(255),
-        visit_started_on VARCHAR(255),
+        visit_started_on DATE,
         visit_ip_status VARCHAR(255),
-        visit_time VARCHAR(255),
         visit_total_pages FLOAT,
         visit_visit_id VARCHAR(255) NOT NULL PRIMARY KEY,
-        visit_aangemaakt_op VARCHAR(255),
-        visit_gewijzigd_op VARCHAR(255),
+        visit_aangemaakt_op DATE,
+        visit_gewijzigd_op DATE,
         FOREIGN KEY (visit_contact) REFERENCES Contact(contact_contactpersoon_id),
         FOREIGN KEY (visit_campaign) REFERENCES Campagne(campagne_campagne_id),
         FOREIGN KEY (visit_email_send) REFERENCES Cdi_mailing(mailing_mailing_id)
@@ -375,8 +374,8 @@ BEGIN
     (
         info_en_klachten_aanvraag_id VARCHAR(255) NOT NULL PRIMARY KEY,
         info_en_klachten_account VARCHAR(255),
-        info_en_klachten_datum VARCHAR(255),
-        info_en_klachten_datum_afsluiting VARCHAR(255),
+        info_en_klachten_datum Date,
+        info_en_klachten_datum_afsluiting DATE,
         info_en_klachten_status VARCHAR(255),
         info_en_klachten_eigenaar VARCHAR(255),
         FOREIGN KEY (info_en_klachten_account) REFERENCES Account(account_account_id),
@@ -393,7 +392,7 @@ BEGIN
         inschrijving_aanwezig_afwezig VARCHAR(255),
         inschrijving_bron VARCHAR(255),
         inschrijving_contactfiche VARCHAR(255),
-        inschrijving_datum_inschrijving VARCHAR(255),
+        inschrijving_datum_inschrijving DATE,
         inschrijving_inschrijving_id VARCHAR(255) NOT NULL PRIMARY KEY,
         inschrijving_facturatie_bedrag VARCHAR(255),
         inschrijving_campagne VARCHAR(255),
@@ -410,12 +409,12 @@ WHERE TABLE_NAME = 'Lidmaatschap')
 BEGIN
     CREATE TABLE Lidmaatschap
     (
-        lidmaatschap_datum_opzeg VARCHAR(255),
+        lidmaatschap_datum_opzeg DATE,
         lidmaatschap_lidmaatschap_id VARCHAR(255) NOT NULL PRIMARY KEY,
         lidmaatschap_onderneming VARCHAR(255),
         lidmaatschap_reden_aangroei VARCHAR(255),
         lidmaatschap_reden_verloop VARCHAR(255),
-        lidmaatschap_startdatum VARCHAR(255),
+        lidmaatschap_startdatum Date,
         FOREIGN KEY (lidmaatschap_onderneming) REFERENCES Account(account_account_id)
     );
 END
@@ -428,11 +427,11 @@ BEGIN
     (
         sessie_activiteitstype VARCHAR(255),
         sessie_campagne VARCHAR(255),
-        sessie_eind_datum_tijd VARCHAR(255),
+        sessie_eind_datum_tijd DATE,
         sessie_product VARCHAR(255),
         sessie_sessie_id VARCHAR(255) NOT NULL PRIMARY KEY,
         sessie_sessie_nr_ VARCHAR(255),
-        sessie_start_datum_tijd VARCHAR(255),
+        sessie_start_datum_tijd DATE,
         sessie_thema_naam_ VARCHAR(255),
         FOREIGN KEY (sessie_campagne) REFERENCES Campagne(campagne_campagne_id)
     );
