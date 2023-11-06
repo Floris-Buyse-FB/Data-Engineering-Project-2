@@ -273,6 +273,11 @@ def ChangeAllData():
     remove_non_existing_pk('Sessie_inschrijving_fixed.csv', ['sessie', 'inschrijving'], ['sessieinschrijving_sessie', 'sessieinschrijving_inschrijving']) # 1/2 weg
 
     print("Non existing primary key references removed successfully!\n")
+    print("Last cleanup for CDI_pageveiw_fixed.csv...\n")
+    pv = pd.read_csv('../data_clean/CDI_pageviews_fixed.csv', sep=",", encoding="latin-1")
+    zero_cols = pv.columns[pv.notnull().sum() == 0]
+    pv.drop(zero_cols, axis=1, inplace=True)
+    pv.to_csv('../data_clean/CDI_pageviews_fixed.csv', index=False)
 
 def account():
     FILENAME = 'Account.csv'
@@ -389,7 +394,7 @@ def pageviews():
     FILENAME = 'CDI pageviews.csv'
     
     data = pd.read_csv('../data/cdi pageviews.csv', encoding="latin-1", sep=",")
-    
+
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
     data.columns = data.columns.map(lambda x: re.sub(r'^crm_CDI_PageView_(.*)$', r'\1', x))
 
