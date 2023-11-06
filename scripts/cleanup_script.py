@@ -292,8 +292,7 @@ def account_financiele_data():
 
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
     
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].dt.strftime('%d-%m-%Y')
+    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     
     new_to_csv(FILENAME, data)
@@ -352,11 +351,9 @@ def campagne():
     FILENAME = 'Campagne.csv'
     data = default_process(FILENAME)
 
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].dt.strftime('%d-%m-%Y')
+    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].dt.strftime('%d-%m-%Y')
+    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     new_to_csv(FILENAME, data)
 
@@ -402,17 +399,13 @@ def visits():
     data.replace({'CDI_Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'CDI_Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
 
-    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].dt.strftime('%d-%m-%Y')
+    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
-    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].dt.strftime('%d-%m-%Y')
+    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
-    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].dt.strftime('%d-%m-%Y')
+    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
-    data['CDI_Visit_Gewijzigd_op'] = data['crm_CDI_Visit_Gewijzigd_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Gewijzigd_op'] = data['CDI_Visit_Gewijzigd_op'].dt.strftime('%d-%m-%Y')
+    data['CDI_Visit_Gewijzigd_op'] = data['crm_CDI_Visit_Gewijzigd_op'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     new_to_csv(FILENAME, data)
 
@@ -457,11 +450,9 @@ def info_en_klachten():
     FILENAME = 'Info en klachten.csv'
     data = default_process(FILENAME)
 
-    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].dt.strftime('%d-%m-%Y')
+    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
-    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].dt.strftime('%d-%m-%Y')
+    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     new_to_csv(FILENAME, data)
 
@@ -505,11 +496,9 @@ def sessie():
     FILENAME = 'Sessie.csv'
     data = default_process(FILENAME)
 
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].dt.strftime('%d-%m-%Y')
+    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].dt.strftime('%d-%m-%Y')
+    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].str.split(' ').str[0].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     new_to_csv(FILENAME, data)
 
