@@ -7,8 +7,7 @@ USE Voka_DWH2;
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DimDate')
 BEGIN
     CREATE TABLE DimDate (
-        dateID INT IDENTITY(1,1) PRIMARY KEY,
-        fullDate DATE,
+        fullDate DATE PRIMARY KEY,
         dayOfMonth INT,
         dayOfYear INT,
         dayOfWeek INT,
