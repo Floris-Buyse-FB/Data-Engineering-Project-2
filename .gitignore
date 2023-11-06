@@ -163,6 +163,8 @@ cython_debug/
 data/
 data_clean/
 data_merged/
+data_new/
+test_data/
 
 #streamlit secrets
 app/.streamlit/secrets.toml
