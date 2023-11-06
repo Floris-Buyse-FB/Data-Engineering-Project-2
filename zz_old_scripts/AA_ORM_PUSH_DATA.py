@@ -44,7 +44,7 @@ URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DB_NAME}'
 # DB_NAME = 'Voka'
 # SERVER_NAME = 'sql1'
 # URL = f'mssql+pyodbc://{SERVER_NAME}/{DB_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
-# URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/{DB_NAME}?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
+URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/{DB_NAME}?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
 DATA_DIR = os.path.join(os.getcwd(), '../data_clean')
 
 # Define your database engine
