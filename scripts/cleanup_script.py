@@ -391,6 +391,7 @@ def pageviews():
     data = pd.read_csv('../data/cdi pageviews.csv', encoding="latin-1", sep=",")
     
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
+    data.columns = data.columns.map(lambda x: re.sub(r'^crm_CDI_PageView_(.*)$', r'\1', x))
 
     if 'Anonymous Visitor' in data.columns:
         data.drop(['Anonymous Visitor'], axis=1, inplace=True)
@@ -403,19 +404,19 @@ def visits():
     FILENAME = 'CDI visits.csv'
     data = default_process(FILENAME)
 
-    if 'CDI_Visit_Campagne_Code' in data.columns:
-        data.drop('CDI_Visit_Campagne_Code', axis=1, inplace=True)
-    if 'CDI_Visit_Time' in data.colums:
-        data.drop('CDI_Visit_Time', axis=1, inplace=True)
+    if 'Visit_Campagne_Code' in data.columns:
+        data.drop('Visit_Campagne_Code', axis=1, inplace=True)
+    if 'Visit_Time' in data.columns:
+        data.drop('Visit_Time', axis=1, inplace=True)
 
-    data.replace({'CDI_Visit_Adobe_Reader': {'Ja': 1, 'Nee': 0}}, inplace=True)
-    data.replace({'CDI_Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
-    data.replace({'CDI_Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace({'Visit_Adobe_Reader': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace({'Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
+    data.replace({'Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
 
-    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].apply(parse_datetime)
-    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].apply(parse_datetime)
-    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].apply(parse_datetime)
-    data['CDI_Visit_Gewijzigd_op'] = data['crm_CDI_Visit_Gewijzigd_op'].apply(parse_datetime)
+    data['Visit_Started_On'] = data['Visit_Started_On'].apply(parse_datetime)
+    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(parse_datetime)
+    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(parse_datetime)
+    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
 
 
