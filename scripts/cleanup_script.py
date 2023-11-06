@@ -152,18 +152,20 @@ def new_to_csv(filename, data, cleandatafolder=CLEAN_DATA_FOLDER):
     data.to_csv(path, index=False)
 
 def parse_date(date_str):
-    if date_str == 'unkown':
-        return None
-    if date_str:
-        return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+    try:
+        if date_str:
+            return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+    except ValueError:
+        pass
     return None  # Leave empty values as None
 
 def parse_datetime(date_str):
-    if date_str == 'unkown':
-        return None
-    if date_str:
-        date_str = date_str.split(' ')[0]
-        return datetime.datetime.strptime(date_str, "%d-%m-%Y")
+    try: 
+        if date_str:
+            date_str = date_str.split(' ')[0]
+            return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+    except ValueError:
+        pass
     return None  # Leave empty values as None
 
 def create_column_names(dataframe, pk):
@@ -386,7 +388,7 @@ def pageviews():
 
     FILENAME = 'CDI pageviews.csv'
     
-    data = pd.read_csv('../data/cdi pageviews.csv', encoding="latin-1", sep=";")
+    data = pd.read_csv('../data/cdi pageviews.csv', encoding="latin-1", sep=",")
     
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
 
