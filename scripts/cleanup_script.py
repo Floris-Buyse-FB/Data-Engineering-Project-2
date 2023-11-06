@@ -162,7 +162,7 @@ def parse_datetime(date_str):
     if date_str == 'unkown':
         return None
     if date_str:
-        date_str = date_str.split('.')[0]
+        date_str = date_str.split(' ')[0]
         return datetime.datetime.strptime(date_str, "%d-%m-%Y")
     return None  # Leave empty values as None
 
