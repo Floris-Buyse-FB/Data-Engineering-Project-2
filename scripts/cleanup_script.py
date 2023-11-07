@@ -370,8 +370,7 @@ def account():
     if 'Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('Account_Hoofd_NaCe_Code', axis=1, inplace=True)
 
-    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
-
+    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(parse_date)
     new_to_csv(FILENAME, data)  
 
 
@@ -394,9 +393,7 @@ def account_financiele_data():
 
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
     
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].dt.strftime('%d-%m-%Y')
-
+    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(parse_datetime)
     
     new_to_csv(FILENAME, data)
 
@@ -425,8 +422,7 @@ def afspraak_betreft_account_cleaned():
     data = default_process(FILENAME)
     
     data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
-
+    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(parse_date)
     new_to_csv(FILENAME, data)
 
 
@@ -435,8 +431,7 @@ def afspraak_betreft_contact_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
-    
+    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(parse_date)    
     new_to_csv(FILENAME, data)
     
 
@@ -445,8 +440,7 @@ def afspraak_account_gelinkt_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
-
+    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(parse_date)
     new_to_csv(FILENAME, data)
 
 
@@ -454,12 +448,8 @@ def campagne():
     FILENAME = 'Campagne.csv'
     data = default_process(FILENAME)
 
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].dt.strftime('%d-%m-%Y')
-
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].dt.strftime('%d-%m-%Y')
-
+    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(parse_datetime)
+    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
 
 
@@ -496,27 +486,19 @@ def visits():
     FILENAME = 'CDI visits.csv'
     data = default_process(FILENAME)
 
-    if 'CDI_Visit_Campagne_Code' in data.columns:
-        data.drop('CDI_Visit_Campagne_Code', axis=1, inplace=True)
-    if 'CDI_Visit_Time' in data.colums:
-        data.drop('CDI_Visit_Time', axis=1, inplace=True)
+    if 'Visit_Campagne_Code' in data.columns:
+        data.drop('Visit_Campagne_Code', axis=1, inplace=True)
+    if 'Visit_Time' in data.columns:
+        data.drop('Visit_Time', axis=1, inplace=True)
 
     data.replace({'Visit_Adobe_Reader': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
 
-    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].dt.strftime('%d-%m-%Y')
-
-    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].dt.strftime('%d-%m-%Y')
-
-    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].dt.strftime('%d-%m-%Y')
-
-    data['CDI_Visit_Gewijzigd_op'] = data['crm_CDI_Visit_Gewijzigd_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['CDI_Visit_Gewijzigd_op'] = data['CDI_Visit_Gewijzigd_op'].dt.strftime('%d-%m-%Y')
-
+    data['Visit_Started_On'] = data['Visit_Started_On'].apply(parse_datetime)
+    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(parse_datetime)
+    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(parse_datetime)
+    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
 
 
@@ -545,6 +527,9 @@ def contact():
 def functie():
     FILENAME = 'Functie.csv'
     data = default_process(FILENAME)
+
+    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(parse_datetime)
+    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
 
 
@@ -579,9 +564,8 @@ def Lidmaatschap():
     FILENAME = 'Lidmaatschap.csv'
     data = default_process(FILENAME)
 
-    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
-    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
-
+    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(parse_date)
+    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(parse_date)
     new_to_csv(FILENAME, data)
 
 
@@ -604,13 +588,8 @@ def sessie_inschrijving():
 def sessie():
     FILENAME = 'Sessie.csv'
     data = default_process(FILENAME)
-
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].dt.strftime('%d-%m-%Y')
-
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].dt.strftime('%d-%m-%Y')
-
+    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(parse_datetime)
+    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
 
 
