@@ -59,16 +59,13 @@ def clean_text(df, cols):
     for col in cols:
         for row in range(len(df_copy)):
             try:
-                if col in df_copy.columns:
-                    name_change = team_name_change(df_copy[col][row])
-                    no_stopwords = remove_stopwords(name_change)
-                    tokenize_list = word_tokenize(no_stopwords, language='dutch')
-                    tokenize_list = [x for x in tokenize_list if x != ',']
-                    df_copy.at[row, col] = ', '.join(list(set(tokenize_list)))
-                    stemmer_list = stemmer(df_copy[col][row])
-                    df_copy.at[row, col] = stemmer_list
-                else:
-                    print(f"Column '{col}' does not exist in the DataFrame.")
+                name_change = team_name_change(df_copy[col][row])
+                no_stopwords = remove_stopwords(name_change)
+                tokenize_list = word_tokenize(no_stopwords, language='dutch')
+                tokenize_list = [x for x in tokenize_list if x != ',']
+                df_copy.at[row, col] = ', '.join(list(set(tokenize_list)))      
+                stemmer_list = stemmer(df_copy[col][row])
+                df_copy.at[row, col] = stemmer_list
             except KeyError as e:
                 print(f"KeyError: {e}")
     return df_copy
