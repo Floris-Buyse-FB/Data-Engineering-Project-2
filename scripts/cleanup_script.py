@@ -423,6 +423,10 @@ def afspraak_betreft_account_cleaned():
     
     data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
     data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(parse_date)
+
+    cols_to_clean = ["Afspraak_BETREFT_ACCOUNT_KeyPhrases"]
+    cols_to_clean = clean_text(data,cols_to_clean)
+    data[cols_to_clean.columns] = cols_to_clean
     new_to_csv(FILENAME, data)
 
 
@@ -431,7 +435,10 @@ def afspraak_betreft_contact_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(parse_date)    
+    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(parse_date) 
+    cols_to_clean = ["Afspraak_BETREFT_CONTACTFICHE_KeyPhrases"]
+    cols_to_clean = clean_text(data,cols_to_clean)
+    data[cols_to_clean.columns] = cols_to_clean   
     new_to_csv(FILENAME, data)
     
 
@@ -441,6 +448,9 @@ def afspraak_account_gelinkt_cleaned():
 
     data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
     data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(parse_date)
+    cols_to_clean = ["Afspraak_ACCOUNT_GELINKT_KeyPhrases"]
+    cols_to_clean = clean_text(data,cols_to_clean)
+    data[cols_to_clean.columns] = cols_to_clean 
     new_to_csv(FILENAME, data)
 
 
