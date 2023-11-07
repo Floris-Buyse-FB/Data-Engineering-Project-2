@@ -1,6 +1,6 @@
 import pandas as pd
 from flask import Flask, request, jsonify
-from utils.api_utils_functions import recommend, clean_new_campaign_data, preproces_df
+from utils.api_utils_functions import recommend, preproces_df
 
 app = Flask(__name__)
 
@@ -17,8 +17,7 @@ def post_data():
         df = preproces_df()
         results = recommend(df, str(new_campaign_data))
 
-        # Return a response
-        return jsonify({"Recommended Contact Persons for the New Campaign": results})
+        return jsonify(results)
     except Exception as e:
         return jsonify({"error": str(e)})
 
