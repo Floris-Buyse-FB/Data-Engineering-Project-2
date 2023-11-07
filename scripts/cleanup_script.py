@@ -5,11 +5,92 @@ import re
 import pandas as pd
 import os
 import time
-
-
+import numpy as np
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+import nltk
 DATA_FOLDER = '../data'
 CLEAN_DATA_FOLDER = '../data_clean'
 
+
+# functies voor het cleanen van de keyphrases
+def team_name_change(text):
+    teams_dict = {
+        'jo': ' jong ondernemen ',
+        'do': ' duurzaam ondernemen ',
+        'in': ' innovatie digitalisering ',
+        'io': ' internationaal ondernemen ',
+        'ao': ' arbeidsmarkt ',
+        'ex': ' expert ',
+        'gr': ' groei ',
+        'bb': ' belangenbehartiging ',
+        'co': ' communicatie ',
+        'nw': ' netwerking ',
+        'ha': ' haven ',
+        'ma': ' match '
+    }
+    word_tokens = word_tokenize(text, language='dutch')
+    result = [teams_dict.get(word, word) for word in word_tokens]
+    cleaned_list = ', '.join(result)
+    tokenize_list = word_tokenize(cleaned_list, language='dutch')
+    tokenize_list_no_comma = [x for x in tokenize_list if x != ',']
+    return ', '.join(list(set(tokenize_list_no_comma)))
+
+def remove_stopwords(text):
+    stop_words_nl = set(stopwords.words('dutch'))
+    word_tokens = word_tokenize(text, language='dutch')
+    result = [x for x in word_tokens if x not in stop_words_nl]
+    seperator = ', '
+    return seperator.join(result)
+
+def stemmer(text):
+    stemmer = SnowballStemmer(language='dutch')
+    stem_sentence=[]
+    for word in text.split(','):
+        stem_sentence.append(stemmer.stem(word))
+    stem_sentence= ', '.join(stem_sentence)
+    return stem_sentence
+
+def clean_text(df, cols):
+    nltk.download('stopwords')
+    nltk.download('punkt')
+    df_copy = df.copy()
+    for col in cols:
+        for row in range(len(df_copy)):
+            try:
+                if col in df_copy.columns:
+                    name_change = team_name_change(df_copy[col][row])
+                    no_stopwords = remove_stopwords(name_change)
+                    tokenize_list = word_tokenize(no_stopwords, language='dutch')
+                    tokenize_list = [x for x in tokenize_list if x != ',']
+                    df_copy.at[row, col] = ', '.join(list(set(tokenize_list)))
+                    stemmer_list = stemmer(df_copy[col][row])
+                    df_copy.at[row, col] = stemmer_list
+                else:
+                    print(f"Column '{col}' does not exist in the DataFrame.")
+            except KeyError as e:
+                print(f"KeyError: {e}")
+    return df_copy
+
+# einde functies voor het cleanen van de keyphrases
+
+def parse_date(date_str):
+    try:
+        if date_str:
+            return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+    except ValueError:
+        pass
+    return None  # Leave empty values as None
+
+def parse_datetime(date_str):
+    try: 
+        if date_str:
+            date_str = date_str.split(' ')[0]
+            return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+    except ValueError:
+        pass
+    return None  # Leave empty values as None
 
 def titelChange(data):
     for col in data.columns:
@@ -289,7 +370,8 @@ def account():
     if 'Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('Account_Hoofd_NaCe_Code', axis=1, inplace=True)
 
-    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(parse_date)
+    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
+
     new_to_csv(FILENAME, data)  
 
 
@@ -312,7 +394,9 @@ def account_financiele_data():
 
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
     
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(parse_datetime)
+    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].dt.strftime('%d-%m-%Y')
+
     
     new_to_csv(FILENAME, data)
 
@@ -341,7 +425,7 @@ def afspraak_betreft_account_cleaned():
     data = default_process(FILENAME)
     
     data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(parse_date)
+    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     new_to_csv(FILENAME, data)
 
@@ -351,7 +435,7 @@ def afspraak_betreft_contact_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(parse_date)
+    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
     
     new_to_csv(FILENAME, data)
     
@@ -361,7 +445,7 @@ def afspraak_account_gelinkt_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(parse_date)
+    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
 
     new_to_csv(FILENAME, data)
 
@@ -370,8 +454,11 @@ def campagne():
     FILENAME = 'Campagne.csv'
     data = default_process(FILENAME)
 
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(parse_datetime)
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(parse_datetime)
+    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].dt.strftime('%d-%m-%Y')
+
+    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].dt.strftime('%d-%m-%Y')
 
     new_to_csv(FILENAME, data)
 
@@ -409,19 +496,27 @@ def visits():
     FILENAME = 'CDI visits.csv'
     data = default_process(FILENAME)
 
-    if 'Visit_Campagne_Code' in data.columns:
-        data.drop('Visit_Campagne_Code', axis=1, inplace=True)
-    if 'Visit_Time' in data.columns:
-        data.drop('Visit_Time', axis=1, inplace=True)
+    if 'CDI_Visit_Campagne_Code' in data.columns:
+        data.drop('CDI_Visit_Campagne_Code', axis=1, inplace=True)
+    if 'CDI_Visit_Time' in data.colums:
+        data.drop('CDI_Visit_Time', axis=1, inplace=True)
 
     data.replace({'Visit_Adobe_Reader': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
 
-    data['Visit_Started_On'] = data['Visit_Started_On'].apply(parse_datetime)
-    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(parse_datetime)
-    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(parse_datetime)
-    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(parse_datetime)
+    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['CDI_Visit_Started_On'] = data['CDI_Visit_Started_On'].dt.strftime('%d-%m-%Y')
+
+    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['CDI_Visit_Ended_On'] = data['CDI_Visit_Ended_On'].dt.strftime('%d-%m-%Y')
+
+    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['CDI_Visit_Aangemaakt_op'] = data['CDI_Visit_Aangemaakt_op'].dt.strftime('%d-%m-%Y')
+
+    data['CDI_Visit_Gewijzigd_op'] = data['crm_CDI_Visit_Gewijzigd_op'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['CDI_Visit_Gewijzigd_op'] = data['CDI_Visit_Gewijzigd_op'].dt.strftime('%d-%m-%Y')
+
     new_to_csv(FILENAME, data)
 
 
@@ -447,8 +542,6 @@ def contact():
 
     new_to_csv(FILENAME, data)
 
-
-
 def functie():
     FILENAME = 'Functie.csv'
     data = default_process(FILENAME)
@@ -465,8 +558,12 @@ def info_en_klachten():
     FILENAME = 'Info en klachten.csv'
     data = default_process(FILENAME)
 
-    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(parse_datetime)
-    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(parse_datetime)
+    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].dt.strftime('%d-%m-%Y')
+
+    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].dt.strftime('%d-%m-%Y')
+
     new_to_csv(FILENAME, data)
 
 
@@ -482,8 +579,9 @@ def Lidmaatschap():
     FILENAME = 'Lidmaatschap.csv'
     data = default_process(FILENAME)
 
-    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(parse_date)
-    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(parse_date)
+    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
+    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y").date())
+
     new_to_csv(FILENAME, data)
 
 
@@ -507,8 +605,12 @@ def sessie():
     FILENAME = 'Sessie.csv'
     data = default_process(FILENAME)
 
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(parse_datetime)
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(parse_datetime)
+    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].dt.strftime('%d-%m-%Y')
+
+    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(lambda date_str: datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M:%S").date())
+    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].dt.strftime('%d-%m-%Y')
+
     new_to_csv(FILENAME, data)
 
 
