@@ -2,9 +2,10 @@ import csv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 # from sqlalchemy.orm.exc import IntegrityError
 # import pymssql
-from AA_ORM_model import (
+from orm_model import (
     Account_activiteitscode,
     Account,
     Account_financiële_data,
@@ -34,10 +35,11 @@ from AA_ORM_model import (
 
 
 # Database URL
-DB_NAME = 'Voka'
-SERVER_NAME = 'LAPTOP_MAX'
-DB_USER = 'sa'
-DB_PASSWORD = 'Dep2Groep2VIC'
+ENV_URL = os.path.join(os.getcwd(), '../.env')
+DB_NAME = load_dotenv(ENV_URL).get('DB_NAME')
+SERVER_NAME = load_dotenv(ENV_URL).get('SERVER_NAME')
+DB_USER = load_dotenv(ENV_URL).get('DB_USER')
+DB_PASSWORD = load_dotenv(ENV_URL).get('DB_PASSWORD')
 URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DB_NAME}'
 
 # Database URL
