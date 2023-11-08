@@ -330,7 +330,27 @@ def account():
 
     data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(parse_date)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()  
+    column_name_change_V2() 
+    acc = pd.read_csv('../data_clean/Account_fixed.csv')
+    acc = acc[acc['account_adres_provincie'] == 'Oost-Vlaanderen']
+    acc['account_adres_plaats'] = acc['account_adres_plaats'].str.lower()
+    acc.drop_duplicates(inplace=True)
+    acc = acc.groupby('account_account_id').agg(lambda x: x.tolist())
+    acc.reset_index(inplace=True)
+    columns = acc.columns
+    # remove account_account_id
+    columns = columns[1:]
+    for col in columns:
+        acc[col] = acc[col].apply(lambda x: list(set(x)))
+        acc = acc[~acc[col].apply(lambda x: any(word in x for word in ['Inactief', 'Stopzetting']))]
+        for row in acc[col]:
+            if len(row) > 1:
+                if 'unknown' in row:
+                    row.remove('unknown')
+                row.pop(0)
+        acc[col] = acc[col].apply(lambda x: x[0] if len(x) > 0 else 'unknown')
+    acc.drop_duplicates(inplace=True)
+    acc.to_csv('../data_clean/Account_fixed.csv', index=False)
 
 
 def account_activiteitscode():
