@@ -77,6 +77,65 @@ def clean_text(df, cols):
 
 # einde functies voor het cleanen van de keyphrases
 
+def remove_duplicate_pk_single(file, col_pk):
+    url = os.path.join(CLEAN_DATA_FOLDER, file)
+    data = pd.read_csv(url)
+    data = data.groupby(col_pk).agg(lambda x: x.tolist())
+    data.reset_index(inplace=True)
+    columns = list(data.columns)
+    columns.remove(col_pk)
+    for col in columns:
+        data[col] = data[col].apply(lambda x: list(set(x)))
+        for row in data[col]:
+            if len(row) > 1:
+                if 'unknown' in row:
+                    row.remove('unknown')
+                row.pop(0)
+        data[col] = data[col].apply(lambda x: x[0] if len(x) > 0 else 'unknown')
+    data.drop_duplicates(inplace=True)
+    if os.path.exists(url):
+        os.remove(url)
+    data.to_csv(url, index=False)
+
+
+def remove_duplicate_pk_all():
+    pk_dict = {
+    'Account_activiteitscode_fixed.csv': '',
+    'Account_financiële_data_fixed.csv': '',
+    'Account_fixed.csv': 'Account_Account',
+    'Activiteitscode_fixed.csv': 'ActiviteitsCode_Activiteitscode',
+    'Activiteit_vereist_contact_fixed.csv': 'ActiviteitVereistContact_ActivityId',
+    'Afspraak_account_gelinkt_cleaned_fixed.csv': 'Afspraak_ACCOUNT_GELINKT_Afspraak',
+    'Afspraak_alle_fixed.csv': 'Afspraak_ALLE_Afspraak',
+    'Afspraak_betreft_account_cleaned_fixed.csv': 'Afspraak_BETREFT_ACCOUNT_Afspraak',
+    'Afspraak_betreft_contact_cleaned_fixed.csv': 'Afspraak_BETREFT_CONTACTFICHE_Afspraak',
+    'Campagne_fixed.csv': 'Campagne_Campagne',
+    'CDI_mailing_fixed.csv': 'Mailing_Mailing',
+    'cdi_pageviews_fixed.csv': 'Page View',
+    'CDI_sent_email_clicks_fixed.csv': 'SentEmail_kliks_Sent_Email',
+    'CDI_visits_fixed.csv': 'Visit_Visit',
+    'Contact_fixed.csv': 'Contact_Contactpersoon',
+    'Contact_functie_fixed.csv': '',
+    'Functie_fixed.csv': 'Functie_Functie',
+    'Gebruikers_fixed.csv': 'Gebruikers_CRM_User_ID',
+    'Info_en_klachten_fixed.csv': 'Info_en_Klachten_Aanvraag',
+    'Inschrijving_fixed.csv': 'Inschrijving_Inschrijving',
+    'Lidmaatschap_fixed.csv': 'Lidmaatschap_Lidmaatschap',
+    'Persoon_fixed.csv': 'Persoon_persoon',
+    'Sessie_fixed.csv': 'Sessie_Sessie',
+    'Sessie_inschrijving_fixed.csv': 'SessieInschrijving_SessieInschrijving',
+    'Teams_fixed.csv': '',
+    }
+
+    for file_name, pk in pk_dict.items():
+        if pk != '':
+            try:
+                print(f'currently removing pk duplicates for {file_name}')
+                new_pk = pk.lower() + '_id'
+                remove_duplicate_pk_single(file_name, new_pk)
+            except:
+                pass
+
 
 def create_column_names(dataframe, pk):
     columns = dataframe.columns
@@ -267,8 +326,6 @@ def new_to_csv(filename, data, cleandatafolder=CLEAN_DATA_FOLDER):
         os.remove(path)
     data.to_csv(path, index=False)
 
-    return new_filename
-
 
 def parse_date(date_str):
     try:
@@ -316,7 +373,29 @@ def ChangeAllData():
     sessie_inschrijving()   
     teams()
 
+    print('changing column names...')
     column_name_change_V2()
+
+    print('removing non existing primary keys...')
+    remove_non_existing_pk('Account_financiële_data_fixed.csv', ['account'], ['financieledata_ondernemingid'])
+    remove_non_existing_pk('Contact_fixed.csv', ['account'], ['contact_account'])
+    remove_non_existing_pk('Activiteit_vereist_contact_fixed.csv', ['afspraak', 'contact'], ['activiteitvereistcontact_activityid_id', 'activiteitvereistcontact_reqattendee'])
+    remove_non_existing_pk('Account_activiteitscode_fixed.csv', ['account', 'activiteitscode'], ['account_activiteitscode_account', 'account_activiteitscode_activiteitscode'])
+    remove_non_existing_pk('Afspraak_betreft_account_cleaned_fixed.csv', ['account', 'afspraak'], ['afspraak_betreft_account_betreft_id', 'afspraak_betreft_account_afspraak_id'])
+    remove_non_existing_pk('Afspraak_betreft_contact_cleaned_fixed.csv', ['contact', 'afspraak'], ['afspraak_betreft_contactfiche_betreft_id', 'afspraak_betreft_contactfiche_afspraak_id'])
+    remove_non_existing_pk('Afspraak_account_gelinkt_cleaned_fixed.csv', ['account', 'afspraak'], ['afspraak_account_gelinkt_account', 'afspraak_account_gelinkt_afspraak_id'])
+    remove_non_existing_pk('CDI_sent_email_clicks_fixed.csv', ['mailing', 'contact'], ['sentemail_kliks_e_mail_versturen', 'sentemail_kliks_contact'])
+    remove_non_existing_pk('CDI_visits_fixed.csv', ['contact', 'mailing', 'campagne'], ['visit_contact', 'visit_email_send', 'visit_campaign'])
+    remove_non_existing_pk('CDI_pageviews_fixed.csv', ['contact', 'campagne', 'visit'], ['contact', 'campaign', 'visit'])
+    remove_non_existing_pk('Contact_functie_fixed.csv', ['contact', 'functie'], ['contactfunctie_contactpersoon', 'contactfunctie_functie']) 
+    remove_non_existing_pk('Info_en_klachten_fixed.csv', ['account', 'gebruiker'], ['info_en_klachten_account', 'info_en_klachten_eigenaar'])
+    remove_non_existing_pk('Inschrijving_fixed.csv', ['contact', 'campagne'], ['inschrijving_contactfiche', 'inschrijving_campagne']) 
+    remove_non_existing_pk('Lidmaatschap_fixed.csv', ['account'], ['lidmaatschap_onderneming'])
+    remove_non_existing_pk('Sessie_fixed.csv', ['campagne'], ['sessie_campagne'])
+    remove_non_existing_pk('Sessie_inschrijving_fixed.csv', ['sessie', 'inschrijving'], ['sessieinschrijving_sessie', 'sessieinschrijving_inschrijving'])
+
+    print('removing duplicate primary keys, this might take a while...')
+    remove_duplicate_pk_all()
 
 def account():
     FILENAME = 'Account.csv'
@@ -330,36 +409,12 @@ def account():
 
     data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(parse_date)
     new_to_csv(FILENAME, data)
-    column_name_change_V2() 
-    acc = pd.read_csv('../data_clean/Account_fixed.csv')
-    acc = acc[acc['account_adres_provincie'] == 'Oost-Vlaanderen']
-    acc['account_adres_plaats'] = acc['account_adres_plaats'].str.lower()
-    acc.drop_duplicates(inplace=True)
-    acc = acc.groupby('account_account_id').agg(lambda x: x.tolist())
-    acc.reset_index(inplace=True)
-    columns = acc.columns
-    # remove account_account_id
-    columns = columns[1:]
-    for col in columns:
-        acc[col] = acc[col].apply(lambda x: list(set(x)))
-        acc = acc[~acc[col].apply(lambda x: any(word in x for word in ['Inactief', 'Stopzetting']))]
-        for row in acc[col]:
-            if len(row) > 1:
-                if 'unknown' in row:
-                    row.remove('unknown')
-                row.pop(0)
-        acc[col] = acc[col].apply(lambda x: x[0] if len(x) > 0 else 'unknown')
-    acc.drop_duplicates(inplace=True)
-    acc.to_csv('../data_clean/Account_fixed.csv', index=False)
 
 
 def account_activiteitscode():
     FILENAME = 'Account activiteitscode.csv'
     data = default_process(FILENAME)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['account', 'activiteitscode'], ['account_activiteitscode_account', 'account_activiteitscode_activiteitscode'])
-
+    new_to_csv(FILENAME, data)
 
 
 def account_financiele_data():
@@ -372,40 +427,29 @@ def account_financiele_data():
     "8AC9D862-9668-E111-B43A-00505680000A",
     "DFAAE601-1969-E111-B43A-00505680000A"
     ]
-
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
-    
+
     data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(parse_datetime)
     
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-
-    remove_non_existing_pk(new_file_name, ['account'], ['financieledata_ondernemingid'])
-
+    new_to_csv(FILENAME, data)
 
 def activiteit_vereist_contact():
     FILENAME = 'Activiteit vereist contact.csv'
     data = default_process(FILENAME)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['afspraak', 'contact'], ['activiteitvereistcontact_activityid_id', 'activiteitvereistcontact_reqattendee'])
-
+    new_to_csv(FILENAME, data)
 
 
 def activiteitscode():
     FILENAME = 'Activiteitscode.csv'
     data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
 
 
 def afspraak_alle():
     FILENAME = 'Afspraak alle.csv'
     data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
     
-
 
 def afspraak_betreft_account_cleaned():
     FILENAME = 'Afspraak betreft account_cleaned.csv'
@@ -418,9 +462,7 @@ def afspraak_betreft_account_cleaned():
     cols_to_clean = clean_text(data,cols_to_clean)
     data[cols_to_clean.columns] = cols_to_clean
 
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['account', 'afspraak'], ['afspraak_betreft_account_betreft_id', 'afspraak_betreft_account_afspraak_id'])
+    new_to_csv(FILENAME, data)
 
 
 def afspraak_betreft_contact_cleaned():
@@ -434,9 +476,7 @@ def afspraak_betreft_contact_cleaned():
     cols_to_clean = clean_text(data,cols_to_clean)
     data[cols_to_clean.columns] = cols_to_clean 
 
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['contact', 'afspraak'], ['afspraak_betreft_contactfiche_betreft_id', 'afspraak_betreft_contactfiche_afspraak_id'])
+    new_to_csv(FILENAME, data)
 
 
 def afspraak_account_gelinkt_cleaned():
@@ -450,35 +490,27 @@ def afspraak_account_gelinkt_cleaned():
     cols_to_clean = clean_text(data,cols_to_clean)
     data[cols_to_clean.columns] = cols_to_clean 
 
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['account', 'afspraak'], ['afspraak_account_gelinkt_account', 'afspraak_account_gelinkt_afspraak_id'])
+    new_to_csv(FILENAME, data)
 
 
 def campagne():
     FILENAME = 'Campagne.csv'
     data = default_process(FILENAME)
-
     data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(parse_datetime)
     data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
 
 
 def mailings():
     FILENAME = 'CDI mailing.csv'
     data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    
+
 
 def sent_email_clicks():
     FILENAME = 'CDI sent email clicks.csv'
     data = default_process(FILENAME)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['mailing', 'contact'], ['sentemail_kliks_e_mail_versturen', 'sentemail_kliks_contact'])
-
+    new_to_csv(FILENAME, data)
 
 
 def pageviews():
@@ -522,120 +554,72 @@ def visits():
     data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(parse_datetime)
     data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(parse_datetime)
     
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['contact', 'mailing', 'campagne'], ['visit_contact', 'visit_email_send', 'visit_campaign'])
-
-
-def web_content():
-    FILENAME = 'CDI web content.csv'
-    data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
-
+    
 
 def contact_functie():
     FILENAME = 'Contact functie.csv'
     data = default_process(FILENAME, dropna=True)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['contact', 'functie'], ['contactfunctie_contactpersoon', 'contactfunctie_functie']) # weinig veranderd
-  
+    new_to_csv(FILENAME, data)
+ 
 
 def contact():
     FILENAME = 'Contact.csv'
     data = default_process(FILENAME)
-    
     df_acc = pd.read_csv('../data_clean/Account_fixed.csv', sep=",")
-    acc_unique = df_acc['account_account_id'].unique()
+    acc_unique = df_acc['Account_Account'].unique()
     data = data[data['Contact_Account'].isin(acc_unique)]
-
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-
-    remove_non_existing_pk(new_file_name, ['account'], ['contact_account'])
+    new_to_csv(FILENAME, data)
 
 
 def functie():
     FILENAME = 'Functie.csv'
     data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
 
 
 def gebruikers():
     FILENAME = 'Gebruikers.csv'
     data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
 
 
 def info_en_klachten():
     FILENAME = 'Info en klachten.csv'
     data = default_process(FILENAME)
-
     data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(parse_datetime)
     data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(parse_datetime)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['account', 'gebruiker'], ['info_en_klachten_account', 'info_en_klachten_eigenaar'])
+    new_to_csv(FILENAME, data)
 
 
 def inschrijving():
     FILENAME = 'Inschrijving.csv'
     data = default_process(FILENAME)
-
     data['Inschrijving_Datum_inschrijving'] = data['Inschrijving_Datum_inschrijving'].apply(parse_date)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['contact', 'campagne'], ['inschrijving_contactfiche', 'inschrijving_campagne'])
-
+    new_to_csv(FILENAME, data)
+    
 
 def Lidmaatschap():
     FILENAME = 'Lidmaatschap.csv'
     data = default_process(FILENAME)
-
     data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(parse_date)
     data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(parse_date)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['account'], ['lidmaatschap_onderneming'])
-
+    new_to_csv(FILENAME, data)
+    
 
 
 def persoon():
     FILENAME = 'Persoon.csv'
     data = default_process(FILENAME)
-
     data.replace('Nee', 0, inplace=True)
     data.replace('Ja', 1, inplace=True)
-
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
-
-    data = pd.read_csv('../data_clean/Persoon_fixed.csv')
-    data = data.groupby('persoon_persoon_id').agg(lambda x: x.tolist())
-    data.reset_index(inplace=True)
-    columns = data.columns
-    columns = columns[1:]
-    for col in columns:
-        data[col] = data[col].apply(lambda x: list(set(x)))
-        for row in data[col]:
-            if len(row) > 1:
-                if 'unknown' in row:
-                    row.remove('unknown')
-                row.pop(0)
-        data[col] = data[col].apply(lambda x: x[0] if len(x) > 0 else 'unknown')
-    data.drop_duplicates(inplace=True)
-    data.to_csv('../data_clean/Persoon_fixed.csv', index=False)
 
 
 def sessie_inschrijving():
     FILENAME = 'Sessie inschrijving.csv'
     data = default_process(FILENAME, dropna=True)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['sessie', 'inschrijving'], ['sessieinschrijving_sessie', 'sessieinschrijving_inschrijving'])
+    new_to_csv(FILENAME, data)
 
 
 
@@ -644,16 +628,14 @@ def sessie():
     data = default_process(FILENAME)
     data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(parse_datetime)
     data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(parse_datetime)
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    remove_non_existing_pk(new_file_name, ['campagne'], ['sessie_campagne']) 
+    new_to_csv(FILENAME, data)
+
 
 
 def teams():
     FILENAME = 'Teams.csv'
     data = default_process(FILENAME)
     new_to_csv(FILENAME, data)
-    column_name_change_V2()
 
 
 # Define a dictionary mapping subcommands to functions
@@ -674,7 +656,6 @@ subcommands = {
     'sent_email_clicks': sent_email_clicks,
     'pageviews': pageviews,
     'visits': visits,
-    'web_content': web_content,
     'contact_functie': contact_functie,
     'contact': contact,
     'functie': functie,
