@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey
+from sqlalchemy import Column, Integer, Float, String, ForeignKey, Date
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -24,7 +24,7 @@ class Account(Base):
     account_is_voka_entiteit = Column(Integer)
     account_ondernemingsaard = Column(String(255))
     account_ondernemingstype = Column(String(255))
-    account_oprichtingsdatum = Column(String(255))
+    account_oprichtingsdatum = Column(Date)
     account_primaire_activiteit = Column(String(255))
     account_reden_van_status = Column(String(255))
     account_status = Column(Integer)
@@ -105,7 +105,7 @@ class Afspraak_betreft_account_cleaned(Base):
     afspraak_betreft_account_subthema = Column(String(255))
     afspraak_betreft_account_onderwerp = Column(String(255))
     afspraak_betreft_account_betreft_id = Column(String(255), ForeignKey('Account.account_account_id'))
-    afspraak_betreft_account_eindtijd = Column(String(255))
+    afspraak_betreft_account_eindtijd = Column(Date)
     afspraak_betreft_account_keyphrases = Column(String(2000))
 
 class Afspraak_betreft_contact_cleaned(Base):
@@ -115,7 +115,7 @@ class Afspraak_betreft_contact_cleaned(Base):
     afspraak_betreft_contactfiche_subthema = Column(String(255))
     afspraak_betreft_contactfiche_onderwerp = Column(String(255))
     afspraak_betreft_contactfiche_betreft_id = Column(String(255), ForeignKey('Contact.contact_contactpersoon_id'))
-    afspraak_betreft_contactfiche_eindtijd = Column(String(255))
+    afspraak_betreft_contactfiche_eindtijd = Column(Date)
     afspraak_betreft_contactfiche_keyphrases = Column(String(2000))
 
 class Afspraak_account_gelinkt_cleaned(Base):
@@ -124,7 +124,7 @@ class Afspraak_account_gelinkt_cleaned(Base):
     afspraak_account_gelinkt_thema = Column(String(255))
     afspraak_account_gelinkt_subthema = Column(String(255))
     afspraak_account_gelinkt_onderwerp = Column(String(255))
-    afspraak_account_gelinkt_eindtijd = Column(String(255))
+    afspraak_account_gelinkt_eindtijd = Column(Date)
     afspraak_account_gelinkt_account = Column(String(255), ForeignKey('Account.account_account_id'))
     afspraak_account_gelinkt_keyphrases = Column(String(2000))
 
@@ -132,11 +132,11 @@ class Campagne(Base):
     __tablename__ = 'Campagne'
     campagne_campagne_id = Column(String(255), primary_key=True)
     campagne_campagne_nr = Column(String(255))
-    campagne_einddatum = Column(String(255))
+    campagne_einddatum = Column(Date)
     campagne_naam = Column(String(255))
     campagne_naam_in_email = Column(String(255))
     campagne_reden_van_status = Column(String(255))
-    campagne_startdatum = Column(String(255))
+    campagne_startdatum = Column(Date)
     campagne_status = Column(String(255))
     campagne_type_campagne = Column(String(255))
     campagne_url_voka_be = Column(String(255))
@@ -208,7 +208,6 @@ class Cdi_visits(Base):
     visit_referrer_type = Column(String(255))
     visit_started_on = Column(String(255))
     visit_ip_status = Column(String(255))
-    visit_time = Column(String(255))
     visit_total_pages = Column(Float)
     visit_visit_id = Column(String(255), primary_key=True)
     visit_aangemaakt_op = Column(String(255))
@@ -247,8 +246,8 @@ class Info_en_klachten(Base):
     __tablename__ = 'Info_en_klachten'
     info_en_klachten_aanvraag_id = Column(String(255), primary_key=True)
     info_en_klachten_account = Column(String(255), ForeignKey('Account.account_account_id'))
-    info_en_klachten_datum = Column(String(255))
-    info_en_klachten_datum_afsluiting = Column(String(255))
+    info_en_klachten_datum = Column(Date)
+    info_en_klachten_datum_afsluiting = Column(Date)
     info_en_klachten_status = Column(String(255))
     info_en_klachten_eigenaar = Column(String(255), ForeignKey('Gebruikers.gebruikers_crm_user_id_id'))
 
@@ -257,7 +256,7 @@ class Inschrijving(Base):
     inschrijving_aanwezig_afwezig = Column(String(255))
     inschrijving_bron = Column(String(255))
     inschrijving_contactfiche = Column(String(255), ForeignKey('Contact.contact_contactpersoon_id'))
-    inschrijving_datum_inschrijving = Column(String(255))
+    inschrijving_datum_inschrijving = Column(Date)
     inschrijving_inschrijving_id = Column(String(255), primary_key=True)
     inschrijving_facturatie_bedrag = Column(String(255))
     inschrijving_campagne = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
@@ -265,22 +264,22 @@ class Inschrijving(Base):
 
 class Lidmaatschap(Base):
     __tablename__ = 'Lidmaatschap'
-    lidmaatschap_datum_opzeg = Column(String(255))
+    lidmaatschap_datum_opzeg = Column(Date)
     lidmaatschap_lidmaatschap_id = Column(String(255), primary_key=True)
     lidmaatschap_onderneming = Column(String(255), ForeignKey('Account.account_account_id'))
     lidmaatschap_reden_aangroei = Column(String(255))
     lidmaatschap_reden_verloop = Column(String(255))
-    lidmaatschap_startdatum = Column(String(255))
+    lidmaatschap_startdatum = Column(Date)
 
 class Sessie(Base):
     __tablename__ = 'Sessie'
     sessie_activiteitstype = Column(String(255))
     sessie_campagne = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
-    sessie_eind_datum_tijd = Column(String(255))
+    sessie_eind_datum_tijd = Column(Date)
     sessie_product = Column(String(255))
     sessie_sessie_id = Column(String(255), primary_key=True)
     sessie_sessie_nr_ = Column(String(255))
-    sessie_start_datum_tijd = Column(String(255))
+    sessie_start_datum_tijd = Column(Date)
     sessie_thema_naam_ = Column(String(255))
 
 class Sessie_inschrijving(Base):

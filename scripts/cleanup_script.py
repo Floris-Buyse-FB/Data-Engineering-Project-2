@@ -140,8 +140,6 @@ def remove_duplicate_pk_all():
 def fill_na():
     for file in os.listdir(CLEAN_DATA_FOLDER):
         dataframe = pd.read_csv(os.path.join(CLEAN_DATA_FOLDER, file))
-        date = dataframe.select_dtypes(include='datetime').columns
-        dataframe[date] = dataframe[date].fillna(datetime.datetime(1900, 1, 1))
         numeric = dataframe.select_dtypes(include='number').columns
         non_numeric = dataframe.select_dtypes(exclude=['number']).columns
         dataframe[numeric] = dataframe[numeric].fillna(-1)
@@ -342,20 +340,23 @@ def new_to_csv(filename, data, cleandatafolder=CLEAN_DATA_FOLDER):
 def parse_date(date_str):
     try:
         if date_str:
-            return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+            date = datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+            return date.strftime("%Y-%m-%d")
     except ValueError:
         pass
-    return None
+    return "1950-01-01"
+
 
 
 def parse_datetime(date_str):
     try: 
         if date_str:
             date_str = date_str.split(' ')[0]
-            return datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+            date = datetime.datetime.strptime(date_str, "%d-%m-%Y").date()
+            return date.strftime("%Y-%m-%d")
     except ValueError:
         pass
-    return None
+    return "1950-01-01"
 
 
 def ChangeAllData():
