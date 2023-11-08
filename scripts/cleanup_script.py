@@ -540,8 +540,8 @@ def functie():
     FILENAME = 'Functie.csv'
     data = default_process(FILENAME)
 
-    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(parse_datetime)
-    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(parse_datetime)
+    #data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(parse_datetime)
+    #data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(parse_datetime)
     new_to_csv(FILENAME, data)
     column_name_change_V2()
 
