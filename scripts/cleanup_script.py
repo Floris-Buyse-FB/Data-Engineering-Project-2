@@ -613,6 +613,22 @@ def persoon():
     new_to_csv(FILENAME, data)
     column_name_change_V2()
 
+    data = pd.read_csv('../data_clean/Persoon_fixed.csv')
+    data = data.groupby('persoon_persoon_id').agg(lambda x: x.tolist())
+    data.reset_index(inplace=True)
+    columns = data.columns
+    columns = columns[1:]
+    for col in columns:
+        data[col] = data[col].apply(lambda x: list(set(x)))
+        for row in data[col]:
+            if len(row) > 1:
+                if 'unknown' in row:
+                    row.remove('unknown')
+                row.pop(0)
+        data[col] = data[col].apply(lambda x: x[0] if len(x) > 0 else 'unknown')
+    data.drop_duplicates(inplace=True)
+    data.to_csv('../data_clean/Persoon_fixed.csv', index=False)
+
 
 def sessie_inschrijving():
     FILENAME = 'Sessie inschrijving.csv'
