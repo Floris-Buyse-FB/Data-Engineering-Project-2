@@ -141,11 +141,11 @@ def fill_na():
     for file in os.listdir(CLEAN_DATA_FOLDER):
         dataframe = pd.read_csv(os.path.join(CLEAN_DATA_FOLDER, file))
         date = dataframe.select_dtypes(include='datetime').columns
+        dataframe[date] = dataframe[date].fillna(datetime.datetime(1900, 1, 1))
         numeric = dataframe.select_dtypes(include='number').columns
-        non_numeric = dataframe.select_dtypes(exclude=['number','datetime']).columns
+        non_numeric = dataframe.select_dtypes(exclude=['number']).columns
         dataframe[numeric] = dataframe[numeric].fillna(-1)
         dataframe[non_numeric] = dataframe[non_numeric].fillna('unknown')
-        dataframe[date] = dataframe[date].fillna(datetime.datetime(1900, 1, 1))
         dataframe.to_csv(os.path.join(CLEAN_DATA_FOLDER, file), index=False)
 
 
