@@ -137,6 +137,16 @@ def remove_duplicate_pk_all():
                 pass
 
 
+def fill_na():
+    for file in os.listdir(CLEAN_DATA_FOLDER):
+        dataframe = pd.read_csv(os.path.join(CLEAN_DATA_FOLDER, file))
+        numeric = dataframe.select_dtypes(include='number').columns
+        non_numeric = dataframe.select_dtypes(exclude='number').columns
+        dataframe[numeric] = dataframe[numeric].fillna(-1)
+        dataframe[non_numeric] = dataframe[non_numeric].fillna('unknown')
+        dataframe.to_csv(os.path.join(CLEAN_DATA_FOLDER, file), index=False)
+
+
 def create_column_names(dataframe, pk):
     columns = dataframe.columns
     columns = [col + '_id' if col == pk else col for col in columns]
@@ -397,6 +407,9 @@ def ChangeAllData():
     print('removing duplicate primary keys, this might take a while...')
     remove_duplicate_pk_all()
 
+    print('filling na values...')
+    fill_na()
+
 def account():
     FILENAME = 'Account.csv'
     data = default_process(FILENAME)
@@ -528,12 +541,7 @@ def pageviews():
     if 'crm_CDI_PageView_Campagne_Code' in data.columns:
         data.drop('crm_CDI_PageView_Campagne_Code', axis=1, inplace=True)
     
-    new_file_name = new_to_csv(FILENAME, data)
-    column_name_change_V2()
-    pv = remove_non_existing_pk(new_file_name, ['contact', 'campagne', 'visit'], ['contact', 'campaign', 'visit'])
-    zero_cols = pv.columns[pv.notnull().sum() == 0]
-    pv.drop(zero_cols, axis=1, inplace=True)
-    pv.to_csv(f'../data_clean/{new_file_name}', index=False)
+    new_to_csv(FILENAME, data)
 
 
 def visits():
