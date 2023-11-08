@@ -9,7 +9,7 @@ CREATE OR ALTER PROCEDURE InsertAccountData (
     @account_is_voka_entiteit INT,
     @account_ondernemingsaard VARCHAR(255),
     @account_ondernemingstype VARCHAR(255),
-    @account_oprichtingsdatum VARCHAR(255),
+    @account_oprichtingsdatum DATE,
     @account_primaire_activiteit VARCHAR(255),
     @account_reden_van_status VARCHAR(255),
     @account_status INT,
@@ -65,7 +65,7 @@ CREATE OR ALTER PROCEDURE InsertFinancialData (
     @financieledata_aantal_maanden FLOAT,
     @financieledata_toegevoegde_waarde VARCHAR(255),
     @financieledata_fte VARCHAR(255),
-    @financieledata_gewijzigd_op VARCHAR(255)
+    @financieledata_gewijzigd_op DATE
 )
 AS
 BEGIN
@@ -317,7 +317,7 @@ CREATE OR ALTER PROCEDURE InsertAfspraakBetreftAccount (
     @afspraak_betreft_account_subthema VARCHAR(255),
     @afspraak_betreft_account_onderwerp VARCHAR(255),
     @afspraak_betreft_account_betreft_id VARCHAR(255),
-    @afspraak_betreft_account_eindtijd VARCHAR(255),
+    @afspraak_betreft_account_eindtijd DATE,
     @afspraak_betreft_account_keyphrases VARCHAR(2000)
 )
 AS
@@ -351,7 +351,7 @@ CREATE OR ALTER PROCEDURE InsertAfspraakBetreftContact (
     @afspraak_betreft_contactfiche_subthema VARCHAR(255),
     @afspraak_betreft_contactfiche_onderwerp VARCHAR(255),
     @afspraak_betreft_contactfiche_betreft_id VARCHAR(255),
-    @afspraak_betreft_contactfiche_eindtijd VARCHAR(255),
+    @afspraak_betreft_contactfiche_eindtijd DATE,
     @afspraak_betreft_contactfiche_keyphrases VARCHAR(2000)
 )
 AS
@@ -384,7 +384,7 @@ CREATE OR ALTER PROCEDURE InsertAfspraakAccountGelinkt (
     @afspraak_account_gelinkt_thema VARCHAR(255),
     @afspraak_account_gelinkt_subthema VARCHAR(255),
     @afspraak_account_gelinkt_onderwerp VARCHAR(255),
-    @afspraak_account_gelinkt_eindtijd VARCHAR(255),
+    @afspraak_account_gelinkt_eindtijd DATE,
     @afspraak_account_gelinkt_account VARCHAR(255),
     @afspraak_account_gelinkt_keyphrases VARCHAR(2000)
 )
@@ -416,11 +416,11 @@ END;
 CREATE OR ALTER PROCEDURE InsertCampagne (
     @campagne_campagne_id VARCHAR(255),
     @campagne_campagne_nr VARCHAR(255),
-    @campagne_einddatum VARCHAR(255),
+    @campagne_einddatum DATE,
     @campagne_naam VARCHAR(255),
     @campagne_naam_in_email VARCHAR(255),
     @campagne_reden_van_status VARCHAR(255),
-    @campagne_startdatum VARCHAR(255),
+    @campagne_startdatum DATE,
     @campagne_status VARCHAR(255),
     @campagne_type_campagne VARCHAR(255),
     @campagne_url_voka_be VARCHAR(255),
@@ -761,8 +761,8 @@ END;
 CREATE OR ALTER PROCEDURE InsertInfoEnKlacht (
     @info_en_klachten_aanvraag_id VARCHAR(255),
     @info_en_klachten_account VARCHAR(255),
-    @info_en_klachten_datum VARCHAR(255),
-    @info_en_klachten_datum_afsluiting VARCHAR(255),
+    @info_en_klachten_datum DATE,
+    @info_en_klachten_datum_afsluiting DATE,
     @info_en_klachten_status VARCHAR(255),
     @info_en_klachten_eigenaar VARCHAR(255)
 )
@@ -793,7 +793,7 @@ CREATE OR ALTER PROCEDURE InsertInschrijving (
     @inschrijving_aanwezig_afwezig VARCHAR(255),
     @inschrijving_bron VARCHAR(255),
     @inschrijving_contactfiche VARCHAR(255),
-    @inschrijving_datum_inschrijving VARCHAR(255),
+    @inschrijving_datum_inschrijving DATE,
     @inschrijving_inschrijving_id VARCHAR(255),
     @inschrijving_facturatie_bedrag VARCHAR(255),
     @inschrijving_campagne VARCHAR(255),
@@ -827,12 +827,12 @@ BEGIN
 END;
 
 CREATE OR ALTER PROCEDURE InsertLidmaatschap (
-    @lidmaatschap_datum_opzeg VARCHAR(255),
+    @lidmaatschap_datum_opzeg DATE,
     @lidmaatschap_lidmaatschap_id VARCHAR(255),
     @lidmaatschap_onderneming VARCHAR(255),
     @lidmaatschap_reden_aangroei VARCHAR(255),
     @lidmaatschap_reden_verloop VARCHAR(255),
-    @lidmaatschap_startdatum VARCHAR(255)
+    @lidmaatschap_startdatum DATE
 )
 AS
 BEGIN
@@ -860,11 +860,11 @@ END;
 CREATE OR ALTER PROCEDURE InsertSessie (
     @sessie_activiteitstype VARCHAR(255),
     @sessie_campagne VARCHAR(255),
-    @sessie_eind_datum_tijd VARCHAR(255),
+    @sessie_eind_datum_tijd DATE,
     @sessie_product VARCHAR(255),
     @sessie_sessie_id VARCHAR(255),
     @sessie_sessie_nr_ VARCHAR(255),
-    @sessie_start_datum_tijd VARCHAR(255),
+    @sessie_start_datum_tijd DATE,
     @sessie_thema_naam_ VARCHAR(255)
 )
 AS
