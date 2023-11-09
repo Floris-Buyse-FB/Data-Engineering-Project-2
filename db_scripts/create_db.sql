@@ -303,12 +303,12 @@ WHERE TABLE_NAME = 'Cdi_pageviews')
 BEGIN
     CREATE TABLE Cdi_pageviews
     (
+        pageview_id VARCHAR(255) NOT NULL PRIMARY KEY,
         browser VARCHAR(255),
         campaign VARCHAR(255),
         contact VARCHAR(255),
         duration FLOAT,
         operatingsystem VARCHAR(255),
-        pageview_id VARCHAR(255) NOT NULL PRIMARY KEY,
         referrertype VARCHAR(255),
         time DATE,
         pagetitle VARCHAR(255),
