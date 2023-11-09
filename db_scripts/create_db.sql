@@ -104,7 +104,8 @@ BEGIN
         contact_persoon_id VARCHAR(255),
         contact_status VARCHAR(255),
         contact_voka_medewerker INT,
-        FOREIGN KEY (contact_account) REFERENCES Account(account_account_id)
+        FOREIGN KEY (contact_account) REFERENCES Account(account_account_id),
+        FOREIGN KEY (contact_persoon_id) REFERENCES Persoon(persoon_persoon_id)
     );
 END
 

@@ -229,6 +229,13 @@ def remove_non_existing_pk(file, fk_arr, col_name_arr):
             df = df[df[col_name].isin(contact_unique)]
             print(f'FK for {fk}: {len(df)} rows left')
 
+        elif fk == 'persoon':
+            persoon_unique = load_unique_values('Persoon_fixed.csv', 'persoon_persoon_id')
+            fk_arr_index = fk_arr.index('persoon')
+            col_name = col_name_arr[fk_arr_index]
+            df = df[df[col_name].isin(persoon_unique)]
+            print(f'FK for {fk}: {len(df)} rows left')
+
         elif fk == 'afspraak':
             afspraak_alle_unique = load_unique_values('Afspraak_alle_fixed.csv', 'afspraak_alle_afspraak_id')
             fk_arr_index = fk_arr.index('afspraak')
@@ -398,7 +405,7 @@ def ChangeAllData():
 
     print('removing non existing primary keys...')
     remove_non_existing_pk('Account_financiële_data_fixed.csv', ['account'], ['financieledata_ondernemingid'])
-    remove_non_existing_pk('Contact_fixed.csv', ['account'], ['contact_account'])
+    remove_non_existing_pk('Contact_fixed.csv', ['account', 'persoon'], ['contact_account', 'contact_persoon_id'])
     remove_non_existing_pk('Activiteit_vereist_contact_fixed.csv', ['afspraak', 'contact'], ['activiteitvereistcontact_activityid_id', 'activiteitvereistcontact_reqattendee'])
     remove_non_existing_pk('Account_activiteitscode_fixed.csv', ['account', 'activiteitscode'], ['account_activiteitscode_account', 'account_activiteitscode_activiteitscode'])
     remove_non_existing_pk('Afspraak_betreft_account_cleaned_fixed.csv', ['account', 'afspraak'], ['afspraak_betreft_account_betreft_id', 'afspraak_betreft_account_afspraak_id'])

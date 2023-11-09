@@ -71,7 +71,7 @@ csv_model_mapping = {
     'Afspraak_alle_fixed.csv': Afspraak_alle,
     'Persoon_fixed.csv': Persoon,
     'Contact_fixed.csv': Contact,
-    'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact, # hier fout
+    'Activiteit_vereist_contact_fixed.csv': Activiteit_vereist_contact,
     'Activiteitscode_fixed.csv': Activiteitscode,
     'Account_activiteitscode_fixed.csv': Account_activiteitscode,                   
     'Afspraak_betreft_account_cleaned_fixed.csv': Afspraak_betreft_account_cleaned,
