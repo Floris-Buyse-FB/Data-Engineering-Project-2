@@ -7,7 +7,8 @@ USE Voka_DWH2;
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DimDate')
 BEGIN
     CREATE TABLE DimDate (
-        fullDate DATE PRIMARY KEY,
+        dateID INT IDENTITY(1,1) PRIMARY KEY,
+        fullDate DATE,
         dayOfMonth INT,
         dayOfYear INT,
         dayOfWeek INT,
@@ -15,16 +16,14 @@ BEGIN
         monthNumber INT,
         monthName VARCHAR(10),
         year INT
-    );
-    -- Add a unique constraint on the fullDate column
-    ALTER TABLE DimDate
-    ADD CONSTRAINT UC_DimDate_FullDate UNIQUE (fullDate);
+    )
 END
 
 
 -- = DimAfspraak
 CREATE TABLE DimAfspraak (
-    afspraakID VARCHAR(255) PRIMARY KEY, 
+    afsID INT IDENTITY(1,1) PRIMARY KEY,
+    afspraakID VARCHAR(255), 
     thema VARCHAR(255),
     subthema VARCHAR(255),
     onderwerp VARCHAR(255),
@@ -53,7 +52,8 @@ CREATE TABLE DimFinanciëleDataAccount (
 
 --DimLidmaatschap
 CREATE TABLE DimLidmaatschap (
-    lidmaatschapID VARCHAR(255) PRIMARY KEY NOT NULL,
+    lidID INT IDENTITY(1,1) PRIMARY KEY,
+    lidmaatschapID VARCHAR(255) NOT NULL,
     redenAangroei VARCHAR(255),
     redenVerloop VARCHAR(255),
     startDatum DATE,
@@ -63,41 +63,50 @@ CREATE TABLE DimLidmaatschap (
 
 --DimInfoEnKlachten
 CREATE TABLE DimInfoEnKlachten (
-    aanvraagID VARCHAR(255) PRIMARY KEY NOT NULL ,
+    infoID INT IDENTITY(1,1) PRIMARY KEY,
+    aanvraagID VARCHAR(255) NOT NULL ,
     aanvraagDatum DATE,
     datumAfsluiting DATE,
     aanvraagStatus VARCHAR(255),
     accountID VARCHAR(255),
 )
 
-
---EERSTE FACT TABLE => ACCOUNT
-CREATE TABLE FactAccount (
+CREATE TABLE DimAccount (
+    ondernemingID INT IDENTITY(1,1) PRIMARY KEY, 
     accountID VARCHAR(255),
     land VARCHAR(255),
     provincie VARCHAR(255),
     plaats VARCHAR(255),
     industriezone VARCHAR(255),
-    postcode INT,
+    postcode VARCHAR(255),
     isVokaEntiteit INT, 
-    ondernemingstype VARCHAR(255),
-    ondernemingsaard VARCHAR(255),
-    accountStatus INT, 
-    vokaNummer INT,
+    accountStatus INT,
+)
+
+
+--EERSTE FACT TABLE => ACCOUNT
+CREATE TABLE FactAccount (
+    factAccountID INT IDENTITY(1,1) PRIMARY KEY,
     financialDataID INT,
-    oprichtingsdatum DATE,
-    aanvraagID VARCHAR(255),
-    lidmaatschapID VARCHAR(255),
-    afspraakID VARCHAR(255),
+    infoID INT,
+    lidID INT,
+    afsID INT,
+    oprichtingsDateID INT,
+    ondernemingID INT,
+    accountID VARCHAR(255),
+    vokaNummer INT,
+    ondernemingsaard VARCHAR(255),
+    ondernemingstype VARCHAR(255),
     activiteitID VARCHAR(255),
     activiteitNaam VARCHAR(255),
-    PRIMARY KEY (accountID),
     FOREIGN KEY (financialDataID) REFERENCES DimFinanciëleDataAccount(financialDataID),
-    FOREIGN KEY (aanvraagID) REFERENCES DimInfoEnKlachten(aanvraagID),
-    FOREIGN KEY (lidmaatschapID) REFERENCES DimLidmaatschap(lidmaatschapID),
-    FOREIGN KEY (afspraakID) REFERENCES DimAfspraak(afspraakID),
-    FOREIGN KEY (oprichtingsdatum) REFERENCES DimDate(fullDate),
+    FOREIGN KEY (infoID) REFERENCES DimInfoEnKlachten(infoID),
+    FOREIGN KEY (LidID) REFERENCES DimLidmaatschap(LidID),
+    FOREIGN KEY (afsID) REFERENCES DimAfspraak(afsID), -- Corrected reference here
+    FOREIGN KEY (oprichtingsDateID) REFERENCES DimDate(dateID),
+    FOREIGN KEY (ondernemingID) REFERENCES DimAccount(ondernemingID),
 );
+
 
 
 --Dimtables rond tweede facttable => CONTACT
@@ -177,11 +186,11 @@ CREATE TABLE FactContact
         inschrijvingID VARCHAR(255),
         campagneID VARCHAR(255),
         visitID VARCHAR(255),
-        afspraakID VARCHAR(255),
-        inschrijvingsDatum DATE,
+        afsID INT,
+        inschrijvingsDatumID INT,
         FOREIGN KEY (inschrijvingID) REFERENCES DimInschrijving(inschrijvingID),
         FOREIGN KEY (visitID) REFERENCES DimVisit(visitID),
-        FOREIGN KEY (afspraakID) REFERENCES DimAfspraak(afspraakID),
-        FOREIGN KEY (inschrijvingsDatum) REFERENCES DimDate(fullDate),
+        FOREIGN KEY (afsID) REFERENCES DimAfspraak(afsID),
+        FOREIGN KEY (inschrijvingsDatumID) REFERENCES DimDate(dateID),
         
     );
