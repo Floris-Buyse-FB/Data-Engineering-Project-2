@@ -168,3 +168,6 @@ test_data/
 
 #streamlit secrets
 app/.streamlit/secrets.toml
+
+# jetbrains
+.idea/
