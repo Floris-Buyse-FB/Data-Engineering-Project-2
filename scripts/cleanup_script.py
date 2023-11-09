@@ -94,7 +94,7 @@ def remove_duplicate_pk_single(file, col_pk):
         data[col] = data[col].apply(lambda x: x[0] if len(x) > 0 else 'unknown')
     data.drop_duplicates(inplace=True)
     if os.path.exists(url):
-        os.remove(url)
+        os.replace(url, url)
     data.to_csv(url, index=False)
 
 
@@ -111,7 +111,7 @@ def remove_duplicate_pk_all():
     'Afspraak_betreft_contact_cleaned_fixed.csv': 'Afspraak_BETREFT_CONTACTFICHE_Afspraak',
     'Campagne_fixed.csv': 'Campagne_Campagne',
     'CDI_mailing_fixed.csv': 'Mailing_Mailing',
-    'cdi_pageviews_fixed.csv': 'Page View',
+    'CDI_pageviews_fixed.csv': 'Page_View',
     'CDI_sent_email_clicks_fixed.csv': 'SentEmail_kliks_Sent_Email',
     'CDI_visits_fixed.csv': 'Visit_Visit',
     'Contact_fixed.csv': 'Contact_Contactpersoon',
@@ -176,7 +176,7 @@ def column_name_change_V2():
     'Afspraak_betreft_contact_cleaned_fixed.csv': 'Afspraak_BETREFT_CONTACTFICHE_Afspraak',
     'Campagne_fixed.csv': 'Campagne_Campagne',
     'CDI_mailing_fixed.csv': 'Mailing_Mailing',
-    'cdi_pageviews_fixed.csv': 'Page View',
+    'cdi_pageviews_fixed.csv': 'Page_View',
     'CDI_sent_email_clicks_fixed.csv': 'SentEmail_kliks_Sent_Email',
     'CDI_visits_fixed.csv': 'Visit_Visit',
     'Contact_fixed.csv': 'Contact_Contactpersoon',
@@ -290,6 +290,13 @@ def remove_non_existing_pk(file, fk_arr, col_name_arr):
             fk_arr_index = fk_arr.index('inschrijving')
             col_name = col_name_arr[fk_arr_index]
             df = df[df[col_name].isin(inschrijving_unique)]
+            print(f'FK for {fk}: {len(df)} rows left')
+            
+        elif fk =='pageviews':
+            pageviews_unique = load_unique_values('CDI_pageviews_fixed.csv', 'page_view_id')
+            fk_arr_index = fk_arr.index('pageviews')
+            col_name = col_name_arr[fk_arr_index]
+            df = df[df[col_name].isin(pageviews_unique)]
             print(f'FK for {fk}: {len(df)} rows left')
     
     print(f'{file} has {len(df)} rows left, writing to csv\n=========================================\n')
@@ -538,6 +545,11 @@ def pageviews():
 
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
     data.columns = data.columns.map(lambda x: re.sub(r'^crm_CDI_PageView_(.*)$', r'\1', x))
+
+    data['time'] = data['time'].apply(parse_datetime)
+    data['viewedon'] = data['viewedon'].apply(parse_datetime)
+    data['aangemaakt_op'] = data['aangemaakt_op'].apply(parse_datetime)
+    data['gewijzigd_op'] = data['gewijzigd_op'].apply(parse_datetime)
 
     if 'Anonymous Visitor' in data.columns:
         data.drop(['Anonymous Visitor'], axis=1, inplace=True)
