@@ -156,21 +156,25 @@ class Cdi_pageviews(Base):
     campaign = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
     contact = Column(String(255), ForeignKey('Contact.contact_contactpersoon_id'))
     duration = Column(Float)
-    operatingsystem = Column(String(255))
-    referrertype = Column(String(255))
+    operating_system = Column(String(255))
+    referrer_type = Column(String(255))
     time = Column(Date)
-    pagetitle = Column(String(255))
+    page_title = Column(String(255))
     type = Column(String(255))
     url = Column(String(2000))
-    viewedon = Column(Date)
+    viewed_on = Column(Date)
     visit = Column(String(255), ForeignKey('Cdi_visits.visit_visit_id'))
-    webcontent = Column(String(255)) # , ForeignKey('Cdi_web_content.webcontent_web_content_id')
-    aangemaaktop = Column(Date)
-    gewijzigddoor = Column(String(255))
-    gewijzigdop = Column(Date)
+    web_content = Column(String(255)) # , ForeignKey('Cdi_web_content.webcontent_web_content_id')
+    aangemaakt_op = Column(Date)
+    gewijzigd_door = Column(String(255))
+    gewijzigd_op = Column(Date)
     status = Column(String(255))
+<<<<<<< HEAD
     redenvanstatus = Column(String(255))
 
+=======
+    reden_van_status = Column(String(255))
+>>>>>>> a4e2ba8390654abb054e34af03fcbc4136670be6
 class Cdi_sent_email_clicks(Base):
     __tablename__ = 'Cdi_sent_email_clicks'
     sentemail_kliks_clicks = Column(Integer)

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34114.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "FillDWH_Voka(2)", "FillDWH_Voka(2)\FillDWH_Voka(2).dtproj", "{41E7D069-4666-4A84-80D0-FC0CEB9A4147}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41E7D069-4666-4A84-80D0-FC0CEB9A4147}.Development|Default.ActiveCfg = Development
+		{41E7D069-4666-4A84-80D0-FC0CEB9A4147}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A16B70AC-AAFE-48C0-B7BA-9B8E3FF7A2F2}
+	EndGlobalSection
+EndGlobal
