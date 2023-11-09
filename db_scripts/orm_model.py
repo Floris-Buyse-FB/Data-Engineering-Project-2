@@ -169,12 +169,8 @@ class Cdi_pageviews(Base):
     gewijzigd_door = Column(String(255))
     gewijzigd_op = Column(Date)
     status = Column(String(255))
-<<<<<<< HEAD
     redenvanstatus = Column(String(255))
 
-=======
-    reden_van_status = Column(String(255))
->>>>>>> a4e2ba8390654abb054e34af03fcbc4136670be6
 class Cdi_sent_email_clicks(Base):
     __tablename__ = 'Cdi_sent_email_clicks'
     sentemail_kliks_clicks = Column(Integer)
