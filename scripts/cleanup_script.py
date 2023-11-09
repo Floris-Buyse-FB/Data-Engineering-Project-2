@@ -546,10 +546,10 @@ def pageviews():
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
     data.columns = data.columns.map(lambda x: re.sub(r'^crm_CDI_PageView_(.*)$', r'\1', x))
 
-    data['time'] = data['time'].apply(parse_datetime)
-    data['viewedon'] = data['viewedon'].apply(parse_datetime)
-    data['aangemaakt_op'] = data['aangemaakt_op'].apply(parse_datetime)
-    data['gewijzigd_op'] = data['gewijzigd_op'].apply(parse_datetime)
+    data['Time'] = data['Time'].apply(parse_datetime)
+    data['Viewed_On'] = data['Viewed_On'].apply(parse_datetime)
+    data['Aangemaakt_op'] = data['Aangemaakt_op'].apply(parse_datetime)
+    data['Gewijzigd_op'] = data['Gewijzigd_op'].apply(parse_datetime)
 
     if 'Anonymous Visitor' in data.columns:
         data.drop(['Anonymous Visitor'], axis=1, inplace=True)
