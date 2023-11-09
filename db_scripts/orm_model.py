@@ -151,12 +151,12 @@ class Cdi_mailing(Base):
 
 class Cdi_pageviews(Base):
     __tablename__ = 'Cdi_pageviews'
+    pageview_id = Column(String(255), primary_key=True)
     browser = Column(String(255))
     campaign = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
     contact = Column(String(255), ForeignKey('Contact.contact_contactpersoon_id'))
     duration = Column(Float)
     operatingsystem = Column(String(255))
-    pageview_id = Column(String(255), primary_key=True)
     referrertype = Column(String(255))
     time = Column(Date)
     pagetitle = Column(String(255))
@@ -170,7 +170,6 @@ class Cdi_pageviews(Base):
     gewijzigdop = Column(Date)
     status = Column(String(255))
     redenvanstatus = Column(String(255))
-
 class Cdi_sent_email_clicks(Base):
     __tablename__ = 'Cdi_sent_email_clicks'
     sentemail_kliks_clicks = Column(Integer)

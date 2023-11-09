@@ -551,8 +551,10 @@ def pageviews():
     data['Aangemaakt_op'] = data['Aangemaakt_op'].apply(parse_datetime)
     data['Gewijzigd_op'] = data['Gewijzigd_op'].apply(parse_datetime)
 
-    if 'Anonymous Visitor' in data.columns:
-        data.drop(['Anonymous Visitor'], axis=1, inplace=True)
+    if 'Anonymous_Visitor' in data.columns:
+        data.drop(['Anonymous_Visitor'], axis=1, inplace=True)
+    if 'Visitor_Key' in data.columns:
+        data.drop(['Visitor_Key'], axis=1, inplace=True)    
     if 'crm_CDI_PageView_Campagne_Code' in data.columns:
         data.drop('crm_CDI_PageView_Campagne_Code', axis=1, inplace=True)
     
