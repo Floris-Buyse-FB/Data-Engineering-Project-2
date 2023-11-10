@@ -430,7 +430,9 @@ def ChangeAllData():
 def account():
     FILENAME = 'Account.csv'
     data = default_process(FILENAME)
-
+    print(data.shape)
+    data = data[data['Account_Adres_Provincie'] == 'Oost-Vlaanderen']
+    print(data.shape)
     data.replace({'Account_Status': {'Actief': 1, 'Inactief': 0}}, inplace=True)
     data.replace({'Account_Is_Voka_entiteit': {'Ja': 1, 'Nee': 0}}, inplace=True)
     
