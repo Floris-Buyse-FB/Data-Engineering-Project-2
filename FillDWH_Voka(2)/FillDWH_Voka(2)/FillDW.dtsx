@@ -11,8 +11,8 @@
   DTS:LocaleID="2067"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{EEE8BB90-26DE-43C1-B094-8359FBC8650A}">
+  DTS:VersionBuild="38"
+  DTS:VersionGUID="{A33FBFBE-00BF-48B0-AE24-C0E6AEEE691D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -29,7 +29,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdhTu2GdnR0WY+HaB8t2cLwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACHupRX3xx04/zxC2/MITrRxIIyfwcE+zH0lAeY0FFfrAAAAAAOgAAAAAIAACAAAAC2wbJl0XkZ9K5ITmXPVHqlbR329YMqXvnV53P1FsbsRjAAAAAcEsydVf0D8nCkSci8VJyfa7MAWWQlWb4p11pAYrN2XX4JcDRhXKizZZEaII7S5SNAAAAAjDqEYjrQiBIpZANP8KOS5fmjb8eq7hVX2fK4FCe1SxGUS6GDXUb0bfDrJXJAbsKS2WzZiJFQyY17Q5u6b2XIcw</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdhTu2GdnR0WY+HaB8t2cLwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAARM6cY+iZGHwScKZeX4IpDVHA8wUjzhlFBlHW38UAlIwAAAAAOgAAAAAIAACAAAAA8bUETzmd8lOC05f3r1BWHgYxhYcqsFkOUokVW49gHFDAAAABCfdwQ4NMvFjjPQ6796eXO63quT/ZPi5Ml12V3fdrPAT3vVCgxrWZzUdrV/h74XmBAAAAAz6n+gZWgAlo6PfPeDP1MTQKVazvMazSphK6hYV/grcIK9uQtmSmpp0E1yxg1ddWFrNj0AKSQzgjyHM2l8gXmRA</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -46,7 +46,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdhTu2GdnR0WY+HaB8t2cLwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACJf6yuXCl5Eh5kUQueQhli4ehypZRj/1DwKfSPxRIrUwAAAAAOgAAAAAIAACAAAABtyF556OFnPUgcEGQCL8siO+abU9WkiBRwoSfFOnSljTAAAAA1RaRZSMlUiXVJBTZDonL+0mhGuoL66EtQaXq5Rm8qaylvnbWuaKSBPTaDpkz8rdNAAAAA9WwJsASxB+pXuFLzD3gAHetMgDkLOehb0JF4x36Q79UThJ6WcHpzExJhosxZ1lz2GEm99SlOxG2iItHVMov1fA</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdhTu2GdnR0WY+HaB8t2cLwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC0UbtPJTnWh2U4nM0L+gWo+vGSZzkB+v6GiNk50I88tQAAAAAOgAAAAAIAACAAAABFPINK6eazArQ0TYLmsCPGCTl+aaeExvYeuF7qM948PzAAAADegJ9z+LmD3EuNQmGQ+s15VmRQtt8MkGsjtDVBlqDJLfSGggyZz5zi+xzTycncvN1AAAAAGVzvWsJhK5p7XrVq0kNCHFoLOUvL2eQmLixZ/SpzzugRZqsh6x+upGUNfzG0dz3KOgPZyADNeyzGLq9IkV0V1Q</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -63,7 +63,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdhTu2GdnR0WY+HaB8t2cLwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD2npfgpLEzQVr+6q2PSnVWlrbDKNJYUo5lhpROXdsLJgAAAAAOgAAAAAIAACAAAADMdNCdebgx3hh5bT2T6SAW510/wm4dIRd4ro/jvRG1oTAAAADsiJpY12Fed2MuxOCDjDdvj06ccVO3iuJbbrhnQ4JYFIunxF3rn7mnyz7gVWu32VtAAAAAz1wlnZ+WH2mco4C8ARSwOBNMn/L2nv8vB3llmyTQeZv14RoFNUIpf/tLSE/1LDhu1qbh3qJ+lpFyHv97XpryMw</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdhTu2GdnR0WY+HaB8t2cLwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABlN4MMtByF+Xm/wErGKTyIJ9nkS0MbVnwBq4Nz5N18kwAAAAAOgAAAAAIAACAAAACn9CMGCZLkpqUoex50YQCgSsNSqqzaZaOENwk/UmXh6TAAAADn9rf8uK0esTCoPS2u9yg6BI9DKsKZH0jLQ+5uC0LrPdBFlalAgpQt1BHS2M8q2uxAAAAA+Zocs0MnJm0wYQIFFoUirCF3dcb84U/coIquuzkge4esBuO842VnUvG2gwZsLWDf6xhgfwxwShyFyD1X4491DA</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -6689,6 +6689,10 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\Empty DimAccount"
+          TopLeft="63.749999050051,531.017549500461" />
+        <NodeLayout
           Size="168,42.6666666666667"
           Id="Package\Empty DimAfspraak"
           TopLeft="76.8749988544733,431.719306359111" />
@@ -6700,6 +6704,10 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
           Size="180,42.6666666666667"
           Id="Package\Empty DimFincaniele"
           TopLeft="90.6249986495823,311.473687249868" />
+        <NodeLayout
+          Size="153.333333333334,42.6666666666667"
+          Id="Package\Fill DimAccount"
+          TopLeft="373.124994440004,535.807023274821" />
         <NodeLayout
           Size="157.333333333334,42.6666666666667"
           Id="Package\Fill DimAfspraak"
@@ -6918,14 +6926,6 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="170.666666666667,42.6666666666667"
-          Id="Package\Empty DimAccount"
-          TopLeft="63.749999050051,531.017549500461" />
-        <NodeLayout
-          Size="153.333333333334,42.6666666666667"
-          Id="Package\Fill DimAccount"
-          TopLeft="373.124994440004,535.807023274821" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
           TopLeft="457.416661022852,478.491236260943">
@@ -7019,6 +7019,70 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Fill DimAccount">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Fill DimAccount\OLE DB Source"
+          TopLeft="203.749996963888,41.0526323516613" />
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\Fill DimAccount\OLE DB Destination"
+          TopLeft="200.624997010455,158.052634553896" />
+        <EdgeLayout
+          Id="Package\Fill DimAccount.Paths[OLE DB Source Output]"
+          TopLeft="284.520830320505,83.719299018328">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.3333355355682"
+              Start="0,0"
+              End="0,66.8333355355682">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.8333355355682" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Fill DimAccount\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Fill DimAccount\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Fill DimAfspraak">
     <LayoutInfo>
@@ -7891,6 +7955,19 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\Fill DimInfoEnKlachten\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Fill DimInfoEnKlachten\Slowly Changing Dimension">
     <Properties>
       <Property>
@@ -7955,19 +8032,6 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Fill DimInfoEnKlachten\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Fill DimInfoEnKlachten\Insert Destination">
     <Properties>
       <Property>
@@ -7986,6 +8050,10 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\Fill DimLidmaatschap\OLE DB Command"
+          TopLeft="5.50000000000001,313.5" />
+        <NodeLayout
           Size="154.666666666667,42.6666666666667"
           Id="Package\Fill DimLidmaatschap\OLE DB Source"
           TopLeft="159.5,5.49999999999993" />
@@ -7993,6 +8061,44 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
           Size="212,42.6666666666667"
           Id="Package\Fill DimLidmaatschap\Slowly Changing Dimension"
           TopLeft="130.833333333333,108.166666666666" />
+        <NodeLayout
+          Size="165.333333333334,42.6666666666667"
+          Id="Package\Fill DimLidmaatschap\Derived Column 1"
+          TopLeft="154.166666666667,518.833333333333" />
+        <NodeLayout
+          Size="122.666666666667,42.6666666666667"
+          Id="Package\Fill DimLidmaatschap\Union All"
+          TopLeft="175.5,416.166666666667" />
+        <NodeLayout
+          Size="162.666666666667,42.6666666666667"
+          Id="Package\Fill DimLidmaatschap\Insert Destination"
+          TopLeft="155.5,621.5" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\Fill DimLidmaatschap\Derived Column"
+          TopLeft="19.8333333333333,210.833333333333" />
+        <EdgeLayout
+          Id="Package\Fill DimLidmaatschap.Paths[Union All Output 1]"
+          TopLeft="236.833333333333,458.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Fill DimLidmaatschap.Paths[OLE DB Source Output]"
           TopLeft="236.833333333333,48.1666666666666">
@@ -8015,64 +8121,32 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="156,42.6666666666667"
-          Id="Package\Fill DimLidmaatschap\Derived Column"
-          TopLeft="19.8333333333333,210.833333333333" />
         <EdgeLayout
-          Id="Package\Fill DimLidmaatschap.Paths[Historical Attribute Inserts Output]"
-          TopLeft="202.833333333333,150.833333333333">
+          Id="Package\Fill DimLidmaatschap.Paths[OLE DB Command Output]"
+          TopLeft="90.8333333333333,356.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-105,59.9999999999999"
+              EndConnector="126.888888888889,60.0000000000001"
               Start="0,0"
-              End="-105,52.4999999999999">
+              End="126.888888888889,52.5000000000001">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.2696629213483" />
+                    End="0,31.5364806866953" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,20.2696629213483"
-                    Point2="0,24.2696629213483"
-                    Point3="-4,24.2696629213483" />
+                    Point1="0,31.5364806866953"
+                    Point2="0,35.5364806866953"
+                    Point3="4,35.5364806866953" />
                   <mssgle:LineSegment
-                    End="-101,24.2696629213483" />
+                    End="122.888888888889,35.5364806866953" />
                   <mssgle:CubicBezierSegment
-                    Point1="-101,24.2696629213483"
-                    Point2="-105,24.2696629213483"
-                    Point3="-105,28.2696629213483" />
+                    Point1="122.888888888889,35.5364806866953"
+                    Point2="126.888888888889,35.5364806866953"
+                    Point3="126.888888888889,39.5364806866953" />
                   <mssgle:LineSegment
-                    End="-105,52.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-127.55638671875,29.2696629213483,150.1127734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="170.666666666667,42.6666666666667"
-          Id="Package\Fill DimLidmaatschap\OLE DB Command"
-          TopLeft="5.50000000000001,313.5" />
-        <EdgeLayout
-          Id="Package\Fill DimLidmaatschap.Paths[Derived Column Output]"
-          TopLeft="94.3333333333333,253.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60.0000000000001"
-              Start="0,0"
-              End="0,52.5000000000001">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5000000000001" />
+                    End="126.888888888889,52.5000000000001" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -8081,10 +8155,6 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="122.666666666667,42.6666666666667"
-          Id="Package\Fill DimLidmaatschap\Union All"
-          TopLeft="175.5,416.166666666667" />
         <EdgeLayout
           Id="Package\Fill DimLidmaatschap.Paths[New Output]"
           TopLeft="270.833333333333,150.833333333333">
@@ -8122,72 +8192,66 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Fill DimLidmaatschap.Paths[OLE DB Command Output]"
-          TopLeft="90.8333333333333,356.166666666667">
+          Id="Package\Fill DimLidmaatschap.Paths[Historical Attribute Inserts Output]"
+          TopLeft="202.833333333333,150.833333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="126.888888888889,60.0000000000001"
+              EndConnector="-105,59.9999999999999"
               Start="0,0"
-              End="126.888888888889,52.5000000000001">
+              End="-105,52.4999999999999">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,31.5364806866953" />
+                    End="0,20.2696629213483" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,31.5364806866953"
-                    Point2="0,35.5364806866953"
-                    Point3="4,35.5364806866953" />
+                    Point1="0,20.2696629213483"
+                    Point2="0,24.2696629213483"
+                    Point3="-4,24.2696629213483" />
                   <mssgle:LineSegment
-                    End="122.888888888889,35.5364806866953" />
+                    End="-101,24.2696629213483" />
                   <mssgle:CubicBezierSegment
-                    Point1="122.888888888889,35.5364806866953"
-                    Point2="126.888888888889,35.5364806866953"
-                    Point3="126.888888888889,39.5364806866953" />
+                    Point1="-101,24.2696629213483"
+                    Point2="-105,24.2696629213483"
+                    Point3="-105,28.2696629213483" />
                   <mssgle:LineSegment
-                    End="126.888888888889,52.5000000000001" />
+                    End="-105,52.4999999999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-127.55638671875,29.2696629213483,150.1127734375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="165.333333333334,42.6666666666667"
-          Id="Package\Fill DimLidmaatschap\Derived Column 1"
-          TopLeft="154.166666666667,518.833333333333" />
-        <EdgeLayout
-          Id="Package\Fill DimLidmaatschap.Paths[Union All Output 1]"
-          TopLeft="236.833333333333,458.833333333333">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="162.666666666667,42.6666666666667"
-          Id="Package\Fill DimLidmaatschap\Insert Destination"
-          TopLeft="155.5,621.5" />
         <EdgeLayout
           Id="Package\Fill DimLidmaatschap.Paths[Derived Column Output1]"
           TopLeft="236.833333333333,561.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Fill DimLidmaatschap.Paths[Derived Column Output]"
+          TopLeft="94.3333333333333,253.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -8290,70 +8354,6 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
   &lt;DateVariable&gt;System::StartTime&lt;/DateVariable&gt;
   &lt;EnableInferredSupport&gt;false&lt;/EnableInferredSupport&gt;
 &lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Fill DimAccount">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="154.666666666667,42.6666666666667"
-          Id="Package\Fill DimAccount\OLE DB Source"
-          TopLeft="203.749996963888,41.0526323516613" />
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\Fill DimAccount\OLE DB Destination"
-          TopLeft="200.624997010455,158.052634553896" />
-        <EdgeLayout
-          Id="Package\Fill DimAccount.Paths[OLE DB Source Output]"
-          TopLeft="284.520830320505,83.719299018328">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,74.3333355355682"
-              Start="0,0"
-              End="0,66.8333355355682">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,66.8333355355682" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Fill DimAccount\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Fill DimAccount\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
