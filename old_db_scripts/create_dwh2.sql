@@ -94,11 +94,7 @@ CREATE TABLE FactAccount (
     oprichtingsDateID INT,
     ondernemingID INT,
     accountID VARCHAR(255),
-    vokaNummer INT,
-    ondernemingsaard VARCHAR(255),
-    ondernemingstype VARCHAR(255),
-    activiteitID VARCHAR(255),
-    activiteitNaam VARCHAR(255),
+    
     FOREIGN KEY (financialDataID) REFERENCES DimFinanciëleDataAccount(financialDataID),
     FOREIGN KEY (infoID) REFERENCES DimInfoEnKlachten(infoID),
     FOREIGN KEY (LidID) REFERENCES DimLidmaatschap(LidID),
@@ -113,7 +109,8 @@ CREATE TABLE FactAccount (
 
 --DimInschrijving
 CREATE TABLE DimInschrijving (
-    inschrijvingID VARCHAR(255) NOT NULL PRIMARY KEY,
+    insID INT IDENTITY(1,1) PRIMARY KEY,
+    inschrijvingID VARCHAR(255),
     aanwezigAfwezig VARCHAR(255),
     bron VARCHAR(255),
     facturatieBedrag VARCHAR(255),
@@ -126,25 +123,24 @@ CREATE TABLE DimInschrijving (
 
 -- DimCampagne
 CREATE TABLE DimCampagne (
-    campagneID VARCHAR(255) NOT NULL PRIMARY KEY, 
+    campagneID VARCHAR(255) PRIMARY KEY,
     campagneNummer VARCHAR(255), 
     campagneNaam VARCHAR(255),
     campagneNaamInEmail VARCHAR(255),
     campagneType VARCHAR(255),
     campagneSoort VARCHAR(255), 
-    campagneStartdatumID INT, 
-    campagneEinddatumID int,
+    campagneStartdatum DATE, 
+    campagneEinddatum DATE,
     campagneStatus INT, 
     campagneURLVoka VARCHAR(255),
-    visitID VARCHAR(255), 
-    inschrijvingID VARCHAR(255),
-    FOREIGN KEY (inschrijvingID) REFERENCES DimInschrijving(inschrijvingID),
+    
 );
 
 
---DimVisit= merge van visit, mailings, clicks
+--DimVisit= merge van visit, mailings, clicks, pageviews
 CREATE TABLE DimVisit (
-    visitID VARCHAR(255) NOT NULL PRIMARY KEY,
+    visID INT IDENTITY(1,1) PRIMARY KEY,
+    visitID VARCHAR(255),
     visit_bounce VARCHAR(255),
     visit_browser VARCHAR(255),
     visit_ip_address VARCHAR(255),
@@ -159,38 +155,53 @@ CREATE TABLE DimVisit (
     visit_referrer_type VARCHAR(255),
     visit_started_on VARCHAR(255),
     visit_total_pages FLOAT,
-    -- mailSent VARCHAR(255),
+    mailSent VARCHAR(255),
     mailing_onderwerp VARCHAR(255),
     mailSent_clicks INT,
+    pageview_browser VARCHAR(255),
+    pageview_operating_system VARCHAR(255),
+    pageview_web_content VARCHAR(255),
+    pageview_duration FLOAT,
     contactID VARCHAR(255),
-    campagneID VARCHAR(255),
-    FOREIGN KEY (campagneID) REFERENCES DimCampagne(campagneID),
+    campaignID VARCHAR(255),
+    FOREIGN KEY (campaignID) REFERENCES DimCampagne(campagneID),
 );
 
     
---pageviews laten vallen want kwn wat da is
+
+
+CREATE TABLE DimContact (
+    contID INT IDENTITY(1,1) PRIMARY KEY,
+    contactID VARCHAR(255),
+    contactStatus VARCHAR(255),
+    isVokaMedewerker INT,
+    functietitel VARCHAR(255),
+    teamCode VARCHAR(255),
+    persoonWeblogin VARCHAR(255),
+    --mailRegio VARCHAR(255), -- uit persoon, how?
+    --mailThema VARCHAR(255), -- uit persoon, how?
+    --mailType VARCHAR(255), -- uit persoon, how?
+
+)
+
 
 
 -- TWEEDE FACT TABLE = Contact
 CREATE TABLE FactContact
     (
-        contactID VARCHAR(255) NOT NULL PRIMARY KEY,
-        contactStatus VARCHAR(255),
-        isVokaMedewerker INT,
-        functietitel VARCHAR(255),
-        teamCode VARCHAR(255),
-        persoonWeblogin VARCHAR(255),
-        mailRegio VARCHAR(255), -- uit persoon, how?
-        mailThema VARCHAR(255), -- uit persoon, how?
-        mailType VARCHAR(255), -- uit persoon, how?
-        inschrijvingID VARCHAR(255),
-        campagneID VARCHAR(255),
-        visitID VARCHAR(255),
+        factContactID INT IDENTITY(1,1) PRIMARY KEY,
+        contID INT,
+        insID INT,
+        visID INT,
         afsID INT,
         inschrijvingsDatumID INT,
-        FOREIGN KEY (inschrijvingID) REFERENCES DimInschrijving(inschrijvingID),
-        FOREIGN KEY (visitID) REFERENCES DimVisit(visitID),
+        contactID VARCHAR(255),
+        FOREIGN KEY (contID) REFERENCES DimContact(contID),
+        FOREIGN KEY (insID) REFERENCES DimInschrijving(insID),
+        FOREIGN KEY (visID) REFERENCES DimVisit(visID),
         FOREIGN KEY (afsID) REFERENCES DimAfspraak(afsID),
         FOREIGN KEY (inschrijvingsDatumID) REFERENCES DimDate(dateID),
         
     );
+
+
