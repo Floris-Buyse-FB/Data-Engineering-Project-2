@@ -58,8 +58,8 @@ def stemmer(text):
     return stem_sentence
 
 def clean_text(df, cols):
-    nltk.download('stopwords')
-    nltk.download('punkt')
+    nltk.download('stopwords', quiet=True)
+    nltk.download('punkt', quiet=True)
     df_copy = df.copy()
     for col in cols:
         for row in range(len(df_copy)):
@@ -430,16 +430,14 @@ def ChangeAllData():
 def account():
     FILENAME = 'Account.csv'
     data = default_process(FILENAME)
-    print(data.shape)
     data = data[data['Account_Adres_Provincie'] == 'Oost-Vlaanderen']
-    print(data.shape)
     data.replace({'Account_Status': {'Actief': 1, 'Inactief': 0}}, inplace=True)
     data.replace({'Account_Is_Voka_entiteit': {'Ja': 1, 'Nee': 0}}, inplace=True)
     
     if 'Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('Account_Hoofd_NaCe_Code', axis=1, inplace=True)
 
-    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(parse_date("1750-01-01"))
+    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(lambda x: parse_date(x, "1750-01-01"))
     new_to_csv(FILENAME, data)
 
 
@@ -461,7 +459,7 @@ def account_financiele_data():
     ]
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
 
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(parse_datetime("2020-01-01"))
+    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda x: parse_datetime(x, "2020-01-01"))
     
     new_to_csv(FILENAME, data)
 
@@ -488,7 +486,7 @@ def afspraak_betreft_account_cleaned():
     data = default_process(FILENAME)
     
     data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(parse_date("2020-01-01"))
+    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(lambda x: parse_date(x, "2020-01-01"))
 
     cols_to_clean = ["Afspraak_BETREFT_ACCOUNT_KeyPhrases"]
     cols_to_clean = clean_text(data,cols_to_clean)
@@ -502,7 +500,7 @@ def afspraak_betreft_contact_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(parse_date("2020-01-01"))
+    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(lambda x: parse_date(x, "2020-01-01"))
     
     cols_to_clean = ["Afspraak_BETREFT_CONTACTFICHE_KeyPhrases"]
     cols_to_clean = clean_text(data,cols_to_clean)
@@ -516,7 +514,7 @@ def afspraak_account_gelinkt_cleaned():
     data = default_process(FILENAME)
 
     data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(parse_date("2020-01-01"))
+    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(lambda x: parse_date(x, "2020-01-01"))
 
     cols_to_clean = ["Afspraak_ACCOUNT_GELINKT_KeyPhrases"]
     cols_to_clean = clean_text(data,cols_to_clean)
@@ -528,8 +526,8 @@ def afspraak_account_gelinkt_cleaned():
 def campagne():
     FILENAME = 'Campagne.csv'
     data = default_process(FILENAME)
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(parse_datetime("2026-01-01"))
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(parse_datetime("1750-01-01"))
+    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(lambda x: parse_datetime(x, "2026-01-01"))
+    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(lambda x: parse_datetime(x, "1750-01-01"))
     new_to_csv(FILENAME, data)
 
 
@@ -555,10 +553,10 @@ def pageviews():
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
     data.columns = data.columns.map(lambda x: re.sub(r'^crm_CDI_PageView_(.*)$', r'\1', x))
 
-    data['Time'] = data['Time'].apply(parse_datetime("1950-01-01"))
-    data['Viewed_On'] = data['Viewed_On'].apply(parse_datetime("1950-01-01"))
-    data['Aangemaakt_op'] = data['Aangemaakt_op'].apply(parse_datetime("1750-01-01"))
-    data['Gewijzigd_op'] = data['Gewijzigd_op'].apply(parse_datetime("1750-01-01"))
+    data['Time'] = data['Time'].apply(lambda x: parse_datetime(x, "1950-01-01"))
+    data['Viewed_On'] = data['Viewed_On'].apply(lambda x: parse_datetime(x, "1950-01-01"))
+    data['Aangemaakt_op'] = data['Aangemaakt_op'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Gewijzigd_op'] = data['Gewijzigd_op'].apply(lambda x: parse_datetime(x, "1750-01-01"))
 
     if 'Anonymous_Visitor' in data.columns:
         data.drop(['Anonymous_Visitor'], axis=1, inplace=True)
@@ -583,10 +581,10 @@ def visits():
     data.replace({'Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
 
-    data['Visit_Started_On'] = data['Visit_Started_On'].apply(parse_datetime("1750-01-01"))
-    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(parse_datetime("2026-01-01"))
-    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(parse_datetime("1750-01-01"))
-    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(parse_datetime("2026-01-01"))
+    data['Visit_Started_On'] = data['Visit_Started_On'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(lambda x: parse_datetime(x, "2026-01-01"))
+    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(lambda x: parse_datetime(x, "2026-01-01"))
     
     new_to_csv(FILENAME, data)
     
@@ -621,23 +619,23 @@ def gebruikers():
 def info_en_klachten():
     FILENAME = 'Info en klachten.csv'
     data = default_process(FILENAME)
-    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(parse_datetime("1750-01-01"))
-    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(parse_datetime("2026-01-01"))
+    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(lambda x: parse_datetime(x, "2026-01-01"))
     new_to_csv(FILENAME, data)
 
 
 def inschrijving():
     FILENAME = 'Inschrijving.csv'
     data = default_process(FILENAME)
-    data['Inschrijving_Datum_inschrijving'] = data['Inschrijving_Datum_inschrijving'].apply(parse_date("2018-05-01"))
+    data['Inschrijving_Datum_inschrijving'] = data['Inschrijving_Datum_inschrijving'].apply(lambda x: parse_date(x, "2018-05-01"))
     new_to_csv(FILENAME, data)
     
 
 def Lidmaatschap():
     FILENAME = 'Lidmaatschap.csv'
     data = default_process(FILENAME)
-    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(parse_date("1750-01-01"))
-    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(parse_date("2026-01-01"))
+    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(lambda x: parse_date(x, "1750-01-01"))
+    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(lambda x: parse_date(x, "2026-01-01"))
     new_to_csv(FILENAME, data)
     
 
@@ -660,8 +658,8 @@ def sessie_inschrijving():
 def sessie():
     FILENAME = 'Sessie.csv'
     data = default_process(FILENAME)
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(parse_datetime("2026-01-01"))
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(parse_datetime("1750-01-01"))
+    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(lambda x: parse_datetime(x, "2026-01-01"))
+    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(lambda x: parse_datetime(x, "1750-01-01"))
     new_to_csv(FILENAME, data)
 
 
