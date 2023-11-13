@@ -84,7 +84,6 @@ with cols_tab:
 # Weights tab
 with weights_tab:
     if col_chose_finished:
-
         # init a dictionary to store the weights
         weights_dict = {}
 
@@ -155,7 +154,7 @@ with rec_tab:
             file_name=f'recommendations_{date.today()}.csv',
             mime='text/csv'
         )
-#                 
+                
 
 
    

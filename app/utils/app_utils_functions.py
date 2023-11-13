@@ -16,6 +16,10 @@ nltk.download('punkt', quiet=True)
 CSV_FILE = os.path.join(os.getcwd(), '../data_clean/final_merge_clean.csv')
 CONTACT = os.path.join(os.getcwd(), '../data_clean/zz_account_contact_persoon_finance.csv')
 
+#############################
+## CLEAN KEYPHRASES COLUMN ##
+#############################
+
 def remove_stopwords(text):
     stop_words_nl = set(stopwords.words('dutch'))
     
@@ -84,6 +88,9 @@ def clean_text(df, col='keyphrase'):
 
     return df_copy
 
+#############################
+## CLEAN NEW CAMPAIGN DATA ##
+#############################
 
 def titelChange(data):
     for col in data.columns:
@@ -148,6 +155,9 @@ def clean_new_campaign_data(df):
 
     return final_df
 
+################################
+## CLEAN CONTACT PERSONS DATA ##
+################################
 
 def clean_contact_df(lijst, response_df):
     contact_df = pd.read_csv(CONTACT)
@@ -158,6 +168,9 @@ def clean_contact_df(lijst, response_df):
     response_df['account_adres'] = response_df['account_adres'].apply(lambda x: ', '.join(list(set(x.split(' ')))))
     return response_df
 
+###############################
+## RECOMMENDATION ALGORITHM ##
+###############################
 
 def recommend(df, new_keyphrase: str, top_n=10):
     # preprocessing
@@ -194,6 +207,9 @@ def recommend(df, new_keyphrase: str, top_n=10):
         results_list.append((contact_id, marketing_pressure))
     return results_list
 
+##################################
+## CALCULATE MARKETING PRESSURE ##
+##################################
 
 def default_mp_cols(df):
     mp_cols = [col for col in df.columns if col.__contains__('persoon_mail_type') 
@@ -238,6 +254,9 @@ def calc_marketing_pressure(df, mp_cols, weights_dict=None):
         df.drop(mp_cols, axis=1, inplace=True)
         return df
 
+###############################
+## GET DF USED IN REC SYSTEM ##
+###############################
 
 def get_hulp_df(link=CSV_FILE):
     df= pd.read_csv(link)
