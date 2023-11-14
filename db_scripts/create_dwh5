@@ -34,33 +34,6 @@ CREATE TABLE DimSessie (
     themaNaam VARCHAR(255)
 )
 
-
-
-CREATE TABLE DimVisit (
-    visID INT IDENTITY(1,1) PRIMARY KEY,
-    visitID VARCHAR(255),
-    visit_bounce VARCHAR(255),
-    visit_browser VARCHAR(255),
-    visit_ip_address VARCHAR(255),
-    visit_ip_company VARCHAR(255),
-    visit_ip_land VARCHAR(255),
-    visit_ip_postcode VARCHAR(255),
-    visit_ip_stad VARCHAR(255),
-    visit_duration FLOAT,
-    visit_first_visit VARCHAR(255),
-    visit_entry_page VARCHAR(2000),
-    visit_exit_page VARCHAR(2000),
-    visit_referrer_type VARCHAR(255),
-    visit_started_on VARCHAR(255),
-    visit_total_pages FLOAT,
-    mailSent VARCHAR(255),
-    mailing_onderwerp VARCHAR(255),
-    mailSent_clicks INT,
-    campaignID VARCHAR(255),
-);
-
-
-
 CREATE TABLE DimCampagne (
     campagneID VARCHAR(255) PRIMARY KEY,
     campagneNummer VARCHAR(255), 
@@ -68,13 +41,14 @@ CREATE TABLE DimCampagne (
     campagneNaamInEmail VARCHAR(255),
     campagneType VARCHAR(255),
     campagneSoort VARCHAR(255), 
-    campagneStartdatumID INT, 
-    campagneEinddatumID INT,
-    campagneStatus INT, 
-    campagneURLVoka VARCHAR(255),
-    visID INT,
-    FOREIGN KEY (visID) REFERENCES DimVisit(visID),
+    campagneStartdatum DATE, 
+    campagneEinddatum DATE,
+    campagneStatus VARCHAR(255), 
+    campagneURLVoka VARCHAR(255)
 )
+
+
+
 
 
 CREATE TABLE DimAccount (
@@ -134,6 +108,31 @@ CREATE TABLE DimContact (
 );
 
 
+CREATE TABLE DimVisit (
+    visID INT IDENTITY(1,1) PRIMARY KEY,
+    visitID VARCHAR(255),
+    visit_bounce VARCHAR(255),
+    visit_browser VARCHAR(255),
+    visit_ip_address VARCHAR(255),
+    visit_ip_company VARCHAR(255),
+    visit_ip_land VARCHAR(255),
+    visit_ip_postcode VARCHAR(255),
+    visit_ip_stad VARCHAR(255),
+    visit_duration FLOAT,
+    visit_first_visit VARCHAR(255),
+    visit_entry_page VARCHAR(2000),
+    visit_exit_page VARCHAR(2000),
+    visit_referrer_type VARCHAR(255),
+    visit_started_on VARCHAR(255),
+    visit_total_pages FLOAT,
+    mailSent VARCHAR(255),
+    mailing_onderwerp VARCHAR(255),
+    mailSent_clicks INT,
+    campaignID VARCHAR(255),
+    contactID VARCHAR(255),
+    FOREIGN KEY (campaignID) REFERENCES DimCampagne(campagneID),
+    FOREIGN KEY(contactID) REFERENCES DimContact(contactID),
+);
 
 
 
@@ -192,12 +191,12 @@ CREATE TABLE DimAfspraak (
 
 
 CREATE TABLE FactInschrijving (
-    inschrijvingID VARCHAR(255) PRIMARY KEY,
+    insID INT IDENTITY(1,1) PRIMARY KEY,
+    inschrijvingID VARCHAR(255),
     aanwezigAfwezig VARCHAR(255),
     bron VARCHAR(255),
     facturatieBedrag VARCHAR(255),
     campagneID VARCHAR(255),
-    inschrijvingsDatum DATE,
     inschrijvingsDatumID INT,
     sesID INT,
     contactID VARCHAR(255),
