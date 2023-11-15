@@ -38,7 +38,7 @@ def lookalike_matrix(df):
 def recommend_lookalikes(df, input_person_id, top_n=10):
   df = clean_merged(df)
   matrix = lookalike_matrix(df)
-  recommendations = pd.DataFrame(matrix.nlargest(top_n,input_person_id)['contact_contactpersoon_id'])
+  recommendations = pd.DataFrame(matrix.nlargest(top_n+1,input_person_id)['contact_contactpersoon_id']).reset_index(drop=True)
   recommendations = recommendations[recommendations['contact_contactpersoon_id']!=input_person_id]
   return recommendations
 
