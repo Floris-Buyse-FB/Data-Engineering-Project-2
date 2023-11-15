@@ -14,11 +14,12 @@ data_tab, rec_tab = st.tabs(['Data', 'Lookalike recommendations'])
 
 with data_tab:
   csv_file = st.file_uploader('Upload a csv file for contact')
+  df_contact_clean = pd.DataFrame()
+  contact_id = None
 
   if csv_file is not None:
 
     df_contact = pd.read_csv(csv_file)
-    df_contact_clean = pd.DataFrame()
 
     try:
       df_contact_clean = clean_new_contact_data(df_contact)
@@ -37,7 +38,7 @@ with data_tab:
     contact_id = st.text_input("Enter a contact ID for recommendation of lookalikes")
 
     if contact_id:
-      df_contact_clean = df_contact_clean[df_contact_clean['contact_contactpersoon_id'] == contact_id]
+      df_contact_clean[df_contact_clean['contact_contactpersoon_id'] == contact_id]
       if df_contact_clean.empty:
         st.write('Contact ID not found')
       else:
