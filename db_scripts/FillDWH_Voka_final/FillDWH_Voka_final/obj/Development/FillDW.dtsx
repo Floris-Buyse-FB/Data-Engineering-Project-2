@@ -11,8 +11,8 @@
   DTS:LocaleID="2067"
   DTS:ObjectName="FillDW"
   DTS:PackageType="5"
-  DTS:VersionBuild="23"
-  DTS:VersionGUID="{E387DAF8-6E1F-4D93-BD0E-66A1C6625800}">
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{669A8113-6534-4AE2-A356-729FD07BDB0C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1052,6 +1052,14 @@
                       cachedName="activiteitscode_naam"
                       externalMetadataColumnId="Package\Fill DimAccount\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[activiteitNaam]"
                       lineageId="Package\Fill DimAccount\Merge Join 1.Outputs[Merge Join Output].Columns[activiteitscode_naam]" />
+                    <inputColumn
+                      refId="Package\Fill DimAccount\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[account_adres_geografische_subregio]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="account_adres_geografische_subregio"
+                      externalMetadataColumnId="Package\Fill DimAccount\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[subregio]"
+                      lineageId="Package\Fill DimAccount\Merge Join 1.Outputs[Merge Join Output].Columns[account_adres_geografische_subregio]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1127,6 +1135,12 @@
                       dataType="str"
                       length="255"
                       name="activiteitNaam" />
+                    <externalMetadataColumn
+                      refId="Package\Fill DimAccount\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[subregio]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="subregio" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -19165,7 +19179,7 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -19175,7 +19189,7 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -20167,19 +20181,6 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Fill DimVisit\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Fill DimVisit\OLE DB Source 1">
     <Properties>
       <Property>
@@ -20207,6 +20208,19 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Fill DimVisit\OLE DB Source 2">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Fill DimVisit\OLE DB Source">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

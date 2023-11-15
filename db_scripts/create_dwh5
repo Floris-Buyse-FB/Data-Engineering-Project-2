@@ -56,6 +56,7 @@ CREATE TABLE DimAccount (
     land VARCHAR(255),
     provincie VARCHAR(255),
     plaats VARCHAR(255),
+    subregio VARCHAR(255),
     industriezone VARCHAR(255),
     postcode VARCHAR(255),
     isVokaEntiteit INT, 
