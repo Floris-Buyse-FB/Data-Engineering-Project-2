@@ -26,13 +26,10 @@ def vectorizing(df):
 
 def lookalike_matrix(df):
   vectorized = vectorizing(df)
-  print("Vectorized shape:", vectorized.shape)
 
   similarities = cosine_similarity(vectorized)
-  print("Similarities shape:", similarities.shape)
 
   matrix = pd.DataFrame(similarities,columns=df['contact_contactpersoon_id'],index=df['contact_contactpersoon_id']).reset_index()
-  print("Matrix shape:", matrix.shape)
   return matrix
 
 def recommend_lookalikes(df, input_person_id, top_n=10):
