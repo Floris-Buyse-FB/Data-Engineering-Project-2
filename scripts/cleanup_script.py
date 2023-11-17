@@ -373,6 +373,16 @@ def parse_datetime(date_str, DEFAULT):
     return DEFAULT
 
 
+def parse_number(number_str):
+    try:
+        if number_str:
+            return float(number_str.replace(',', '.'))
+        else:
+            return -1
+    except ValueError:
+        pass
+    return -1
+
 def ChangeAllData():
     account()
     account_financiele_data()
@@ -460,7 +470,9 @@ def account_financiele_data():
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
 
     data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda x: parse_datetime(x, "2020-01-01"))
-    
+    data['FinancieleData_FTE'] = data['FinancieleData_FTE'].apply(parse_number)
+    data['FinancieleData_Toegevoegde_waarde'] = data['FinancieleData_Toegevoegde_waarde'].apply(parse_number)
+
     new_to_csv(FILENAME, data)
 
 def activiteit_vereist_contact():
@@ -628,6 +640,7 @@ def inschrijving():
     FILENAME = 'Inschrijving.csv'
     data = default_process(FILENAME)
     data['Inschrijving_Datum_inschrijving'] = data['Inschrijving_Datum_inschrijving'].apply(lambda x: parse_date(x, "2018-05-01"))
+    data['Inschrijving_Facturatie_Bedrag'] = data['Inschrijving_Facturatie_Bedrag'].apply(parse_number)
     new_to_csv(FILENAME, data)
     
 

@@ -11,7 +11,7 @@ st.title('Create lookalikes for a contact')
 st.write('Write the contact id of the contact you want to find lookalikes for')
 contact_id = st.text_input('Contact ID', value='10446D11-F363-ED11-9561-6045BD895B5A')
 
-top_n = st.text_input('How many recommendations do you want?', value=10)
+top_n = st.text_input('How many lookalikes do you want?', value=10)
 # make sure the input is a number
 
 try:

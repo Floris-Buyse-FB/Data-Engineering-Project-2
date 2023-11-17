@@ -37,8 +37,8 @@ BEGIN
         financieledata_ondernemingid VARCHAR(255),
         financieledata_boekjaar INT,
         financieledata_aantal_maanden FLOAT,
-        financieledata_toegevoegde_waarde VARCHAR(255),
-        financieledata_fte VARCHAR(255),
+        financieledata_toegevoegde_waarde FLOAT,
+        financieledata_fte FLOAT,
         financieledata_gewijzigd_op DATE,
         FOREIGN KEY (financieledata_ondernemingid) REFERENCES Account(account_account_id)
     );
@@ -395,7 +395,7 @@ BEGIN
         inschrijving_contactfiche VARCHAR(255),
         inschrijving_datum_inschrijving DATE,
         inschrijving_inschrijving_id VARCHAR(255) NOT NULL PRIMARY KEY,
-        inschrijving_facturatie_bedrag VARCHAR(255),
+        inschrijving_facturatie_bedrag FLOAT,
         inschrijving_campagne VARCHAR(255),
         inschrijving_campagne_naam_ VARCHAR(255),
         FOREIGN KEY (inschrijving_contactfiche) REFERENCES Contact(contact_contactpersoon_id),
