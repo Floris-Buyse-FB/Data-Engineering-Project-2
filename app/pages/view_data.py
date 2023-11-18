@@ -1,11 +1,9 @@
 import streamlit as st
 from sqlalchemy import create_engine
-from sqlalchemy import Table, MetaData, desc, inspect
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import inspect
 from sqlalchemy.exc import ProgrammingError
 import re
 import pandas as pd
-import ta
 
 st.set_page_config(page_title="View Data")
 
