@@ -37,8 +37,8 @@ class Account_financiële_data(Base):
     financieledata_ondernemingid = Column(String(255), ForeignKey('Account.account_account_id'))
     financieledata_boekjaar = Column(Integer)
     financieledata_aantal_maanden = Column(Float)
-    financieledata_toegevoegde_waarde = Column(String(255))
-    financieledata_fte = Column(String(255))
+    financieledata_toegevoegde_waarde = Column(Float)
+    financieledata_fte = Column(Float)
     financieledata_gewijzigd_op = Column(String(255))
 
 class Afspraak_alle(Base):
@@ -258,7 +258,7 @@ class Inschrijving(Base):
     inschrijving_contactfiche = Column(String(255), ForeignKey('Contact.contact_contactpersoon_id'))
     inschrijving_datum_inschrijving = Column(Date)
     inschrijving_inschrijving_id = Column(String(255), primary_key=True)
-    inschrijving_facturatie_bedrag = Column(String(255))
+    inschrijving_facturatie_bedrag = Column(Float)
     inschrijving_campagne = Column(String(255), ForeignKey('Campagne.campagne_campagne_id'))
     inschrijving_campagne_naam_ = Column(String(255))
 
