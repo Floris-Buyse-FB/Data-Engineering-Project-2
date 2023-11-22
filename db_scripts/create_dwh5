@@ -76,6 +76,7 @@ CREATE TABLE DimContact (
     contactStatus VARCHAR(255),
     isVokaMedewerker INT,
     functietitel VARCHAR(255),
+    functieNaam VARCHAR(255),
     teamCode VARCHAR(255),
     persoonWeblogin VARCHAR(255),
     persoon_mail_regio_antwerpen_waasland INT,
