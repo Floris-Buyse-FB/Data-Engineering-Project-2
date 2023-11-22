@@ -7,9 +7,9 @@ ViewCampagne.sql
 ViewVisit,
 ViewAccount, -- issue (join) => voorlopig ok
 ViewContact, --issue (join)
-ViewAfspraak, --issue ga alles 2 keer moeten nemen (per contact en per account)
+ViewAfspraak, 
 ViewLidmaatschap,
 ViewInfo,
 ViewFinanciele,
-Fill_FactInschrijving.sql,
+Fill_FactInschrijving.sql, --nog niet kunnen uitvoeren want DimContact nog leeg
 FKs inschakelen (zie scriptje apart)
