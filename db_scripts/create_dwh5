@@ -103,6 +103,7 @@ CREATE TABLE DimContact (
     persoon_mail_type_opleidingen INT,
     persoon_mail_type_persberichten_belangrijke_meldingen INT,
     persoon_marketingcommunicatie VARCHAR(255),
+    functieNaam VARCHAR(255),
     accountID VARCHAR(255),
     FOREIGN KEY (accountID) REFERENCES DimAccount(accountID),
     

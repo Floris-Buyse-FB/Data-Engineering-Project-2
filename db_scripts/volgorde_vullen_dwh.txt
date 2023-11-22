@@ -1,0 +1,15 @@
+volgorde uitvoeren:
+
+FKs uitschakelen (zie scriptje apart)
+Fill_DimDate.sql
+ViewSessie.sql
+ViewCampagne.sql
+ViewVisit,
+ViewAccount, -- issue (join) => voorlopig ok
+ViewContact, --issue (join)
+ViewAfspraak, --issue ga alles 2 keer moeten nemen (per contact en per account)
+ViewLidmaatschap,
+ViewInfo,
+ViewFinanciele,
+Fill_FactInschrijving.sql,
+FKs inschakelen (zie scriptje apart)
