@@ -32,7 +32,7 @@ SELECT
 	p.persoon_mail_type_opleidingen AS persoon_mail_type_opleidingen,
 	p.persoon_mail_type_persberichten_belangrijke_meldingen AS persoon_mail_type_persberichten_belangrijke_meldingen,
 	p.persoon_marketingcommunicatie AS persoon_marketingcommunicatie,
-	f.functie_naam AS functieNaam,
+	STRING_AGG(f.functie_naam, ', ') AS functieNaam,
 	c.contact_account AS accountID
     
 FROM
@@ -43,6 +43,38 @@ LEFT OUTER JOIN
 	Voka.dbo.Contact_functie cf ON c.contact_contactpersoon_id = cf.contactfunctie_contactpersoon
 LEFT OUTER JOIN
 	Voka.dbo.Functie f ON cf.contactfunctie_functie = f.functie_functie_id
+group by
+	c.contact_contactpersoon_id,
+    c.contact_status,
+    c.contact_voka_medewerker,
+    c.contact_functietitel,
+    p.persoon_web_login,
+    p.persoon_mail_regio_antwerpen_waasland,
+    p.persoon_mail_regio_brussel_hoofdstedelijk_gewest,
+    p.persoon_mail_regio_limburg,
+    p.persoon_mail_regio_mechelen_kempen,
+    p.persoon_mail_regio_oost_vlaanderen,
+    p.persoon_mail_regio_vlaams_brabant,
+    p.persoon_mail_regio_voka_nationaal,
+    p.persoon_mail_regio_west_vlaanderen,
+    p.persoon_mail_thema_duurzaamheid,
+    p.persoon_mail_thema_financieel_fiscaal,
+    p.persoon_mail_thema_innovatie,
+    p.persoon_mail_thema_internationaal_ondernemen,
+    p.persoon_mail_thema_mobiliteit,
+    p.persoon_mail_thema_omgeving,
+    p.persoon_mail_thema_sales_marketing_communicatie,
+    p.persoon_mail_thema_strategie_en_algemeen_management,
+    p.persoon_mail_thema_talent,
+    p.persoon_mail_thema_welzijn,
+    p.persoon_mail_type_bevraging,
+    p.persoon_mail_type_communities_en_projecten,
+    p.persoon_mail_type_netwerkevenementen,
+    p.persoon_mail_type_nieuwsbrieven,
+    p.persoon_mail_type_opleidingen,
+    p.persoon_mail_type_persberichten_belangrijke_meldingen,
+    p.persoon_marketingcommunicatie,
+    c.contact_account;
 
 -- Step 2: Extract data from the view
 SELECT * FROM Voka.dbo.ViewContact;

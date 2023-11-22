@@ -1,7 +1,8 @@
 -- USE Voka;
+drop view dbo.viewAccount
 CREATE VIEW dbo.ViewAccount
 AS
-SELECT DISTINCT
+SELECT Distinct
     a.account_account_id AS accountID,
     a.account_adres_land AS land,
     a.account_adres_provincie AS provincie,
@@ -14,16 +15,41 @@ SELECT DISTINCT
     a.account_voka_nr_ AS vokaNummer,
     a.account_ondernemingsaard AS ondernemingsaard,
     a.account_ondernemingstype AS ondernemingstype,
-     (
-        SELECT TOP 1 ac.account_activiteitscode_activiteitscode
-        FROM Voka.dbo.Account_activiteitscode ac
-        WHERE ac.accou= a.account_account_id
+	(
+        SELECT TOP 1 aac_inner.account_activiteitscode_activiteitscode
+        FROM Voka.dbo.Account a_inner
+        INNER JOIN Account_activiteitscode aac_inner ON aac_inner.account_activiteitscode_account = a_inner.account_account_id
+        INNER JOIN Activiteitscode ac_inner ON ac_inner.activiteitscode_activiteitscode_id = aac_inner.account_activiteitscode_activiteitscode
+        WHERE a_inner.account_account_id = a.account_account_id
+        ORDER BY aac_inner.account_activiteitscode_activiteitscode
     ) AS activiteitsID,
-    a.account_primaire_activiteit AS activiteitNaam
+	(
+            SELECT TOP 1 ac_inner.activiteitscode_naam
+            FROM Voka.dbo.Account a_inner
+            INNER JOIN Account_activiteitscode aac_inner ON aac_inner.account_activiteitscode_account = a_inner.account_account_id
+            INNER JOIN Activiteitscode ac_inner ON ac_inner.activiteitscode_activiteitscode_id = aac_inner.account_activiteitscode_activiteitscode
+            WHERE a_inner.account_account_id = a.account_account_id
+            ORDER BY aac_inner.account_activiteitscode_activiteitscode
+        ) AS activiteitNaam
 FROM
     Voka.dbo.Account a
+Inner JOIN Account_activiteitscode aac on aac.account_activiteitscode_account = a.account_account_id
+Inner JOIN Activiteitscode ac on ac.activiteitscode_activiteitscode_id = aac.account_activiteitscode_activiteitscode
 WHERE
-    a.account_adres_provincie = 'Oost-Vlaanderen';
+    a.account_adres_provincie = 'Oost-Vlaanderen'
+group by
+	a.account_account_id,
+    a.account_adres_land,
+    a.account_adres_provincie,
+    a.account_adres_plaats,
+    a.account_adres_geografische_subregio,
+    a.account_industriezone_naam_,
+    a.account_adres_postcode,
+    a.account_is_voka_entiteit,
+    a.account_status,
+    a.account_voka_nr_,
+    a.account_ondernemingsaard,
+    a.account_ondernemingstype;
 
 -- Step 2: Extract data from the view
 SELECT * FROM Voka.dbo.ViewAccount;

@@ -11,5 +11,5 @@ ViewAfspraak,
 ViewLidmaatschap,
 ViewInfo,
 ViewFinanciele,
-Fill_FactInschrijving.sql, --nog niet kunnen uitvoeren want DimContact nog leeg
+Fill_FactInschrijving.sql, 
 FKs inschakelen (zie scriptje apart)

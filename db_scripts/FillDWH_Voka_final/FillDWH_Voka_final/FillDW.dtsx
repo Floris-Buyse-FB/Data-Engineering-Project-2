@@ -7,12 +7,12 @@
   DTS:CreatorName="EMMA\emmad"
   DTS:DTSID="{32F0EE8C-A333-45FC-908D-E5DE352951DA}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5270.0"
+  DTS:LastModifiedProductVersion="16.0.948.0"
   DTS:LocaleID="2067"
   DTS:ObjectName="FillDW"
   DTS:PackageType="5"
-  DTS:VersionBuild="28"
-  DTS:VersionGUID="{3241B2AC-D591-45E8-A23F-E93DEBDF07D6}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{4899487F-567A-45CD-A72B-C50224B38652}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -124,7 +124,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="-- Disable all constraints&#xA;EXEC sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -141,7 +141,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimAccount" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -158,7 +158,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimAfspraak" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -175,7 +175,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimCampagne" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -192,7 +192,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimContact" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -209,7 +209,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimDate" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -226,7 +226,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimFinanciëleDataAccount" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -243,7 +243,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimInfoEnKlachten" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -260,7 +260,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimLidmaatschap" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -277,7 +277,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimSessie" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -294,7 +294,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="DELETE FROM DimVisit" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -311,7 +311,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="&#xA;-- Enable all constraints&#xA;EXEC sp_msforeachtable 'ALTER TABLE ? CHECK CONSTRAINT ALL';&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -964,8 +964,8 @@
               <connections>
                 <connection
                   refId="Package\Fill DimAccount\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1244,8 +1244,8 @@
               <connections>
                 <connection
                   refId="Package\Fill DimAccount\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1692,8 +1692,8 @@
               <connections>
                 <connection
                   refId="Package\Fill DimAccount\OLE DB Source 1.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1870,8 +1870,8 @@
               <connections>
                 <connection
                   refId="Package\Fill DimAccount\OLE DB Source 2.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3109,8 +3109,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimAfspraak\Lookup.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -3457,8 +3457,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimAfspraak\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3664,8 +3664,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimAfspraak\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3776,8 +3776,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimAfspraak\OLE DB Source 1.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -4026,8 +4026,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimAfspraak\OLE DB Source 2.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5256,8 +5256,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimCampagne\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5483,8 +5483,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimCampagne\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -6508,8 +6508,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimContact\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -6864,6 +6864,11 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
                       dataType="str"
                       length="255"
                       name="accountID" />
+                    <externalMetadataColumn
+                      refId="Package\Fill DimContact\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[functieNaam]"
+                      codePage="1252"
+                      dataType="text"
+                      name="functieNaam" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -6943,8 +6948,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimContact\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -7169,8 +7174,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimContact\OLE DB Source 1.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -8925,7 +8930,7 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="SET NOCOUNT ON&#xA;&#xA;DECLARE @CurrentDate DATE = '1750-01-01'&#xA;DECLARE @EndDate DATE = '2025-12-31'&#xA;&#xA;WHILE @CurrentDate &lt; @EndDate&#xA;BEGIN&#xA;    INSERT INTO DimDate (&#xA;        fullDate,&#xA;        dayOfMonth,&#xA;        dayOfYear,&#xA;        dayOfWeek,&#xA;        dayName,&#xA;        monthNumber,&#xA;        monthName,&#xA;        year&#xA;    )&#xA;    Select &#xA;      DATE = @CurrentDate,&#xA;      Day = DAY(@CurrentDate),&#xA;      [DayOfYear] = DATENAME(dy, @CurrentDate),&#xA;      WEEKDAY = DATEPART(dw, @CurrentDate),&#xA;      WeekDayName = DATENAME(dw, @CurrentDate),&#xA;      [Month] = MONTH(@CurrentDate),&#xA;      [MonthName] = DATENAME(mm, @CurrentDate),&#xA;      [Year] = YEAR(@CurrentDate)&#xA;&#xA;    SET @CurrentDate = DATEADD(DD, 1, @CurrentDate)&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -9002,8 +9007,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimFinanciële\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -9179,8 +9184,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimFinanciële\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -9281,15 +9286,11 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
                       name="financieledata_aantal_maanden" />
                     <externalMetadataColumn
                       refId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[financieledata_toegevoegde_waarde]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
+                      dataType="r8"
                       name="financieledata_toegevoegde_waarde" />
                     <externalMetadataColumn
                       refId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[financieledata_fte]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
+                      dataType="r8"
                       name="financieledata_fte" />
                     <externalMetadataColumn
                       refId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[financieledata_gewijzigd_op]"
@@ -9326,16 +9327,12 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
                       name="financieledata_aantal_maanden" />
                     <outputColumn
                       refId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[financieledata_toegevoegde_waarde]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
+                      dataType="r8"
                       lineageId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[financieledata_toegevoegde_waarde]"
                       name="financieledata_toegevoegde_waarde" />
                     <outputColumn
                       refId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[financieledata_fte]"
-                      codePage="1252"
-                      dataType="str"
-                      length="255"
+                      dataType="r8"
                       lineageId="Package\Fill DimFinanciële\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[financieledata_fte]"
                       name="financieledata_fte" />
                     <outputColumn
@@ -9444,8 +9441,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimInfo\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -9605,8 +9602,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimInfo\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -9858,8 +9855,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimLidmaatschap\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -10033,8 +10030,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimLidmaatschap\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -10541,8 +10538,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimSessie\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -10759,8 +10756,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimSessie\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -11027,8 +11024,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimSessie\OLE DB Source 1.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -13373,8 +13370,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimVisit\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka_DWH5]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka_DWH5]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -13765,8 +13762,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimVisit\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -14591,8 +14588,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimVisit\OLE DB Source 1.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -14769,8 +14766,8 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\Fill DimVisit\OLE DB Source 2.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
-                  connectionManagerRefId="Package.ConnectionManagers[ASUS_FLORIS.Voka]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-MAX.Voka]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -17584,7 +17581,7 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{A955C0F4-B609-4462-8AE5-40C4844739DA}"
+          SQLTask:Connection="{16806414-5DA8-4639-8D20-DF01E03BAA81}"
           SQLTask:SqlStatementSource="USE Voka_DWH5;&#xA;&#xA;INSERT INTO FactInschrijving(&#xA;    inschrijvingID,&#xA;    aanwezigAfwezig,&#xA;    bron,&#xA;    facturatieBedrag,&#xA;    campagneID,&#xA;    inschrijvingsDatumID,&#xA;    sesID,&#xA;    contactID&#xA;)&#xA;SELECT&#xA;    I.inschrijving_inschrijving_id AS inschrijvingID,&#xA;    I.inschrijving_aanwezig_afwezig AS aanwezigAfwezig,&#xA;    I.inschrijving_bron AS bron,&#xA;    I.inschrijving_facturatie_bedrag AS facturatieBedrag,&#xA;    Camp.campagneID AS campagneID,&#xA;    D.dateID AS inschrijvingsDatumID,&#xA;    S.sesID AS sesID,&#xA;    C.contactID AS contactID&#xA;&#xA;FROM Voka.dbo.Inschrijving I&#xA;INNER JOIN Voka_DWH5.dbo.DimDate D ON I.inschrijving_datum_inschrijving = D.fullDate&#xA;INNER JOIN Voka_DWH5.dbo.DimSessie S ON I.inschrijving_inschrijving_id = S.inschrijvingsID&#xA;INNER JOIN Voka_DWH5.dbo.DimContact C ON I.inschrijving_contactfiche = C.contactID&#xA;INNER JOIN Voka_DWH5.dbo.DimCampagne Camp ON I.inschrijving_campagne = Camp.campagneID&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -17780,95 +17777,95 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="132,42"
+          Size="132,41.6"
           Id="Package\Disable FK"
           TopLeft="124.999998137355,6.84210539194356" />
         <NodeLayout
-          Size="170,42"
+          Size="169.6,41.6"
           Id="Package\Empty DimAccount"
           TopLeft="93.1249986123293,530.140357831619" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Empty DimAfspraak"
           TopLeft="95.6249985750765,723.210535034579" />
         <NodeLayout
-          Size="184,42"
+          Size="184,41.6"
           Id="Package\Empty DimCampagne"
           TopLeft="117.499998249114,322.947374499736" />
         <NodeLayout
-          Size="168,42"
+          Size="168,41.6"
           Id="Package\Empty DimContact"
           TopLeft="101.249998491257,620.403519345233" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Empty DimDate"
           TopLeft="116.874998258427,111.52631788868" />
         <NodeLayout
-          Size="180,42"
+          Size="180,41.6"
           Id="Package\Empty DimFinanciële"
           TopLeft="94.9999985843897,989.631587485858" />
         <NodeLayout
-          Size="150,42"
+          Size="150.4,41.6"
           Id="Package\Empty DimInfo"
           TopLeft="103.124998463318,908.421061260219" />
         <NodeLayout
-          Size="198,42"
+          Size="198.4,41.6"
           Id="Package\Empty DimLidmaatschap"
           TopLeft="96.8749985564501,823.385973759856" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Empty DimSessie"
           TopLeft="121.874998183921,212.789477689445" />
         <NodeLayout
-          Size="152,42"
+          Size="152,41.6"
           Id="Package\Empty DimVisit"
           TopLeft="117.499998249114,429.684218614055" />
         <NodeLayout
-          Size="130,42"
+          Size="129.6,41.6"
           Id="Package\Enable FK"
           TopLeft="105.624998426065,1178.29825415252" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimAccount"
           TopLeft="394.374994123355,536.596496559797" />
         <NodeLayout
-          Size="158,42"
+          Size="158.4,41.6"
           Id="Package\Fill DimAfspraak"
           TopLeft="388.749994207174,726.315796556896" />
         <NodeLayout
-          Size="168,42"
+          Size="168,41.6"
           Id="Package\Fill DimCampagne"
           TopLeft="421.249993722886,322.947374499736" />
         <NodeLayout
-          Size="152,42"
+          Size="152,41.6"
           Id="Package\Fill DimContact"
           TopLeft="381.874994309619,622.543868367912" />
         <NodeLayout
-          Size="138,42"
+          Size="137.6,41.6"
           Id="Package\Fill DimDate"
           TopLeft="451.874993266538,107.421054653514" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimFinanciële"
           TopLeft="388.749994207174,995.736849252868" />
         <NodeLayout
-          Size="134,42"
+          Size="134.4,41.6"
           Id="Package\Fill DimInfo"
           TopLeft="390.624994179234,913.701761507812" />
         <NodeLayout
-          Size="182,42"
+          Size="182.4,41.6"
           Id="Package\Fill DimLidmaatschap"
           TopLeft="401.249994020909,816.192989449202" />
         <NodeLayout
-          Size="148,42"
+          Size="148,41.6"
           Id="Package\Fill DimSessie"
           TopLeft="429.374993601814,216.210530385416" />
         <NodeLayout
-          Size="136,42"
+          Size="136,41.6"
           Id="Package\Fill DimVisit"
           TopLeft="418.124993769452,431.649129890229" />
         <NodeLayout
-          Size="170,42"
+          Size="169.6,41.6"
           Id="Package\Fill FactInschrijving"
           TopLeft="92.4999986216426,1083.82457008366" />
         <EdgeLayout
@@ -18484,43 +18481,43 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimAccount\OLE DB Destination"
           TopLeft="946,591" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimAccount\OLE DB Source 2"
           TopLeft="1396,79" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimAccount\Sort 2"
           TopLeft="1433,162" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimAccount\Sort 1"
           TopLeft="914,165" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimAccount\OLE DB Source"
           TopLeft="425,82" />
         <NodeLayout
-          Size="98,42"
+          Size="97.6,41.6"
           Id="Package\Fill DimAccount\Sort"
           TopLeft="666,376" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimAccount\OLE DB Source 1"
           TopLeft="889,82" />
         <NodeLayout
-          Size="142,42"
+          Size="142.4,41.6"
           Id="Package\Fill DimAccount\Merge Join 1"
           TopLeft="960,502" />
         <NodeLayout
-          Size="132,42"
+          Size="132,41.6"
           Id="Package\Fill DimAccount\Merge Join"
           TopLeft="1174,285" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimAccount\Sort 3"
           TopLeft="1188,372" />
         <EdgeLayout
@@ -18854,43 +18851,43 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="122,42"
+          Size="121.6,41.6"
           Id="Package\Fill DimAfspraak\Union All"
           TopLeft="1230,657" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimAfspraak\OLE DB Destination"
           TopLeft="1206,754.666666666667" />
         <NodeLayout
-          Size="98,42"
+          Size="97.6,41.6"
           Id="Package\Fill DimAfspraak\Sort"
           TopLeft="403,198" />
         <NodeLayout
-          Size="132,42"
+          Size="132,41.6"
           Id="Package\Fill DimAfspraak\Merge Join"
           TopLeft="696,478" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimAfspraak\OLE DB Source 2"
           TopLeft="1428,101" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimAfspraak\Sort 1"
           TopLeft="966,191" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimAfspraak\OLE DB Source 1"
           TopLeft="938,101" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimAfspraak\OLE DB Source"
           TopLeft="379,100" />
         <NodeLayout
-          Size="114,42"
+          Size="113.6,41.6"
           Id="Package\Fill DimAfspraak\Lookup"
           TopLeft="961,276" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimAfspraak\Sort 2"
           TopLeft="1453,273" />
         <EdgeLayout
@@ -19225,11 +19222,11 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimCampagne\OLE DB Source"
           TopLeft="414,96" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimCampagne\OLE DB Destination"
           TopLeft="406,213" />
         <EdgeLayout
@@ -19289,27 +19286,27 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="98,42"
+          Size="97.6,41.6"
           Id="Package\Fill DimContact\Sort"
           TopLeft="491,218" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimContact\OLE DB Source"
           TopLeft="465,119" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimContact\OLE DB Source 1"
           TopLeft="871,119" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimContact\Sort 1"
           TopLeft="896,221" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimContact\OLE DB Destination"
           TopLeft="663,436" />
         <NodeLayout
-          Size="132,42"
+          Size="132,41.6"
           Id="Package\Fill DimContact\Merge Join"
           TopLeft="685,335" />
         <EdgeLayout
@@ -19494,11 +19491,11 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimFinanciële\OLE DB Source"
           TopLeft="389,97" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimFinanciële\OLE DB Destination"
           TopLeft="371,230" />
         <EdgeLayout
@@ -19558,11 +19555,11 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimInfo\OLE DB Source"
           TopLeft="347,110" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimInfo\OLE DB Destination"
           TopLeft="329,245" />
         <EdgeLayout
@@ -19634,11 +19631,11 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimLidmaatschap\OLE DB Source"
           TopLeft="400,79" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimLidmaatschap\OLE DB Destination"
           TopLeft="389,185.666666666667" />
         <EdgeLayout
@@ -19698,27 +19695,27 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimSessie\Sort 1"
           TopLeft="624.999990686774,138.21052891726" />
         <NodeLayout
-          Size="161,42"
+          Size="160.8,41.6"
           Id="Package\Fill DimSessie\OLE DB Source 1"
           TopLeft="596.87499110587,47.2105272044105" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimSessie\OLE DB Source"
           TopLeft="280.624995818362,52.000000978771" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimSessie\OLE DB Destination"
           TopLeft="433.124993545935,364.684217390591" />
         <NodeLayout
-          Size="132,42"
+          Size="132,41.6"
           Id="Package\Fill DimSessie\Merge Join"
           TopLeft="448.124993322417,262.052636511438" />
         <NodeLayout
-          Size="98,42"
+          Size="97.6,41.6"
           Id="Package\Fill DimSessie\Sort"
           TopLeft="310.624995371327,141.631581613232" />
         <EdgeLayout
@@ -19903,43 +19900,43 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="98,42"
+          Size="97.6,41.6"
           Id="Package\Fill DimVisit\Sort"
           TopLeft="461,178" />
         <NodeLayout
-          Size="106,42"
+          Size="105.6,41.6"
           Id="Package\Fill DimVisit\Sort 3"
           TopLeft="845.6,332.4" />
         <NodeLayout
-          Size="106,42"
+          Size="105.6,41.6"
           Id="Package\Fill DimVisit\Sort 2"
           TopLeft="1114.6,228" />
         <NodeLayout
-          Size="164,42"
+          Size="164,41.6"
           Id="Package\Fill DimVisit\OLE DB Source 1"
           TopLeft="878,77" />
         <NodeLayout
-          Size="108,42"
+          Size="108,41.6"
           Id="Package\Fill DimVisit\Sort 1"
           TopLeft="912,177" />
         <NodeLayout
-          Size="174,42"
+          Size="174.4,41.6"
           Id="Package\Fill DimVisit\OLE DB Destination"
           TopLeft="1005,546.4" />
         <NodeLayout
-          Size="161,42"
+          Size="160.8,41.6"
           Id="Package\Fill DimVisit\OLE DB Source 2"
           TopLeft="1090.2,81.8" />
         <NodeLayout
-          Size="132,42"
+          Size="132,41.6"
           Id="Package\Fill DimVisit\Merge Join"
           TopLeft="678,285" />
         <NodeLayout
-          Size="154,42"
+          Size="153.6,41.6"
           Id="Package\Fill DimVisit\OLE DB Source"
           TopLeft="436,80" />
         <NodeLayout
-          Size="138,42"
+          Size="137.6,41.6"
           Id="Package\Fill DimVisit\Merge Join 1"
           TopLeft="1020.6,430.4" />
         <EdgeLayout
