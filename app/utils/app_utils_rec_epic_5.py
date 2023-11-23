@@ -70,7 +70,13 @@ def default_mp_cols(df):
     return mp_cols
 
 
-def calc_marketing_pressure(df, mp_cols, weights_dict=None):
+def calc_marketing_pressure(df, mp_cols, weights_dict=None, date_range=None):
+    
+    if date_range is not None:
+        start_date = np.datetime64(date_range[0])
+        end_date = np.datetime64(date_range[1])
+
+        df = df[(df['fullDate'] >= start_date) & (df['fullDate'] <= end_date)]
 
     if len(mp_cols) == 0:
 
@@ -400,7 +406,7 @@ def get_campagne(conn):
 
 def get_inschrijving(conn):
 
-    inschrijving_cols = ['campagneID', 'contactID', 'bron']
+    inschrijving_cols = ['campagneID', 'contactID', 'bron', 'inschrijvingsDatumID']
 
     inschrijving_query = create_query('FactInschrijving', inschrijving_cols)
     df_inschrijving = pd.read_sql(inschrijving_query, conn)
@@ -411,11 +417,23 @@ def get_inschrijving(conn):
     return df_inschrijving
 
 
+def get_date(conn):
+    date_cols = ['dateID', 'fullDate']
+    date_query = create_query('DimDate', date_cols)
+    df_date = pd.read_sql(date_query, conn)
+    return df_date
+
+
 def get_campagne_inschrijving(conn):
     df_campagne = get_campagne(conn)
     df_inschrijving = get_inschrijving(conn)
 
     df_campagne_inschrijving = pd.merge(df_campagne, df_inschrijving, on='campagneID', how='inner')
+    df_campagne_inschrijving.drop_duplicates(inplace=True)
+
+    df_date = get_date(conn)
+    df_campagne_inschrijving = pd.merge(df_campagne_inschrijving, df_date, left_on='inschrijvingsDatumID', right_on='dateID', how='inner')
+    df_campagne_inschrijving.drop(['dateID', 'inschrijvingsDatumID'], axis=1, inplace=True)
     df_campagne_inschrijving.drop_duplicates(inplace=True)
 
     return df_campagne_inschrijving
@@ -526,6 +544,9 @@ def get_final_no_mp(conn):
 
     df = pd.merge(df_merge, df_visit, on='contactID', how='left')
 
+    df = df[df['fullDate'] != 'unknown']
+    df['fullDate'] = pd.to_datetime(df['fullDate'])
+
     df['visit_first_visit'] = df['visit_first_visit'].fillna(-1).astype(int)
     df['visit_total_pages'] = df['visit_total_pages'].fillna(-1).astype(int)
     df['mail_click_freq'] = df['mail_click_freq'].fillna(-1).astype(int)
@@ -618,6 +639,7 @@ def get_results_df(conn):
     df_visit = get_visit(conn)
 
     df = pd.merge(df_merge, df_visit, on='contactID', how='left')
+    df.drop(['fullDate'], axis=1, inplace=True)
 
     df['visit_first_visit'] = df['visit_first_visit'].fillna(-1).astype(int)
     df['visit_total_pages'] = df['visit_total_pages'].fillna(-1).astype(int)
@@ -658,33 +680,43 @@ def recommend(df, new_keyphrase: str, top_n=10):
     # preprocessing
     scaler = MinMaxScaler()
     df['marketing_pressure'] = scaler.fit_transform(df[['marketing_pressure']])
+
     # vectorization
     tfidf = TfidfVectorizer()
     tfidf_matrix = tfidf.fit_transform(df['keyphrases'])
+
     # vectorize the new keyphrase and calculate similarity
     new_keyphrase_tfidf = tfidf.transform([new_keyphrase])
     sim_score_new = cosine_similarity(new_keyphrase_tfidf, tfidf_matrix)
+
+    # Create a new column for similarity scores in the DataFrame
+    df['similarity_score'] = sim_score_new[0]
+
     # sort the similarity scores
     contact_person_similarity = list(enumerate(sim_score_new[0]))
     sorted_contact_persons = sorted(contact_person_similarity, key=lambda x: x[1], reverse=True)
+
     # get the top n similar contact persons
     top_contact_persons = sorted_contact_persons[:top_n]
+
     # Create a set to keep track of recommended contact IDs
     recommended_contact_ids = set()
+
     # Iterate through the sorted contact persons and add unique contact IDs to the set
     for index, _ in top_contact_persons:
         contact_id = df['contactID'][index]
         recommended_contact_ids.add(contact_id)
+
     # Convert the set back to a list
     recommended_contact_ids = list(recommended_contact_ids)
-    # This would not remove the duplicates
-    # recommended_contact_ids = [df['contact_contactpersoon_id'][index] for index, _ in top_contact_persons]
+
     # sort the contact ids by marketing pressure
     recommended_contact_ids = sorted(recommended_contact_ids, key=lambda x: df[df['contactID'] == x]['marketing_pressure'].values[0], reverse=False)
+
     # result
     results_list = []
-    print("Recommended Contact Persons for the New Campaign:")
     for contact_id in recommended_contact_ids:
         marketing_pressure = df[df['contactID'] == contact_id]['marketing_pressure'].values[0]
-        results_list.append((contact_id, marketing_pressure))
+        similarity_score = df[df['contactID'] == contact_id]['similarity_score'].values[0]
+        results_list.append((contact_id, marketing_pressure, similarity_score))
     return results_list

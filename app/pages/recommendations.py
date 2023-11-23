@@ -111,6 +111,9 @@ with cols_tab:
             n_rec = st.number_input('How many recommendations do you want?', min_value=1, max_value=100, value=10, step=1)
             st.divider()
 
+            date_range = st.slider('Select a date range', min_value=date(2019, 1, 1), max_value=date(2023, 12, 31), value=(date(2019, 1, 1), date(2020, 12, 31)))
+            st.divider()
+
             for col in mp_cols:
                 col1 = st.checkbox(col)
                 weight = st.slider(col, min_value=0.0, max_value=2.0, value=1.0, step=0.1)
@@ -149,7 +152,8 @@ with rec_tab:
         df_hulp.drop(columns=remove_cols, inplace=True)
 
         # calc the marketing pressure
-        df_hulp_mp_calc = calc_marketing_pressure(df_hulp, mp_cols_chosen, weights_dict)
+        df_hulp_mp_calc = calc_marketing_pressure(df_hulp, mp_cols_chosen, weights_dict, date_range)
+        df_hulp_mp_calc.drop(['fullDate'], axis=1, inplace=True)
 
         # preprocess the dataframe
         df_hulp_prep = preproces_df(df_hulp_mp_calc)
@@ -164,7 +168,7 @@ with rec_tab:
         response_df = pd.DataFrame(response_list)
 
         # rename columns
-        response_df.rename(columns={0: 'contactID', 1: 'marketing_pressure'}, inplace=True)
+        response_df.rename(columns={0: 'contactID', 1: 'marketing_pressure', 2: 'similarity score'}, inplace=True)
 
         # getting other information about the contact persons
         fill_up_df = results_df.copy()
