@@ -3,30 +3,39 @@ CREATE VIEW dbo.ViewAfspraak
 AS
 SELECT
     a.afspraak_alle_afspraak_id AS afspraakID,
-	ac.afspraak_betreft_account_thema AS account_thema,
-	ac.afspraak_betreft_account_subthema AS account_subthema,
-	ac.afspraak_betreft_account_onderwerp AS account_onderwerp,
-	ac.afspraak_betreft_account_eindtijd AS account_eindtijd,
-	LEFT(ac.afspraak_betreft_account_keyphrases, 255) AS account_keyphrases,
-	c.afspraak_betreft_contactfiche_thema AS contact_thema,
-	c.afspraak_betreft_contactfiche_subthema AS contact_subthema,
-	c.afspraak_betreft_contactfiche_onderwerp AS contact_onderwerp,
-	c.afspraak_betreft_contactfiche_eindtijd AS contact_eindtijd,
-	LEFT(c.afspraak_betreft_contactfiche_keyphrases, 255) AS conact_keyphrases,
-	ac.afspraak_betreft_account_betreft_id AS accountID,
-	c.afspraak_betreft_contactfiche_betreft_id AS contactID
+	c.afspraak_betreft_contactfiche_thema AS thema,
+	c.afspraak_betreft_contactfiche_subthema AS subthema,
+	c.afspraak_betreft_contactfiche_onderwerp AS onderwerp,
+	c.afspraak_betreft_contactfiche_eindtijd AS eindtijd,
+	c.afspraak_betreft_contactfiche_keyphrases AS keyphrases,
+	c.afspraak_betreft_contactfiche_betreft_id AS contactID,
+	Null as accountID
+	
 FROM
     Voka.dbo.Afspraak_alle a
-LEFT JOIN
-    Voka.dbo.Afspraak_betreft_account_cleaned ac ON a.afspraak_alle_afspraak_id = ac.afspraak_betreft_account_afspraak_id
-LEFT JOIN
+inner JOIN
 	Voka.dbo.Afspraak_betreft_contact_cleaned c ON a.afspraak_alle_afspraak_id = c.afspraak_betreft_contactfiche_afspraak_id
+UNION ALL
+SELECT
+    a.afspraak_alle_afspraak_id AS afspraakID,
+	ac.afspraak_betreft_account_thema AS thema,
+	ac.afspraak_betreft_account_subthema AS subthema,
+	ac.afspraak_betreft_account_onderwerp AS onderwerp,
+	ac.afspraak_betreft_account_eindtijd AS eindtijd,
+	ac.afspraak_betreft_account_keyphrases AS keyphrases,
+	Null as contactID,
+	ac.afspraak_betreft_account_betreft_id AS accountID
+	
+FROM
+    Voka.dbo.Afspraak_alle a
+inner JOIN
+	Voka.dbo.Afspraak_betreft_account_cleaned ac ON a.afspraak_alle_afspraak_id = ac.afspraak_betreft_account_afspraak_id
+
 
 -- Step 2: Extract data from the view
 SELECT * FROM Voka.dbo.ViewAfspraak;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimAfspraak(afspraakID, account_thema, account_subthema, account_onderwerp, account_eindtijd, account_keyphrases, contact_thema, contact_subthema, contact_onderwerp, contact_eindtijd, conact_keyphrases
-)
-SELECT afspraakID, account_thema, account_subthema, account_onderwerp, account_eindtijd, account_keyphrases, contact_thema, contact_subthema, contact_onderwerp, contact_eindtijd, conact_keyphrases
+INSERT INTO Voka_DWH5_2.dbo.DimAfspraak(afspraakID, thema, subthema, onderwerp, eindtijd, contactID, accountID, keyphrases)
+SELECT afspraakID, thema, subthema, onderwerp, eindtijd, contactID, accountID, keyphrases
 FROM Voka.dbo.ViewAfspraak;
