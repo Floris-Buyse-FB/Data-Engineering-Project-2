@@ -11,8 +11,8 @@
   DTS:LocaleID="2067"
   DTS:ObjectName="FillDW"
   DTS:PackageType="5"
-  DTS:VersionBuild="35"
-  DTS:VersionGUID="{4899487F-567A-45CD-A72B-C50224B38652}">
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{EEE3ACDE-41C9-4984-B3FE-4D7E85586FC7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -19199,7 +19199,7 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -19209,7 +19209,7 @@ where [refTable].[contact_contactpersoon_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
