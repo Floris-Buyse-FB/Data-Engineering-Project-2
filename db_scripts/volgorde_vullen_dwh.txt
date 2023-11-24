@@ -5,8 +5,8 @@ Fill_DimDate.sql
 ViewSessie.sql
 ViewCampagne.sql
 ViewVisit,
-ViewAccount, -- issue (join) => voorlopig ok
-ViewContact, --issue (join)
+ViewAccount, 
+ViewContact, 
 ViewAfspraak, 
 ViewLidmaatschap,
 ViewInfo,

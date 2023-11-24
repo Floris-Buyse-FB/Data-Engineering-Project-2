@@ -15,8 +15,9 @@ st.markdown(
 
     In the sidebar you can select pages.
 
+    Add Data: Add data to the database.
     View Data: View the data in the database.
-
+    Lookalikes: generate lookalikes for a contact.
     Recommendations: Upload a csv file with a campaign and get recommendations for contacts.
 """
 )
