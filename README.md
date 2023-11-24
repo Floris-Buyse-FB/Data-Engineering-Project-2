@@ -16,7 +16,7 @@ python cleanup_script.py [SUBCOMMAND]
 Gebruik `'all'` als subcommando om alle data op te schonen.
 Voor de andere subcommandos ga je best eens kijken in het script zelf. Deze staan onderaan het script.
 
-## 2 De database
+## 2 De database en DWH
 
 Alvorens we de databank kunnen vullen moeten we eerst de database maken. Dit doen we door het script `create_db.sql` uit te voeren in SSMS. Dit script zal de database en de tabellen aanmaken.
 
@@ -60,3 +60,19 @@ Om deze webapplicatie te runnen gaan we eerst naar de map `app` en voeren we ver
 ```Bash
 streamlit run ./Hello.py
 ```
+
+Hierop heb je enkele tabs: add_data, recommendations, lookalikes en view_data.
+### 5.1 add_data
+Deze tab is voor de handsprekend, je voegt simpelweg data toe aan de datawarehouse. Via online learning worden onze modellen hertrained.
+
+### 5.2 recommendations
+Hier heb je nog enkele tabs. Settings en recommendations. In de settings bepalen ze zelf de marketing pressure via enkele settings. Vervolgens worden er recommendations gegeven op basis van de ingevoerde persoon. Deze output kan ook gedownload worden. 
+
+### 5.3 lookalikes
+In de tab geef je een contact persoon in en krijg je het aantal lookalikes naar keuze te zien. Deze kunnen ook per direct worden gecontroleerd.
+
+### 5.4 view_data
+Deze tab spreekt ook voor zich. Je kiest welke tabel je te zien wilt krijgen. 
+
+
+
