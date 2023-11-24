@@ -67,7 +67,7 @@ with data_tab:
             if df_campagne_clean.empty:
                 st.write('Something went wrong, please check the error message above')
             else:
-                st.dataframe(df_campagne_clean)
+                st.dataframe(df_campagne)
             # type a campaign id to give recommendations for
             campaign_id = st.text_input("Enter a campaign ID for recommendation", value='')
             
@@ -111,12 +111,16 @@ with cols_tab:
             n_rec = st.number_input('How many recommendations do you want?', min_value=1, max_value=100, value=10, step=1)
             st.divider()
 
-            date_range = st.slider('Select a date range', min_value=date(2019, 1, 1), max_value=date(2023, 12, 31), value=(date(2019, 1, 1), date(2020, 12, 31)))
+            date_range = st.slider('Select a date range', min_value=date(2019, 1, 1), max_value=date(2023, 12, 31), value=(date(2019, 1, 1), date(2023, 12, 31)))
             st.divider()
 
             for col in mp_cols:
-                col1 = st.checkbox(col)
-                weight = st.slider(col, min_value=0.0, max_value=2.0, value=1.0, step=0.1)
+                if col == 'mail_click_freq':
+                    name = 'mail_click_frequency'
+                else:
+                    name = col
+                col1 = st.checkbox(name)
+                weight = st.slider(name, min_value=0.0, max_value=2.0, value=1.0, step=0.1)
                 st.divider()
                 if col1:
                     mp_cols_chosen.append((col, weight))
@@ -127,7 +131,6 @@ with cols_tab:
                 if len(mp_cols_chosen) == 0:
                     st.error('Please select at least one column')
                 else:
-                    st.json(mp_cols_chosen)
                     st.success('Please proceed to the next tab to get recommendations')
                     weights_dict = dict(mp_cols_chosen)
                     mp_cols_chosen = [col for col, _ in mp_cols_chosen]
