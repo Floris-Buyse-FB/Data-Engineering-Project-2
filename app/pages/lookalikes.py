@@ -11,15 +11,6 @@ st.title('Create lookalikes for a contact')
 st.write('Write the contact id of the contact you want to find lookalikes for')
 contact_id = st.text_input('Contact ID', value='0542DA63-2C64-ED11-9561-6045BD895B5A')
 
-top_n = st.text_input('How many lookalikes do you want?', value=10)
-# make sure the input is a number
-
-try:
-    top_n = int(top_n)
-except:
-    st.write('Please enter a number')
-    top_n = 10
-
 # Connect to the database
 conn = connect_db(local=True)
 
@@ -29,6 +20,18 @@ df = merge_all(conn)
 
 # Clean the data
 df_clean, original = clean_merged(df)
+
+st.write('The contact you want lookalikes for: ')
+st.dataframe(original[original['contactID']==contact_id])
+
+top_n = st.text_input('How many lookalikes do you want?', value=10)
+# make sure the input is a number
+
+try:
+    top_n = int(top_n)
+except:
+    st.write('Please enter a number')
+    top_n = 10
 
 # Get the recommendations
 recommendations = recommend_lookalikes(df_clean,contact_id,top_n)
