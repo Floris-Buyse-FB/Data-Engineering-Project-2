@@ -61,8 +61,7 @@ Om deze webapplicatie te runnen gaan we eerst naar de map `app` en voeren we ver
 streamlit run ./Hello.py
 ```
 
-Dit platform biedt een gestructureerde set tabbladen aan: add_data, recommendations, lookalikes, en view_data.
-
+Dit platform biedt een gestructureerde set tabbladen aan: `add_data`, `recommendations`, `lookalikes`, en `view_data`.
 ### 5.1 add_data
 Dit tabblad is gewijd aan het systematisch toevoegen van gegevens aan het datawarehouse. Door middel van `online learning` ondergaan onze modellen consequent hertraining.
 
