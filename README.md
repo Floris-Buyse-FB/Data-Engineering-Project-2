@@ -61,18 +61,19 @@ Om deze webapplicatie te runnen gaan we eerst naar de map `app` en voeren we ver
 streamlit run ./Hello.py
 ```
 
-Hierop heb je enkele tabs: add_data, recommendations, lookalikes en view_data.
+Dit platform biedt een gestructureerde set tabbladen aan: add_data, recommendations, lookalikes, en view_data.
+
 ### 5.1 add_data
-Deze tab is voor de handsprekend, je voegt simpelweg data toe aan de datawarehouse. Via online learning worden onze modellen hertrained.
+Dit tabblad is gewijd aan het systematisch toevoegen van gegevens aan het datawarehouse. Door middel van online leren ondergaan onze modellen consequent hertraining.
 
 ### 5.2 recommendations
-Hier heb je nog enkele tabs. Settings en recommendations. In de settings bepalen ze zelf de marketing pressure via enkele settings. Vervolgens worden er recommendations gegeven op basis van de ingevoerde persoon. Deze output kan ook gedownload worden. 
+Binnen deze sectie bevinden zich extra tabbladen met de labels Instellingen en Aanbevelingen. In het tabblad Instellingen hebben gebruikers de mogelijkheid om de marketingdruk zelf te bepalen aan de hand van specifieke configuraties. Vervolgens worden er aanbevelingen gegenereerd op basis van de ingevoerde individuele gegevens. De daaruit voortvloeiende output is tevens downloadbaar.
 
 ### 5.3 lookalikes
-In de tab geef je een contact persoon in en krijg je het aantal lookalikes naar keuze te zien. Deze kunnen ook per direct worden gecontroleerd.
+In dit tabblad voert de gebruiker een contactpersoon in en verkrijgt vervolgens het gewenste aantal 'lookalikes'. Deze 'lookalikes' kunnen direct en accuraat worden geverifieerd.
 
 ### 5.4 view_data
-Deze tab spreekt ook voor zich. Je kiest welke tabel je te zien wilt krijgen. 
+Dit tabblad vereenvoudigt het proces van het kiezen en tonen van specifieke tabellen door gebruikers.
 
 
 
