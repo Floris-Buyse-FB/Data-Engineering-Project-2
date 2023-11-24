@@ -3,7 +3,7 @@ import re
 import nltk
 import numpy as np
 import pandas as pd
-from dotenv import load_dotenv
+import streamlit as st
 from nltk.corpus import stopwords
 from sqlalchemy import create_engine
 from nltk.tokenize import word_tokenize
@@ -15,15 +15,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 nltk.download('stopwords', quiet=True)
 nltk.download('punkt', quiet=True)
 
-
-ENV_URL = os.path.join(os.getcwd(), '.env')
-load_dotenv(ENV_URL)
-
-DWH_NAME = os.environ.get('DWH_NAME')
-SERVER_NAME = os.environ.get('SERVER_NAME')
-DB_USER = os.environ.get('DB_USER')
-DB_PASSWORD = os.environ.get('DB_PASSWORD')
-
+DWH_NAME = st.secrets['DWH_NAME']
+SERVER_NAME = st.secrets['SERVER_NAME']
+DB_USER = st.secrets['DB_USER']
+DB_PASSWORD = st.secrets['DB_PASSWORD']
+                             
 
 def connect_db(local=True):
     if local:
