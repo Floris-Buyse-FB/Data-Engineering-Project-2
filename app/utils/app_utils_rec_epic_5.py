@@ -570,10 +570,8 @@ def get_final_no_mp(conn):
 
 
 def preproces_df(df):
-    df = df.groupby('contactID').agg(list)
+    df = df.groupby(['contactID', 'accountID']).agg(list)
     df['marketing_pressure'] = df['marketing_pressure'].apply(lambda x: np.mean(x).round(0).astype(int))
-    df['accountID'] = df['accountID'].apply(lambda x: list(set(x)))
-    df['accountID'] = df['accountID'].apply(lambda x: x[0])
     df['keyphrases'] = df['keyphrases'].apply(lambda x: ', '.join(list(set(x))))
     df['keyphrases'] = df['keyphrases'].apply(lambda x: remove_stopwords(x))
     df['keyphrases'] = df['keyphrases'].apply(lambda x: team_name_change(x))
