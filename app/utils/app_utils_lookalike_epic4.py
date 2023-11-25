@@ -115,7 +115,7 @@ def merge_all(conn):
 
 def clean_merged(df):
     df_clean = df.drop_duplicates(subset=['contactID','campagneID'], keep='first')
-    df_clean = df_clean[['contactID','plaats','subregio','ondernemingsaard','ondernemingstype','activiteitNaam','campagneID','campagneType','campagneNaam','campagneSoort','keyphrases','functietitel','functieNaam']]
+    df_clean = df_clean[['contactID','functietitel','functieNaam','plaats','subregio','ondernemingsaard','ondernemingstype','activiteitNaam','campagneType','campagneNaam','campagneSoort','keyphrases']]
     
     original = df_clean.copy()
     
@@ -146,7 +146,7 @@ def recommend_lookalikes(df, input_contactid, top_n=10):
       'score': top_recommendations[input_contactid]
   })
   recommendations = recommendations[recommendations['contactID']!=input_contactid]
-  recommendations = recommendations.drop_duplicates(subset=['contactID'], keep='first').reset_index(drop=True)
+  #recommendations = recommendations.drop_duplicates(subset=['contactID'], keep='first').reset_index(drop=True)
 
   return recommendations.head(top_n)
     
