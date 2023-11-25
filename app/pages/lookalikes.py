@@ -59,16 +59,19 @@ except:
     top_n = 10
 
 if st.button('Create lookalikes', key='lookalikes'):
-    st.__loader__=__loader__
-    # Get the recommendations
-    if campagnes == 'All':
-        recommendations = recommend_lookalikes(df_all,contact_id,top_n)
-    else:
-        recommendations = recommend_lookalikes(df_clean,contact_id,top_n)
+    with st.status('Creating lookalikes...'):
+
+        # Get the recommendations
+        if campagnes == 'All':
+            recommendations = recommend_lookalikes(df_all,contact_id,top_n)
+        elif campagnes == 'None':
+            recommendations = recommend_lookalikes(df_None,contact_id,top_n)
+        else:
+            recommendations = recommend_lookalikes(df_clean,contact_id,top_n)
 
     st.write('The top ' + str(top_n) + ' lookalikes for contact ' + str(contact_id) + ' are: ')
     st.dataframe(recommendations)
 
     # show the recommendations with the original data
     st.write('The top ' + str(top_n) + ' lookalikes for contact ' + str(contact_id) + ' are: ')
-    st.dataframe(pd.merge(recommendations['contactID'], original, on='contactID', how='inner'))
+    st.dataframe(pd.merge(recommendations['contactID'], original, on='contactID', how='inner'))    
