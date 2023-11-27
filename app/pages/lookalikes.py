@@ -37,8 +37,8 @@ elif campagnes == 'None':
     df_None = df_clean.drop(columns=['campagneNaam','campagneSoort','campagneType'])
     df_None = df_None.drop_duplicates(subset=['contactID'], keep='first')
 else:
-    contact_id = df_clean[(df_clean['contactID'] == contact_id) & (df_clean['campagneNaam'] == campagnes)]
-    #df_clean = df_clean[df_clean['campagneNaam'] == campagnes]
+    #contact_id = df_clean[(df_clean['contactID'] == contact_id) & (df_clean['campagneNaam'] == campagnes)]
+    df_clean = df_clean[df_clean['campagneNaam'] == campagnes]
 
 st.write('The contact you want lookalikes for: ')
 if campagnes == 'None':
