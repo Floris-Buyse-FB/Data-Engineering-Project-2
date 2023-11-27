@@ -423,7 +423,7 @@ def ChangeAllData():
     remove_non_existing_pk('Afspraak_account_gelinkt_cleaned_fixed.csv', ['account', 'afspraak'], ['afspraak_account_gelinkt_account', 'afspraak_account_gelinkt_afspraak_id'])
     remove_non_existing_pk('CDI_sent_email_clicks_fixed.csv', ['mailing', 'contact'], ['sentemail_kliks_e_mail_versturen', 'sentemail_kliks_contact'])
     remove_non_existing_pk('CDI_visits_fixed.csv', ['contact', 'mailing', 'campagne'], ['visit_contact', 'visit_email_send', 'visit_campaign'])
-    remove_non_existing_pk('CDI_pageviews_fixed.csv', ['contact', 'campagne', 'visit'], ['contact', 'campaign', 'visit'])
+    remove_non_existing_pk('CDI_pageviews_fixed.csv', ['contact', 'campagne', 'visit'], ['Contact', 'Campaign', 'Visit'])
     remove_non_existing_pk('Contact_functie_fixed.csv', ['contact', 'functie'], ['contactfunctie_contactpersoon', 'contactfunctie_functie']) 
     remove_non_existing_pk('Info_en_klachten_fixed.csv', ['account', 'gebruiker'], ['info_en_klachten_account', 'info_en_klachten_eigenaar'])
     remove_non_existing_pk('Inschrijving_fixed.csv', ['contact', 'campagne'], ['inschrijving_contactfiche', 'inschrijving_campagne']) 
