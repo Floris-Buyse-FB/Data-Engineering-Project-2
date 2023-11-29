@@ -36,7 +36,7 @@ INNER JOIN
 SELECT * FROM Voka.dbo.ViewVisit;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimVisit(visitID, visit_bounce, visit_browser, visit_ip_address, visit_ip_company, visit_ip_land, visit_ip_postcode, visit_ip_stad, visit_duration, visit_first_visit, visit_entry_page, visit_exit_page, visit_referrer_type, visit_started_on, visit_total_pages,mailing_onderwerp,mailing_name, mailSent, mailSent_clicks, campaignID, contactID
+INSERT INTO Voka_DWH.dbo.DimVisit(visitID, visit_bounce, visit_browser, visit_ip_address, visit_ip_company, visit_ip_land, visit_ip_postcode, visit_ip_stad, visit_duration, visit_first_visit, visit_entry_page, visit_exit_page, visit_referrer_type, visit_started_on, visit_total_pages,mailing_onderwerp,mailing_name, mailSent, mailSent_clicks, campaignID, contactID
 )
 SELECT visitID, visit_bounce, visit_browser, visit_ip_address, visit_ip_company, visit_ip_land, visit_ip_postcode, visit_ip_stad, visit_duration, visit_first_visit, visit_entry_page, visit_exit_page, visit_referrer_type, visit_started_on, visit_total_pages, mailing_onderwerp, mailing_name, mailSent, mailSent_clicks, campaignID, contactID
  FROM Voka.dbo.ViewVisit;

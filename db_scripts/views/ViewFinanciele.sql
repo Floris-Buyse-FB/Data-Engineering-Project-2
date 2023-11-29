@@ -18,7 +18,7 @@ FROM
 SELECT * FROM Voka.dbo.ViewFinanciele;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimFinanciëleDataAccount(financialDataID, boekjaar, aantalMaanden, toegevoegdeWaarde, FTE, gewijzigdOp, accountID
+INSERT INTO Voka_DWH.dbo.DimFinanciëleDataAccount(financialDataID, boekjaar, aantalMaanden, toegevoegdeWaarde, FTE, gewijzigdOp, accountID
 
 
 )

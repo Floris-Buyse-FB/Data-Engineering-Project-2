@@ -16,7 +16,7 @@ FROM
 SELECT * FROM Voka.dbo.ViewLidmaatschap;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimLidmaatschap(lidmaatschapID, redenAangroei, redenVerloop, startDatum, opzegDatum, accountID
+INSERT INTO Voka_DWH.dbo.DimLidmaatschap(lidmaatschapID, redenAangroei, redenVerloop, startDatum, opzegDatum, accountID
 )
 SELECT lidmaatschapID, redenAangroei, redenVerloop, startDatum, opzegDatum, accountID
  FROM Voka.dbo.ViewLidmaatschap;

@@ -20,5 +20,5 @@ INNER JOIN
 SELECT * FROM Voka.dbo.ViewSessie;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimSessie (sessieID, sessieNummer, activiteitstype, campaignID, inschrijvingsID, startDatumTijd, eindDatumTijd, product, themaNaam)
+INSERT INTO Voka_DWH.dbo.DimSessie (sessieID, sessieNummer, activiteitstype, campaignID, inschrijvingsID, startDatumTijd, eindDatumTijd, product, themaNaam)
 SELECT sessieID, sessieNummer, activiteitstype, campaignID, inschrijvingsID, startDatumTijd, eindDatumTijd, product, themaNaam FROM Voka.dbo.ViewSessie;

@@ -36,6 +36,6 @@ inner JOIN
 SELECT * FROM Voka.dbo.ViewAfspraak;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimAfspraak(afspraakID, thema, subthema, onderwerp, eindtijd, contactID, accountID, keyphrases)
+INSERT INTO Voka_DWH.dbo.DimAfspraak(afspraakID, thema, subthema, onderwerp, eindtijd, contactID, accountID, keyphrases)
 SELECT afspraakID, thema, subthema, onderwerp, eindtijd, contactID, accountID, keyphrases
 FROM Voka.dbo.ViewAfspraak;

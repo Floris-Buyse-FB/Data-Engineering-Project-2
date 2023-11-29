@@ -15,7 +15,7 @@ FROM
 SELECT * FROM Voka.dbo.ViewInfo;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimInfoEnKlachten(aanvraagID, aanvraagDatum, datumAfsluiting, aanvraagStatus, accountID
+INSERT INTO Voka_DWH.dbo.DimInfoEnKlachten(aanvraagID, aanvraagDatum, datumAfsluiting, aanvraagStatus, accountID
 
 )
 SELECT aanvraagID, aanvraagDatum, datumAfsluiting, aanvraagStatus, accountID

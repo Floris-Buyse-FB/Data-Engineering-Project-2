@@ -1,4 +1,4 @@
-USE Voka_DWH5;
+USE Voka_DWH;
 
 INSERT INTO FactInschrijving(
     inschrijvingID,
@@ -21,8 +21,8 @@ SELECT
     C.contactID AS contactID
 
 FROM Voka.dbo.Inschrijving I
-INNER JOIN Voka_DWH5.dbo.DimDate D ON I.inschrijving_datum_inschrijving = D.fullDate
-INNER JOIN Voka_DWH5.dbo.DimSessie S ON I.inschrijving_inschrijving_id = S.inschrijvingsID
-INNER JOIN Voka_DWH5.dbo.DimContact C ON I.inschrijving_contactfiche = C.contactID
-INNER JOIN Voka_DWH5.dbo.DimCampagne Camp ON I.inschrijving_campagne = Camp.campagneID
+INNER JOIN Voka_DWH.dbo.DimDate D ON I.inschrijving_datum_inschrijving = D.fullDate
+INNER JOIN Voka_DWH.dbo.DimSessie S ON I.inschrijving_inschrijving_id = S.inschrijvingsID
+INNER JOIN Voka_DWH.dbo.DimContact C ON I.inschrijving_contactfiche = C.contactID
+INNER JOIN Voka_DWH.dbo.DimCampagne Camp ON I.inschrijving_campagne = Camp.campagneID
 

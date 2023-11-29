@@ -20,5 +20,5 @@ FROM
 SELECT * FROM Voka.dbo.ViewCampagne;
 
 -- Step 3: Load data into data warehouse table
-INSERT INTO Voka_DWH5_2.dbo.DimCampagne (campagneID, campagneNummer, campagneNaam, campagneNaamInEmail, campagneType, campagneSoort, campagneStartdatum, campagneEinddatum, campagneStatus, campagneURLVoka)
+INSERT INTO Voka_DWH.dbo.DimCampagne (campagneID, campagneNummer, campagneNaam, campagneNaamInEmail, campagneType, campagneSoort, campagneStartdatum, campagneEinddatum, campagneStatus, campagneURLVoka)
 SELECT campagneID, campagneNummer, campagneNaam, campagenNaamInEmail, campagneType, campagneSoort, campagneStartdatum, campagneEinddatum, campagneStatus, campagneURLVoka FROM Voka.dbo.ViewCampagne;

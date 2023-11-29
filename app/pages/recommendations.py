@@ -17,7 +17,7 @@ col_chose_finished = False
 @st.cache_data
 def get_data():
     st.write('Setting up database connection and preloading data, please wait a moment')
-    conn = connect_db()
+    conn = connect_db(local=False)
     final_no_mp = get_final_no_mp(conn)
     results_df = get_results_df(conn)
     return final_no_mp, results_df

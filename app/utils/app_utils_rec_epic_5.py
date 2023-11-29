@@ -17,6 +17,7 @@ nltk.download('punkt', quiet=True)
 
 DWH_NAME = st.secrets['DWH_NAME']
 SERVER_NAME = st.secrets['SERVER_NAME']
+SERVER_NAME_REMOTE = st.secrets['SERVER_NAME_REMOTE']
 DB_USER = st.secrets['DB_USER']
 DB_PASSWORD = st.secrets['DB_PASSWORD']
                              
@@ -28,7 +29,7 @@ def connect_db(local=True):
         conn = engine.connect()
         return conn
     else:
-        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DWH_NAME}'
+        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME_REMOTE}:1438/{DWH_NAME}'
         engine = create_engine(URL)
         conn = engine.connect()
         return conn
