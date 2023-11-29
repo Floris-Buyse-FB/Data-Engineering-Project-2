@@ -1,1 +1,1 @@
-__all__ = ['app_utils_rec_epic_5', 'app_utils_lookalike_epic4']
+__all__ = ['app_utils_rec_epic_5', 'app_utils_lookalike_epic4', 'app_utils_rec_epic_3']
