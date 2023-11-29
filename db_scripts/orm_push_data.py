@@ -2,9 +2,6 @@ import csv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-# from dotenv import load_dotenv
-# from sqlalchemy.orm.exc import IntegrityError
-# import pymssql
 from orm_model import (
     Account_activiteitscode,
     Account,
@@ -35,8 +32,6 @@ from orm_model import (
 
 
 # #Database URL
-# ENV_URL = os.path.join(os.getcwd(), '../.env')
-# load_dotenv(ENV_URL)
 DB_NAME = os.environ.get('DB_NAME')
 SERVER_NAME = os.environ.get('SERVER_NAME')
 DB_USER = os.environ.get('DB_USER')
