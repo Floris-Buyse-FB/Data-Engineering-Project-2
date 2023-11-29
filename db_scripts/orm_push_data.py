@@ -41,17 +41,15 @@ DB_NAME = os.environ.get('DB_NAME')
 SERVER_NAME = os.environ.get('SERVER_NAME')
 DB_USER = os.environ.get('DB_USER')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
-URL = f'mssql+pyodbc://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DB_NAME}'
 
-# Database URL
-# DB_NAME = 'Voka'
-# SERVER_NAME = 'sql1'
-# URL = f'mssql+pyodbc://{SERVER_NAME}/Voka?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
-# URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/Voka?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
+#Database URL
+URL_VIC = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@localhost:1438/{DB_NAME}'
+URL = f'mssql+pyodbc://{SERVER_NAME}/Voka?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
+URL_EMMA = f'mssql+pyodbc://SA:SQLSERVERPassw0rd@localhost:1433/Voka?trusted_connection=no&driver=ODBC+Driver+17+for+SQL+Server'
 DATA_DIR = os.path.join(os.getcwd(), '../data_clean')
 
 # Define your database engine
-engine = create_engine(URL)
+engine = create_engine(URL_VIC)
 Session = sessionmaker(bind=engine)
 session = Session()
 
