@@ -1,38 +1,37 @@
 import random
 
 def generate_personalized_email(naam, campaigns, doelen, strategien):
-    email_template = """
-    Beste {klant_naam},
+    email_template = """Beste {klant_naam}
 
-    {begroeting}
+{begroeting}
 
-    {reden_voor_contact}
+{reden_voor_contact}
 
-    Hier zijn de top 3 campagnes die ik ten zeerste aanbeveel:
-    1. **{campagne1_naam}:**
-       - Doel: {campagne1_doel}.
-       - Strategie: {campagne1_strategie}.
+  Hier zijn de top 3 campagnes die ik ten zeerste aanbeveel:
+  1. **{campagne1_naam}:**
+    - Doel: {campagne1_doel}.
+    - Strategie: {campagne1_strategie}.
 
-    2. **{campagne2_naam}:**
-       - Doel: {campagne2_doel}.
-       - Strategie: {campagne2_strategie}.
+  2. **{campagne2_naam}:**
+    - Doel: {campagne2_doel}.
+    - Strategie: {campagne2_strategie}.
 
-    3. **{campagne3_naam}:**
-       - Doel: {campagne3_doel}.
-       - Strategie: {campagne3_strategie}.
+  3. **{campagne3_naam}:**
+    - Doel: {campagne3_doel}.
+    - Strategie: {campagne3_strategie}.
 
 
-    {afspraak}
+{afspraak}
 
-    Bedankt voor je tijd en ik kijk ernaar uit om samen te werken aan het verder laten groeien van jouw bedrijf.
+Bedankt voor je tijd en ik kijk ernaar uit om samen te werken aan het verder laten groeien van jouw bedrijf.
 
-    Met vriendelijke groet,
+Met vriendelijke groet,
 
-    [Je Naam]
-    [Je Titel]
-    [Bedrijfsnaam]
-    [Contactgegevens]
-    """
+[Je Naam]
+[Je Titel]
+[Bedrijfsnaam]
+[Contactgegevens]
+  """
 
     begroeting_library = [
         'Ik hoop dat deze e-mail je in goede gezondheid bereikt. Graag wil ik je bedanken voor je voortdurende vertrouwen in onze diensten. Wij bij Voka, zijn altijd op zoek naar manieren om onze samenwerking te versterken en jouw bedrijfsdoelstellingen te ondersteunen.',
