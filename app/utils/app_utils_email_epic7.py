@@ -1,6 +1,6 @@
 import random
 
-def generate_personalized_email(naam, campaigns, doelen, strategien):
+def generate_personalized_email(naam, campaigns, doelen, strategien,handtekening):
     email_template = """Beste {klant_naam}
 
 {begroeting}
@@ -27,16 +27,14 @@ Bedankt voor je tijd en ik kijk ernaar uit om samen te werken aan het verder lat
 
 Met vriendelijke groet,
 
-[Je Naam]
-[Je Titel]
-[Bedrijfsnaam]
-[Contactgegevens]
+
+{handtekening}
   """
 
     begroeting_library = [
         'Ik hoop dat deze e-mail je in goede gezondheid bereikt. Graag wil ik je bedanken voor je voortdurende vertrouwen in onze diensten. Wij bij Voka, zijn altijd op zoek naar manieren om onze samenwerking te versterken en jouw bedrijfsdoelstellingen te ondersteunen.',
         'Ik vertrouw erop dat deze boodschap je welzijn weerspiegelt. Dank je wel voor het voortdurende vertrouwen in onze diensten. Als toegewijde medewerkers bij Voka, streven we voortdurend naar manieren om onze samenwerking te optimaliseren en jouw bedrijfsdoelen te ondersteunen.',
-        'Hopelijk ontvang je deze e-mail in goede gezondheid. Ik waardeer je voortdurende vertrouwen in onze diensten. Als team van Voka zijn we constant bezig met het vinden van manieren om onze samenwerking te versterken en jouw bedrijfsdoelen te realiseren.',
+        'Hopelijk ontvang je deze e-mail in goede gezondheid. Wij waarderen je voortdurende vertrouwen in onze diensten. Als team van Voka zijn we constant bezig met het vinden van manieren om onze samenwerking te versterken en jouw bedrijfsdoelen te realiseren.',
         'Deze boodschap bereikt je hopelijk in uitstekende conditie. Hartelijk dank voor het aanhoudende vertrouwen in onze diensten. Als professionals bij Voka, zoeken we voortdurend naar manieren om onze samenwerking te verbeteren en jouw bedrijfsdoelstellingen te ondersteunen.',
         'Moge deze e-mail je bereiken terwijl het goed met je gaat. Ik ben dankbaar voor het voortdurende vertrouwen in onze diensten. Als betrokken team van Voka, zetten we ons voortdurend in om onze samenwerking te versterken en jouw bedrijfsdoelstellingen te faciliteren.',
         'Ik hoop dat deze woorden je in goede gezondheid bereiken. Bedankt voor het blijvende vertrouwen in onze diensten. Als medewerkers van Voka, blijven we actief werken aan het versterken van onze samenwerking en het ondersteunen van jouw bedrijfsdoelstellingen.'
@@ -76,6 +74,7 @@ Met vriendelijke groet,
         campagne3_naam=campaigns[2],
         campagne3_doel=doelen[2],
         campagne3_strategie=strategien[2],
-        afspraak=afspraak
+        afspraak=afspraak,
+        handtekening=handtekening
     )
     return email_template
