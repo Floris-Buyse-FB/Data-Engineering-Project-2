@@ -1,23 +1,42 @@
 import streamlit as st
 
+# Set page configuration
 st.set_page_config(
     page_title="Voka",
     page_icon="👋",
 )
 
-st.write("# Welcome to project for Voka! 👋")
+# Header
+st.image("./images/voka.png", width=300, )
+st.title("Welcome to the Voka Project! 👋")
 
-st.sidebar.success("Select a page above")
+# Sidebar
+# st.sidebar.success("Select a page above")
 
+# Main content
 st.markdown(
     """
-    This is the project of Floris, Emma, Storm, Marlon and Max for the course Data Engineering Project II at HoGent.
+    ## About
 
-    In the sidebar you can select pages.
+    This project is developed by Floris, Emma, Storm, Marlon, and Max for the course Data Engineering Project II at HoGent.
 
-    Add Data: Add data to the database.
-    View Data: View the data in the database.
-    Lookalikes: generate lookalikes for a contact.
-    Recommendations: Upload a csv file with a campaign and get recommendations for contacts.
+    ### Navigation
+
+    - **Add Data:** Add data to the database.
+    - **View Data:** View the data in the database.
+    - **Lookalikes:** Generate lookalikes for a contact.
+    - **Recommendations:** Upload a CSV file with a campaign and get recommendations for contacts.
+    - **Email Generator:** Generate a personalized email for a contact.
+
+    ## Instructions
+
+    Explore the different pages using the sidebar. Each page provides specific functionalities related to the Voka project.
+
+    Feel free to contribute and enhance the project!
+
+    Enjoy your exploration! 🚀
+
+    ### Project Team
+    #### Floris | Emma | Storm | Marlon | Max
 """
 )
