@@ -62,12 +62,10 @@ def load_accounts(contactids, conn):
     contact_condition = f"contactID IN {tuple(contactids)}"
     contact_query = create_query('DimContact', contact_cols, contact_condition)
     df_contact = pd.read_sql(contact_query, conn)
-    st.write('contacts loaded')
     # Load accounts
     acc_cols = ['accountID', 'subregio', 'ondernemingstype', 'ondernemingsaard', 'activiteitNaam']
     acc_query = create_query('DimAccount', acc_cols)
     df_account = pd.read_sql(acc_query, conn)
-    st.write('accounts loaded')
     # Merge contacts and accounts
     accounts_merged = df_contact.merge(df_account, on='accountID', how='inner')
     
@@ -91,7 +89,7 @@ def load_accounts(contactids, conn):
         'afspraak_Financieel': ['Financieel', 'Marketing & Sales', 'Aankoop'],
         'afspraak_Logistiek en Transport': ['Logistiek en Transport', 'Haven']
     }
-    
+
     afspraak_cols = ['thema', 'contactID']
 
     afspraak_condition = "contactID is not null"
@@ -169,8 +167,7 @@ def load_campaigns(conn):
                .drop_duplicates()
                .groupby('campaignID')['themaNaam_list']
                .agg(lambda x: list(set(x)))
-               .reset_index()
-               .sort_values(by='themaNaam_list', key=lambda x: x.str.len(), ascending=False))
+               .reset_index())
 
     unique_categories = set(category for row in df_sessie['themaNaam_list'] for category in row)
 
@@ -182,6 +179,7 @@ def load_campaigns(conn):
     campagnes_merged = pd.merge(df_campagne, df_sessie, left_on='campagneID', right_on='campaignID', how='left').fillna(0)
     campagnes_merged.drop_duplicates(keep='first',inplace=True)
     campagnes_merged.drop(['campaignID'], axis=1, inplace=True)
+    
     return campagnes_merged
 
 ####################################################################################################################################################
@@ -279,13 +277,16 @@ def get_inschrijvingen(contactids, conn):
 def get_recommendations(contactids, merged_total, df_inschrijving,top_n=10):
     model = get_model()
     recommendations = []
+    custom_order = ['contactID', 'campagneID', 'afspraak_Arbeidsmarkt', 'afspraak_Bedrijfsbeheer', 'afspraak_Duurzaamheid', 'afspraak_Familiebedrijfsmanagement', 'afspraak_Financieel', 'afspraak_Groeien en Netwerking', 'afspraak_Internationaal Ondernemen', 'afspraak_Lidmaatschap', 'afspraak_Logistiek en Transport', 'afspraak_Plato & Bryo', 'afspraak_Technologie en Innovatie', 'afspraak_Welt', 'sessie_ondernemen', 'sessie_logistiek', 'sessie_onderwijs', 'sessie_duurzaamheid', 'sessie_welt', 'sessie_lidmaatschap', 'sessie_innovatie en Technologie', 'sessie_netwerking', 'sessie_algemeen', 'sessie_juridisch', 'sessie_bryo', 'sessie_economie', 'sessie_veiligheid en communicatie', 'sessie_andere', 'marketing_pressure', 'ondernemingstype_1', 'ondernemingstype_2', 'ondernemingstype_3', 'ondernemingstype_4', 'activiteitNaam_1', 'activiteitNaam_2', 'activiteitNaam_3', 'activiteitNaam_4', 'activiteitNaam_5', 'activiteitNaam_6', 'Diensten', 'Productie', '0', '1', '2', '3', '4', '5', '0_campagne_type', '1_campagne_type', '2_campagne_type', '3_campagne_type', '4_campagne_type', '5_campagne_type', 'Online', 'Offline']
+    merged_total = merged_total[custom_order]
     for i in contactids:
         df_hulp = merged_total[merged_total['contactID'] == i]
         campaign_ids = df_hulp['campagneID']
-        df_hulp = df_hulp.drop(['contactID', 'accountID', 'campagneID'], axis=1)
+        df_hulp = df_hulp.drop(['contactID', 'campagneID'], axis=1)
         predictions = model.predict(df_hulp)
         predict_proba = model.predict_proba(df_hulp)
         df_hulp['campaignID'] = campaign_ids
+        df_hulp['contactID'] = i
         df_hulp['predictions'] = predictions
         df_hulp['predict_proba'] = predict_proba[:, 1]
         df_hulp = df_hulp[~df_hulp[['campaignID', 'contactID']].isin(df_inschrijving[['campagneID', 'contactID']]).all(axis=1)]
@@ -303,6 +304,7 @@ def get_all_data(contactids, conn):
     merged_total = add_marketing_pressure(merged_total, df_visit)
     df_inschrijving = get_inschrijvingen(contactids, conn)
     merged_total = merged_total.drop(['accountID'], axis=1)
+    
     return merged_total, df_inschrijving
 
 ####################################################################################################################################################
