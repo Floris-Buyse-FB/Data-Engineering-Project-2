@@ -7,30 +7,25 @@ import streamlit as st
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sklearn.preprocessing import OneHotEncoder
-import category_encoders as ce
 
 ENV_URL = os.path.join(os.getcwd(), '.env')
 load_dotenv(ENV_URL)
-
-# DWH_NAME = os.environ.get('DWH_NAME')
-# SERVER_NAME = os.environ.get('SERVER_NAME')
-# DB_USER = os.environ.get('DB_USER')
-# DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
 DWH_NAME = st.secrets['DWH_NAME']
 SERVER_NAME = st.secrets['SERVER_NAME']
 DB_USER = st.secrets['DB_USER']
 DB_PASSWORD = st.secrets['DB_PASSWORD']
 MODEL_PATH = st.secrets['MODEL_PATH']
+SERVER_NAME_REMOTE = st.secrets['SERVER_NAME_REMOTE']
 
-def connect_db(local=True):
+def connect_db(local=False):
     if local:
         URL_LOCAL = f'mssql+pyodbc://{SERVER_NAME}/{DWH_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
         engine = create_engine(URL_LOCAL)
         conn = engine.connect()
         return conn
     else:
-        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME}/{DWH_NAME}'
+        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME_REMOTE}:1438/{DWH_NAME}'
         engine = create_engine(URL)
         conn = engine.connect()
         return conn
@@ -129,7 +124,7 @@ def load_accounts(contactids, conn):
 ####################################################################################################################################################
 
 def load_campaigns(conn):
-    campagne_cols = ['campagneID', 'campagneType', 'campagneSoort']
+    campagne_cols = ['campagneID', 'campagneNaam', 'campagneType', 'campagneSoort']
     campagne_query = create_query('DimCampagne', campagne_cols)
     df_campagne = pd.read_sql(campagne_query, conn)
 
@@ -179,7 +174,6 @@ def load_campaigns(conn):
     campagnes_merged = pd.merge(df_campagne, df_sessie, left_on='campagneID', right_on='campaignID', how='left').fillna(0)
     campagnes_merged.drop_duplicates(keep='first',inplace=True)
     campagnes_merged.drop(['campaignID'], axis=1, inplace=True)
-    
     return campagnes_merged
 
 ####################################################################################################################################################
@@ -277,24 +271,32 @@ def get_inschrijvingen(contactids, conn):
 def get_recommendations(contactids, merged_total, df_inschrijving,top_n=10):
     model = get_model()
     recommendations = []
-    custom_order = ['contactID', 'campagneID', 'afspraak_Arbeidsmarkt', 'afspraak_Bedrijfsbeheer', 'afspraak_Duurzaamheid', 'afspraak_Familiebedrijfsmanagement', 'afspraak_Financieel', 'afspraak_Groeien en Netwerking', 'afspraak_Internationaal Ondernemen', 'afspraak_Lidmaatschap', 'afspraak_Logistiek en Transport', 'afspraak_Plato & Bryo', 'afspraak_Technologie en Innovatie', 'afspraak_Welt', 'sessie_ondernemen', 'sessie_logistiek', 'sessie_onderwijs', 'sessie_duurzaamheid', 'sessie_welt', 'sessie_lidmaatschap', 'sessie_innovatie en Technologie', 'sessie_netwerking', 'sessie_algemeen', 'sessie_juridisch', 'sessie_bryo', 'sessie_economie', 'sessie_veiligheid en communicatie', 'sessie_andere', 'marketing_pressure', 'ondernemingstype_1', 'ondernemingstype_2', 'ondernemingstype_3', 'ondernemingstype_4', 'activiteitNaam_1', 'activiteitNaam_2', 'activiteitNaam_3', 'activiteitNaam_4', 'activiteitNaam_5', 'activiteitNaam_6', 'Diensten', 'Productie', '0', '1', '2', '3', '4', '5', '0_campagne_type', '1_campagne_type', '2_campagne_type', '3_campagne_type', '4_campagne_type', '5_campagne_type', 'Online', 'Offline']
+    custom_order = ['contactID', 'campagneID', 'campagneNaam', 'afspraak_Arbeidsmarkt', 'afspraak_Bedrijfsbeheer', 'afspraak_Duurzaamheid', 'afspraak_Familiebedrijfsmanagement', 'afspraak_Financieel', 'afspraak_Groeien en Netwerking', 'afspraak_Internationaal Ondernemen', 'afspraak_Lidmaatschap', 'afspraak_Logistiek en Transport', 'afspraak_Plato & Bryo', 'afspraak_Technologie en Innovatie', 'afspraak_Welt', 'sessie_ondernemen', 'sessie_logistiek', 'sessie_onderwijs', 'sessie_duurzaamheid', 'sessie_welt', 'sessie_lidmaatschap', 'sessie_innovatie en Technologie', 'sessie_netwerking', 'sessie_algemeen', 'sessie_juridisch', 'sessie_bryo', 'sessie_economie', 'sessie_veiligheid en communicatie', 'sessie_andere', 'marketing_pressure', 'ondernemingstype_1', 'ondernemingstype_2', 'ondernemingstype_3', 'ondernemingstype_4', 'activiteitNaam_1', 'activiteitNaam_2', 'activiteitNaam_3', 'activiteitNaam_4', 'activiteitNaam_5', 'activiteitNaam_6', 'Diensten', 'Productie', '0', '1', '2', '3', '4', '5', '0_campagne_type', '1_campagne_type', '2_campagne_type', '3_campagne_type', '4_campagne_type', '5_campagne_type', 'Online', 'Offline']
     merged_total = merged_total[custom_order]
+    extra_info = pd.DataFrame(columns=['contactID', 'campagneID', 'campagneNaam', 'zekerheid'])
+    
     for i in contactids:
         df_hulp = merged_total[merged_total['contactID'] == i]
-        campaign_ids = df_hulp['campagneID']
-        df_hulp = df_hulp.drop(['contactID', 'campagneID'], axis=1)
+        campaign_ids = df_hulp[['campagneID', 'campagneNaam']]
+        df_hulp = df_hulp.drop(['contactID', 'campagneID', 'campagneNaam'], axis=1)
         predictions = model.predict(df_hulp)
         predict_proba = model.predict_proba(df_hulp)
-        df_hulp['campaignID'] = campaign_ids
+        df_hulp[['campagneID', 'campagneNaam']] = campaign_ids
         df_hulp['contactID'] = i
         df_hulp['predictions'] = predictions
         df_hulp['predict_proba'] = predict_proba[:, 1]
-        df_hulp = df_hulp[~df_hulp[['campaignID', 'contactID']].isin(df_inschrijving[['campagneID', 'contactID']]).all(axis=1)]
+        df_hulp = df_hulp[~df_hulp[['campagneID', 'contactID']].isin(df_inschrijving[['campagneID', 'contactID']]).all(axis=1)]
+        
+        top_n_recommendations = df_hulp.sort_values(by=['predictions', 'predict_proba'], ascending=False).head(top_n)
+        
+        extra_info = pd.concat([extra_info, top_n_recommendations[['contactID', 'campagneID', 'campagneNaam', 'predict_proba']]], ignore_index=True)
+        
         recommendations.append({
             'contactID': i,
-            'recommendations': df_hulp.sort_values(by=['predictions', 'predict_proba'], ascending=False).head(top_n)['campaignID'].tolist()
+            'recommendations': top_n_recommendations['campagneID'].tolist()
         })
-    return recommendations
+        
+    return recommendations, extra_info
 
 ####################################################################################################################################################
 
@@ -345,9 +347,11 @@ def one_hot_encoding(merged_total):
     for i in range(1, 5):
         merged_total[f'ondernemingstype_{i}'] = merged_total['ondernemingstype'].apply(lambda x: int(str(x)[i-1]))
     
+    merged_total['activiteitNaam'] = merged_total['activiteitNaam'].apply(lambda x: 'unknown' if x == 'Luchthavengerelateerd' else x)
+    
     # Primaire activiteit
     activiteitNaam_categories = [
-      {'categorie': 'Luchthavengerelateerd', 'binary': None},
+      {'categorie': 'unknown', 'binary': None},
       {'categorie': 'Farmacie', 'binary': None},
       {'categorie': 'Diamant, edelstenen, juwelen', 'binary': None},
       {'categorie': 'Havengerelateerd', 'binary': None},
@@ -383,6 +387,8 @@ def one_hot_encoding(merged_total):
       {'categorie': 'Voeding', 'binary': None},
       {'categorie': 'Overige industrie & diensten', 'binary': None}
     ]
+    
+    merged_total['activiteitNaam'] = merged_total['activiteitNaam'].apply(lambda x: 'unknown' if x not in [categorie['categorie'] for categorie in activiteitNaam_categories] else x)
 
     for i, categorie in enumerate(activiteitNaam_categories):
         categorie['binary'] = str(bin(i)[2:].zfill(6))
