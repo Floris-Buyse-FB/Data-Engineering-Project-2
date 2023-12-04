@@ -31,6 +31,7 @@ with data_tab:
     st.info('1. Fill in howmany campaigns you want to recommend per contact.\n2. Upload a txt file with contact id\'s seperated by just a comma.\n3. Wait for everything to load and go to the next tab when instructed.')
     top_n = st.number_input('How many campaigns do you want to recommend per contact ID?', min_value=1, max_value=1000, value=10)
     txt_file = st.file_uploader('Upload a txt file with contact id\'s seperated by just a comma')
+    st.write("Tip: you can use the following website https://arraythis.com/ to seperate a list of contact id's with commas")
 
     if txt_file is not None:
 
