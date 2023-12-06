@@ -38,8 +38,12 @@ with data_tab:
         with st.status('Data tab status', expanded=True) as status:
             try:
             # init the data
-                contactids = str(txt_file.read().decode('utf-8')).split(',')
-                contactids = [contactid.strip() for contactid in contactids]
+                contactids = str(txt_file.read().decode('utf-8'))
+                if ',' in contactids:
+                    contactids = contactids.split(',')
+                    contactids = [contactid.strip() for contactid in contactids]
+                else:
+                    contactids = [contactids.strip()]
                 merged_total, df_inschrijving = get_data(contactids)
                 st.success('Database connection and preloading data successful')
                 status.update(label='Done processing data', state='complete', expanded=False)

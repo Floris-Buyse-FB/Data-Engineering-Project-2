@@ -54,7 +54,10 @@ def create_query(table_name, columns, condition=None):
 def load_accounts(contactids, conn):
     # Load contacts
     contact_cols = ['contactID', 'accountID']
-    contact_condition = f"contactID IN {tuple(contactids)}"
+    if len(contactids) > 1:
+        contact_condition = f"contactID IN {tuple(contactids)}"
+    else:
+        contact_condition = f"contactID = '{contactids[0]}'"
     contact_query = create_query('DimContact', contact_cols, contact_condition)
     df_contact = pd.read_sql(contact_query, conn)
     # Load accounts
@@ -180,7 +183,10 @@ def load_campaigns(conn):
 
 def load_visits(contactids, conn):
     visit_cols = ['contactID', 'visit_first_visit', 'visit_total_pages', 'mailSent_clicks', 'mailSent', 'campaignID']
-    visit_condition = f"contactID IN {tuple(contactids)}"
+    if len(contactids) > 1:
+        visit_condition = f"contactID IN {tuple(contactids)}"
+    else:
+        visit_condition = f"contactID = '{contactids[0]}'"
     visit_query = create_query('DimVisit', visit_cols, visit_condition)
     df_visit = pd.read_sql(visit_query, conn)
     df_visit.drop_duplicates(inplace=True)
@@ -261,7 +267,10 @@ def add_marketing_pressure(merged_total, df_visit):
 
 def get_inschrijvingen(contactids, conn):
     inschrijving_cols = ['campagneID', 'contactID', 'facturatieBedrag']
-    inschrijving_condition = f"contactID IN {tuple(contactids)}"
+    if len(contactids) > 1:
+        inschrijving_condition = f"contactID IN {tuple(contactids)}"
+    else:
+        inschrijving_condition = f"contactID = '{contactids[0]}'"
     inschrijving_query = create_query('FactInschrijving', inschrijving_cols, inschrijving_condition)
     df_inschrijving = pd.read_sql(inschrijving_query, conn)
     return df_inschrijving
