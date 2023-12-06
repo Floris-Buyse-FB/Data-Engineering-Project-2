@@ -45,9 +45,7 @@ Bedankt voor je tijd en ik kijk ernaar uit om samen te werken aan het verder lat
 
 Met vriendelijke groet,
 
-
-{handtekening}
-  """
+{handtekening}"""
 
   begroeting_library = [
         'Ik hoop dat deze e-mail je in goede gezondheid bereikt. Graag wil ik je bedanken voor je voortdurende vertrouwen in onze diensten. Wij bij Voka, zijn altijd op zoek naar manieren om onze samenwerking te versterken en jouw bedrijfsdoelstellingen te ondersteunen.',
