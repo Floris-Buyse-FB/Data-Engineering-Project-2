@@ -29,29 +29,16 @@ def get_data(contactids):
     st.write('Setting up database connection and preloading data, please wait a moment')
     conn = connect_db()
     merged_total, df_inschrijving = get_all_data(contactids, conn)
-    return merged_total, df_inschrijving
+    return merged_total, df_inschrijving,conn
 
-def generate_personalized_email(naam, campaigns, doelen, strategien,handtekening):
-    email_template = """Beste {klant_naam}
+def generate_personalized_email(naam, campaigns, doelen, strategien, handtekening,lengte):
+  email_template = """Beste {klant_naam}
 
 {begroeting}
 
 {reden_voor_contact}
 
-  Hier zijn de top 3 campagnes die ik ten zeerste aanbeveel:
-  1. **{campagne1_naam}:**
-    - Doel: {campagne1_doel}.
-    - Strategie: {campagne1_strategie}.
-
-  2. **{campagne2_naam}:**
-    - Doel: {campagne2_doel}.
-    - Strategie: {campagne2_strategie}.
-
-  3. **{campagne3_naam}:**
-    - Doel: {campagne3_doel}.
-    - Strategie: {campagne3_strategie}.
-
-
+{campagnes_section}
 {afspraak}
 
 Bedankt voor je tijd en ik kijk ernaar uit om samen te werken aan het verder laten groeien van jouw bedrijf.
@@ -62,7 +49,7 @@ Met vriendelijke groet,
 {handtekening}
   """
 
-    begroeting_library = [
+  begroeting_library = [
         'Ik hoop dat deze e-mail je in goede gezondheid bereikt. Graag wil ik je bedanken voor je voortdurende vertrouwen in onze diensten. Wij bij Voka, zijn altijd op zoek naar manieren om onze samenwerking te versterken en jouw bedrijfsdoelstellingen te ondersteunen.',
         'Ik vertrouw erop dat deze boodschap je welzijn weerspiegelt. Dank je wel voor het voortdurende vertrouwen in onze diensten. Als toegewijde medewerkers bij Voka, streven we voortdurend naar manieren om onze samenwerking te optimaliseren en jouw bedrijfsdoelen te ondersteunen.',
         'Hopelijk ontvang je deze e-mail in goede gezondheid. Wij waarderen je voortdurende vertrouwen in onze diensten. Als team van Voka zijn we constant bezig met het vinden van manieren om onze samenwerking te versterken en jouw bedrijfsdoelen te realiseren.',
@@ -71,7 +58,7 @@ Met vriendelijke groet,
         'Ik hoop dat deze woorden je in goede gezondheid bereiken. Bedankt voor het blijvende vertrouwen in onze diensten. Als medewerkers van Voka, blijven we actief werken aan het versterken van onze samenwerking en het ondersteunen van jouw bedrijfsdoelstellingen.'
     ]
 
-    reden_voor_contact_library = [
+  reden_voor_contact_library = [
         'Ons team heeft nauwlettend uw bedrijf geanalyseerd en wij zijn ervan overtuigd dat de volgende campagnes perfect bij uw doelstellingen zullen passen.',
         'Na grondig onderzoek van uw bedrijf, zijn wij ervan overtuigd dat de voorgestelde campagnes naadloos aansluiten bij uw doelen.',
         'Op basis van onze analyse denken wij dat de voorgestelde campagnes een waardevolle aanvulling zullen zijn op uw huidige strategieën.',
@@ -80,7 +67,7 @@ Met vriendelijke groet,
     ]
 
 
-    afspraak_library = [
+  afspraak_library = [
       'Ik geloof sterk dat de voorgestelde campagnes een aanzienlijke invloed kunnen hebben op de resultaten van uw bedrijf en de betrokkenheid van uw klanten kunnen verhogen. Laten we bijeenkomen om deze ideeën nader te bespreken en af te stemmen op de specifieke behoeften van uw onderneming.',
       'De potentiële impact van deze campagnes op uw bedrijfsresultaten en klantenbetrokkenheid is aanzienlijk. Laten we samen zitten om deze concepten in detail te bespreken en aan te passen aan de specifieke behoeften van uw onderneming.',
       'Mijn overtuiging is sterk dat deze campagnes een substantiële invloed kunnen hebben op uw bedrijfsprestaties en de betrokkenheid van uw klanten. Kunnen we in de komende week een afspraak maken om deze ideeën grondig te bespreken en op maat te maken voor uw onderneming?',
@@ -89,23 +76,27 @@ Met vriendelijke groet,
     ]
 
 
-    begroeting = begroeting_library[random.randint(0, len(begroeting_library)-1)]
-    reden_voor_contact= reden_voor_contact_library[random.randint(0, len(reden_voor_contact_library)-1)]
-    afspraak = afspraak_library[random.randint(0, len(afspraak_library)-1)]
-    email_template = email_template.format(
-        klant_naam=naam,
-        begroeting=begroeting,
-        reden_voor_contact=reden_voor_contact,
-        campagne1_naam=campaigns[0],
-        campagne1_doel=doelen[0],
-        campagne1_strategie=strategien[0],
-        campagne2_naam=campaigns[1],
-        campagne2_doel=doelen[1],
-        campagne2_strategie=strategien[1],
-        campagne3_naam=campaigns[2],
-        campagne3_doel=doelen[2],
-        campagne3_strategie=strategien[2],
-        afspraak=afspraak,
-        handtekening=handtekening
+  campagnes_section = ""
+  for i in range(lengte):
+    print(i)
+    campagnes_section += f"  {i + 1}. **{campaigns[i]}:**\n"
+    campagnes_section += f"       - Soort: {doelen[i]}.\n"
+    campagnes_section += f"       - Type: {strategien[i]}.\n\n"
+
+
+
+
+  begroeting = begroeting_library[random.randint(0, len(begroeting_library)-1)]
+  reden_voor_contact= reden_voor_contact_library[random.randint(0, len(reden_voor_contact_library)-1)]
+  afspraak = afspraak_library[random.randint(0, len(afspraak_library)-1)]
+    
+  email_template = email_template.format(
+          klant_naam=naam,
+          begroeting=begroeting,
+          reden_voor_contact=reden_voor_contact,
+          campagnes_section=campagnes_section,
+          afspraak=afspraak,
+          handtekening=handtekening
     )
-    return email_template
+
+  return email_template
