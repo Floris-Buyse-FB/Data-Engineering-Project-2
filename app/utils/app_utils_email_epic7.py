@@ -1,4 +1,35 @@
 import random
+import streamlit as st
+from sqlalchemy import create_engine
+import pandas as pd
+
+from utils.app_utils_rec_epic_3 import *
+
+DWH_NAME = st.secrets['DWH_NAME']
+SERVER_NAME = st.secrets['SERVER_NAME']
+DB_USER = st.secrets['DB_USER']
+DB_PASSWORD = st.secrets['DB_PASSWORD']
+MODEL_PATH = st.secrets['MODEL_PATH']
+SERVER_NAME_REMOTE = st.secrets['SERVER_NAME_REMOTE']
+
+def connect_db(local=False):
+    if local:
+        URL_LOCAL = f'mssql+pyodbc://{SERVER_NAME}/{DWH_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
+        engine = create_engine(URL_LOCAL)
+        conn = engine.connect()
+        return conn
+    else:
+        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME_REMOTE}:1438/{DWH_NAME}'
+        engine = create_engine(URL)
+        conn = engine.connect()
+        return conn
+
+
+def get_data(contactids):
+    st.write('Setting up database connection and preloading data, please wait a moment')
+    conn = connect_db()
+    merged_total, df_inschrijving = get_all_data(contactids, conn)
+    return merged_total, df_inschrijving
 
 def generate_personalized_email(naam, campaigns, doelen, strategien,handtekening):
     email_template = """Beste {klant_naam}
