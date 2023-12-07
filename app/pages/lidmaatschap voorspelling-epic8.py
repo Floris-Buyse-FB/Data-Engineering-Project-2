@@ -2,7 +2,7 @@ import time
 import pandas as pd
 import streamlit as st
 from datetime import date
-from utils.app_utils_rec_epic_3 import *
+from utils.app_utils_lidmaatschap import *
 
 # Streamlit UI
 st.title('Voorspelling lidmaatschap - Epic 8')
@@ -16,12 +16,14 @@ df_inschrijving = None
 contactids = None
 
 @st.cache_data
-def get_data(contactids):
+def get_data():
     st.write('Setting up database connection and preloading data, please wait a moment')
     conn = connect_db()
-    merged_total, df_inschrijving = get_all_data(contactids, conn)
-    return merged_total, df_inschrijving
+    df = one_hot_encoding(conn)
+    return df
 
+df = get_data()
+st.write(df)
 
 # Data tab
 with data_tab:

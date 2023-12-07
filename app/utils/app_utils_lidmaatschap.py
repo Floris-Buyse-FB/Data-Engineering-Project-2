@@ -36,7 +36,7 @@ def connect_db(local=True):
         conn = engine.connect()
         return conn
     
-conn = connect_db(local=False)
+
 
 #####################################################################################################################################################
 
@@ -59,7 +59,7 @@ def create_query(table_name, columns, condition=None):
 
 #####################################################################################################################################################
 
-def load_inschrijving():
+def load_inschrijving(conn):
     #Inschrijving Data
     #needed Inschrijving columns
     inschrijving_col = ['contactID', 'campagneID', 'inschrijvingsDatumID', 'facturatieBedrag']
@@ -98,8 +98,8 @@ def load_inschrijving():
     
 #####################################################################################################################
 
-def load_accounts():
-    df_inschrijving = load_inschrijving()
+def load_accounts(conn):
+    df_inschrijving = load_inschrijving(conn)
     #ACCOUNT DATA
     #needed Account columns
     account_col = ['accountID', 'plaats', 'isVokaEntiteit', 'accountStatus', 'ondernemingstype', 'ondernemingsaard', 'activiteitNaam']
@@ -156,8 +156,8 @@ def load_accounts():
     
 #############################################################################################################################
 
-def one_hot_encoding(df, col):
-    df = load_accounts()
+def one_hot_encoding(conn):
+    df = load_accounts(conn)
 
     from sklearn.preprocessing import OneHotEncoder
 
@@ -268,15 +268,17 @@ def one_hot_encoding(df, col):
     df.drop('lidmaatschapID', axis=1, inplace=True)
     df.drop('plaats', axis=1, inplace=True)
 
-    df_hulp = df[['accountID', 'startDatum', 'opzegDatum']]
+    # df_hulp = df[['accountID', 'startDatum', 'opzegDatum']]
 
     #drop deze uit vorige df
-    df.drop('accountID', axis=1, inplace=True)
+
     df.drop('startDatum', axis=1, inplace=True)
     df.drop('opzegDatum', axis=1, inplace=True)
     df.drop('voorbije_jaar', axis=1, inplace=True)
 
-    df = df.astype(int)
+    #alles naar int behalve accountID kolom
+
+
 
     return df
 
@@ -288,6 +290,22 @@ def get_model():
 
 #############################################################################################################################
 
-def get_recommendations(accountids, merged_total):
+def get_recommendations(accountids, df):
     model = get_model()
-    
+
+    #merge
+    df = df[df['accountID'].isin(accountids)]
+    df = df.drop(['accountID'], axis=1)
+    df = df.astype(int)
+    df.columns = df.columns.astype(str)
+    print(df.info())
+    print(df['lidmaatschap_actief'].nunique())
+
+    # model.fit(df.drop(['lidmaatschap_actief'], axis=1), df['lidmaatschap_actief'])
+    predictions = model.predict(df.drop(['lidmaatschap_actief'], axis=1))
+    print(predictions) 
+
+
+
+#############################################################################################################################
+
