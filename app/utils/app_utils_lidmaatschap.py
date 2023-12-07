@@ -1,5 +1,6 @@
 import pandas as pd
 import pyarrow as pa
+import streamlit as st
 import pyarrow.parquet as pq
 import numpy as np
 import os
@@ -16,11 +17,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-SERVER_NAME_REMOTE="localhost"
-DB_USER="sa"
-DB_PASSWORD="Dep2Groep2-VIC"
-DWH_NAME="Voka_DWH"
-MODEL_PATH="app/models/lidmaatschap_model.pkl"
+SERVER_NAME_REMOTE=st.secrets["SERVER_NAME_REMOTE"]
+SERVER_NAME=st.secrets["SERVER_NAME"]
+DB_USER=st.secrets["DB_USER"]
+DB_PASSWORD=st.secrets["DB_PASSWORD"]
+DWH_NAME=st.secrets["DWH_NAME"]
+MODEL_PATH=st.secrets["MODEL_PATH_EPIC_8"]
 
 def connect_db(local=True):
     if local:
@@ -283,3 +285,9 @@ def one_hot_encoding(df, col):
 def get_model():
     model = pd.read_pickle(MODEL_PATH)
     return model
+
+#############################################################################################################################
+
+def get_recommendations(accountids, merged_total):
+    model = get_model()
+    
