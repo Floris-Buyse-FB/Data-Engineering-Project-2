@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils.app_utils_cleanup_epic2 import clean_data, bulk_insert_data_from_csv, push_data
+from utils.app_utils_cleanup_epic2 import clean_data, bulk_insert_data_from_dataframe
 from utils.orm_model import *
 
 # Streamlit app
@@ -9,7 +9,8 @@ def main():
 
     # Upload CSV file
     uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
-    filename = uploaded_file.name if uploaded_file.name else "Unknown"
+    if uploaded_file:
+        filename = uploaded_file.name
 
     if uploaded_file is not None:
         # Read the CSV file into a DataFrame
@@ -57,9 +58,7 @@ def add_data_to_database(filename, data):
     'teams.csv': Teams
     }
 
-    session = push_data()
-
-    bulk_insert_data_from_csv(cleaned_data, csv_model_mapping[filename], session)
+    bulk_insert_data_from_dataframe(cleaned_data, csv_model_mapping[filename])
 
     # Placeholder message for demonstration
     st.success(f"Successfully added {filename} to the database!")

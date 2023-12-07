@@ -1,16 +1,12 @@
 import csv
-import argparse
+import tempfile
 import datetime
-from json import load
 import re
 import pandas as pd
-import os
-import time
 import streamlit as st
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 import pyodbc
-import numpy as np
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
@@ -28,6 +24,7 @@ SERVER_NAME = st.secrets['SERVER_NAME']
 SERVER_NAME_REMOTE = st.secrets['SERVER_NAME_REMOTE']
 DB_USER = st.secrets['DB_USER']
 DB_PASSWORD = st.secrets['DB_PASSWORD']
+LOCAL = st.secrets['LOCAL']
 
 def connect_db(local=True, engine=False):
     if local:
@@ -46,8 +43,8 @@ def connect_db(local=True, engine=False):
         return conn
 
 def get_data_from_db(table):
-    conn = connect_db(local=False)
-    df = pd.read_sql(f'SELECT * FROM {table}', conn)
+    conn = connect_db(LOCAL)
+    df = pd.read_sql(f'SELECT * FROM Voka.dbo.{table}', conn)
     return df
 
 # functies voor het cleanen van de keyphrases
@@ -145,6 +142,7 @@ def column_name_change(data):
         if col.startswith('crm_') or col.startswith('CDI_'):
             data.columns = data.columns.str.replace('crm_', '')
             data.columns = data.columns.str.replace('CDI_', '')
+    return data
 
 def load_unique_values(tablename, column_name):
     data = get_data_from_db(tablename)
@@ -308,7 +306,7 @@ def account(data):
     if 'Account_Hoofd_NaCe_Code' in data.columns:
         data.drop('Account_Hoofd_NaCe_Code', axis=1, inplace=True)
 
-    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(lambda x: parse_date(x, "1750-01-01"))
+    data['Account_Oprichtingsdatum'] = data['Account_Oprichtingsdatum'].apply(lambda x: parse_date(str(x), "1750-01-01"))
     
     data = default_process(data, 'Account_Account')
     data = remove_duplicate_pk_single(data, 'account_account_id')
@@ -338,7 +336,7 @@ def account_financiele_data(data):
     ]
     data = data[~data['FinancieleData_OndernemingID'].isin(excluded_ids)]
 
-    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda x: parse_datetime(x, "2020-01-01"))
+    data['FinancieleData_Gewijzigd_op'] = data['FinancieleData_Gewijzigd_op'].apply(lambda x: parse_datetime(str(x), "2020-01-01"))
     data['FinancieleData_FTE'] = data['FinancieleData_FTE'].apply(parse_number)
     data['FinancieleData_Toegevoegde_waarde'] = data['FinancieleData_Toegevoegde_waarde'].apply(parse_number)
 
@@ -380,7 +378,7 @@ def afspraak_betreft_account_cleaned(data):
     data = column_name_change(data)
 
     data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'] = data['Afspraak_BETREFT_ACCOUNT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(lambda x: parse_date(x, "2020-01-01"))
+    data['Afspraak_BETREFT_ACCOUNT_Eindtijd'] = data['Afspraak_BETREFT_ACCOUNT_Eindtijd'].apply(lambda x: parse_date(str(x), "2020-01-01"))
 
     cols_to_clean = ["Afspraak_BETREFT_ACCOUNT_KeyPhrases"]
     cols_to_clean = clean_text(data,cols_to_clean)
@@ -397,7 +395,7 @@ def afspraak_betreft_contact_cleaned(data):
     data = column_name_change(data)
 
     data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'] = data['Afspraak_BETREFT_CONTACTFICHE_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(lambda x: parse_date(x, "2020-01-01"))
+    data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'] = data['Afspraak_BETREFT_CONTACTFICHE_Eindtijd'].apply(lambda x: parse_date(str(x), "2020-01-01"))
     
     cols_to_clean = ["Afspraak_BETREFT_CONTACTFICHE_KeyPhrases"]
     cols_to_clean = clean_text(data,cols_to_clean)
@@ -415,7 +413,7 @@ def afspraak_account_gelinkt_cleaned(data):
     data = column_name_change(data)
 
     data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'] = data['Afspraak_ACCOUNT_GELINKT_KeyPhrases'].replace('\[NAME\] ,*', '', regex=True)
-    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(lambda x: parse_date(x, "2020-01-01"))
+    data['Afspraak_ACCOUNT_GELINKT_Eindtijd'] = data['Afspraak_ACCOUNT_GELINKT_Eindtijd'].apply(lambda x: parse_date(str(x), "2020-01-01"))
 
     cols_to_clean = ["Afspraak_ACCOUNT_GELINKT_KeyPhrases"]
     cols_to_clean = clean_text(data,cols_to_clean)
@@ -432,8 +430,8 @@ def afspraak_account_gelinkt_cleaned(data):
 def campagne(data):
     data = column_name_change(data)
 
-    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(lambda x: parse_datetime(x, "2026-01-01"))
-    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Campagne_Einddatum'] = data['Campagne_Einddatum'].apply(lambda x: parse_datetime(str(x), "2026-01-01"))
+    data['Campagne_Startdatum'] = data['Campagne_Startdatum'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
     
     data = default_process(data, 'Campagne_Campagne')
     data = remove_duplicate_pk_single(data, 'campagne_campagne_id')
@@ -466,10 +464,10 @@ def pageviews(data):
     data.columns = data.columns.map(lambda x: re.sub(r'^crm CDI_PageView\[(.*)\]$', r'\1', x))
     data.columns = data.columns.map(lambda x: re.sub(r'^crm_CDI_PageView_(.*)$', r'\1', x))
 
-    data['Time'] = data['Time'].apply(lambda x: parse_datetime(x, "1950-01-01"))
-    data['Viewed_On'] = data['Viewed_On'].apply(lambda x: parse_datetime(x, "1950-01-01"))
-    data['Aangemaakt_op'] = data['Aangemaakt_op'].apply(lambda x: parse_datetime(x, "1750-01-01"))
-    data['Gewijzigd_op'] = data['Gewijzigd_op'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Time'] = data['Time'].apply(lambda x: parse_datetime(str(x), "1950-01-01"))
+    data['Viewed_On'] = data['Viewed_On'].apply(lambda x: parse_datetime(str(x), "1950-01-01"))
+    data['Aangemaakt_op'] = data['Aangemaakt_op'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
+    data['Gewijzigd_op'] = data['Gewijzigd_op'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
 
     if 'Anonymous_Visitor' in data.columns:
         data.drop(['Anonymous_Visitor'], axis=1, inplace=True)
@@ -498,10 +496,10 @@ def visits(data):
     data.replace({'Visit_Bounce': {'Ja': 1, 'Nee': 0}}, inplace=True)
     data.replace({'Visit_containssocialprofile': {'Ja': 1, 'Nee': 0}}, inplace=True)
 
-    data['Visit_Started_On'] = data['Visit_Started_On'].apply(lambda x: parse_datetime(x, "1750-01-01"))
-    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(lambda x: parse_datetime(x, "2026-01-01"))
-    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(lambda x: parse_datetime(x, "1750-01-01"))
-    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(lambda x: parse_datetime(x, "2026-01-01"))
+    data['Visit_Started_On'] = data['Visit_Started_On'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
+    data['Visit_Ended_On'] = data['Visit_Ended_On'].apply(lambda x: parse_datetime(str(x), "2026-01-01"))
+    data['Visit_Aangemaakt_op'] = data['Visit_Aangemaakt_op'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
+    data['Visit_Gewijzigd_op'] = data['Visit_Gewijzigd_op'].apply(lambda x: parse_datetime(str(x), "2026-01-01"))
     
     data = default_process(data, 'Visit_Visit')
     data = remove_non_existing_pk(data, ['contact', 'mailing', 'campagne'], ['visit_contact', 'visit_email_send', 'visit_campaign'])
@@ -555,8 +553,8 @@ def gebruikers(data):
 def info_en_klachten(data):
     data = column_name_change(data)
 
-    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(lambda x: parse_datetime(x, "1750-01-01"))
-    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(lambda x: parse_datetime(x, "2026-01-01"))
+    data['Info_en_Klachten_Datum'] = data['Info_en_Klachten_Datum'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
+    data['Info_en_Klachten_Datum_afsluiting'] = data['Info_en_Klachten_Datum_afsluiting'].apply(lambda x: parse_datetime(str(x), "2026-01-01"))
     
     data = default_process(data, 'Info_en_Klachten_Aanvraag')
     data = remove_non_existing_pk(data, ['account', 'gebruiker'], ['info_en_klachten_account', 'info_en_klachten_eigenaar'])
@@ -569,7 +567,7 @@ def info_en_klachten(data):
 def inschrijving(data):
     data = column_name_change(data)
 
-    data['Inschrijving_Datum_inschrijving'] = data['Inschrijving_Datum_inschrijving'].apply(lambda x: parse_date(x, "2018-05-01"))
+    data['Inschrijving_Datum_inschrijving'] = data['Inschrijving_Datum_inschrijving'].apply(lambda x: parse_date(str(x), "2018-05-01"))
     data['Inschrijving_Facturatie_Bedrag'] = data['Inschrijving_Facturatie_Bedrag'].apply(parse_number)
     
     data = default_process(data, 'Inschrijving_Inschrijving')
@@ -582,8 +580,8 @@ def inschrijving(data):
 def Lidmaatschap(data):
     data = column_name_change(data)
 
-    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(lambda x: parse_date(x, "1750-01-01"))
-    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(lambda x: parse_date(x, "2026-01-01"))
+    data['Lidmaatschap_Startdatum'] = data['Lidmaatschap_Startdatum'].apply(lambda x: parse_date(str(x), "1750-01-01"))
+    data['Lidmaatschap_Datum_Opzeg'] = data['Lidmaatschap_Datum_Opzeg'].apply(lambda x: parse_date(str(x), "2026-01-01"))
 
     data = default_process(data, 'Lidmaatschap_Lidmaatschap')
     data = remove_non_existing_pk(data, ['account'], ['lidmaatschap_onderneming'])
@@ -622,8 +620,8 @@ def sessie_inschrijving(data):
 def sessie(data):
     data = column_name_change(data)
 
-    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(lambda x: parse_datetime(x, "2026-01-01"))
-    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(lambda x: parse_datetime(x, "1750-01-01"))
+    data['Sessie_Eind_Datum_Tijd'] = data['Sessie_Eind_Datum_Tijd'].apply(lambda x: parse_datetime(str(x), "2026-01-01"))
+    data['Sessie_Start_Datum_Tijd'] = data['Sessie_Start_Datum_Tijd'].apply(lambda x: parse_datetime(str(x), "1750-01-01"))
 
     data = default_process(data, 'Sessie_Sessie')
     data = remove_non_existing_pk(data, ['campagne'], ['sessie_campagne'])
@@ -645,46 +643,65 @@ def teams(data):
 def clean_data(filename, data):
 
     dict_filename = {
-    'Account_activiteitscode.csv': account_activiteitscode,
-    'Account_financiële_data.csv': account_financiele_data,
+    'Account activiteitscode.csv': account_activiteitscode,
     'Account.csv': account,
+    'Account financiële data.csv': account_financiele_data,
     'Activiteitscode.csv': activiteitscode,
-    'Activiteit_vereist_contact.csv': activiteit_vereist_contact,
-    'Afspraak_account_gelinkt_cleaned.csv': afspraak_account_gelinkt_cleaned,
-    'Afspraak_alle.csv': afspraak_alle,
-    'Afspraak_betreft_account_cleaned.csv': afspraak_betreft_account_cleaned,
-    'Afspraak_betreft_contact_cleaned.csv': afspraak_betreft_contact_cleaned,
+    'Activiteit vereist contact.csv': activiteit_vereist_contact,
+    'Afspraak account gelinkt_cleaned.csv': afspraak_account_gelinkt_cleaned,
+    'Afspraak alle.csv': afspraak_alle,
+    'Afspraak betreft_account_cleaned.csv': afspraak_betreft_account_cleaned,
+    'Afspraak betreft_contact_cleaned.csv': afspraak_betreft_contact_cleaned,
     'Campagne.csv': campagne,
-    'CDI_mailing.csv': mailings,
-    'cdi_pageviews.csv': pageviews,
-    'CDI_sent_email_clicks.csv': sent_email_clicks,
-    'CDI_visits.csv': visits,
+    'CDI mailing.csv': mailings,
+    'cdi pageviews.csv': pageviews,
+    'CDI sent email clicks.csv': sent_email_clicks,
+    'CDI visits.csv': visits,
     'Contact.csv': contact,
-    'Contact_functie.csv': contact_functie,
+    'Contact functie.csv': contact_functie,
     'Functie.csv': functie,
     'Gebruikers.csv': gebruikers,
-    'Info_en_klachten.csv': info_en_klachten,
+    'Info en klachten.csv': info_en_klachten,
     'Inschrijving.csv': inschrijving,
     'Lidmaatschap.csv': Lidmaatschap,
     'Persoon.csv': persoon,
     'Sessie.csv': sessie,
-    'Sessie_inschrijving.csv': sessie_inschrijving,
-    'Teams.csv': teams,
+    'Sessie inschrijving.csv': sessie_inschrijving,
+    'teams.csv': teams,
     }
 
     if filename in dict_filename.keys():
         return dict_filename[filename](data)
-    
-def push_data():
-    engine = connect_db(local=False, engine=True)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
+       
 
 # Function to bulk insert data from CSV into the appropriate model
-def bulk_insert_data_from_csv(data, model_class, session):
-    csv_file = data.to_csv(index=False)
-    csv_reader = csv.DictReader(csv_file)
-    data_to_insert = [row for row in csv_reader]
-    session.bulk_insert_mappings(model_class, data_to_insert)
-    session.commit()
+def bulk_insert_data_from_dataframe(data, model_class):
+    engine = connect_db(LOCAL, engine=True)
+
+    data.to_sql(model_class.__tablename__, con=engine, if_exists='replace', index=False)
+
+
+
+    # engine = connect_db(LOCAL, engine=True)
+    # Session = sessionmaker(bind=engine)
+    # session = Session()
+
+    # sql = f'ALTER TABLE Voka.dbo.{model_class.__tablename__} NOCHECK CONSTRAINT ALL'
+    # session.execute(text(sql))
+    # sql = f'DELETE FROM Voka.dbo.{model_class.__tablename__}'
+    # session.execute(text(sql))
+
+    # with tempfile.NamedTemporaryFile(delete=False, suffix='.csv', mode='w') as temp_csv:
+    #     data.to_csv(temp_csv.name, index=False)
+
+    #     # Use DictReader to read from the temporary CSV file
+    #     with open(temp_csv.name, mode='r') as csv_file:
+    #         csv_reader = csv.DictReader(csv_file)
+    #         data_to_insert = [row for row in csv_reader]
+
+    # # Perform the bulk insert
+    # session.bulk_insert_mappings(model_class, data_to_insert)
+    
+    # sql = f'ALTER TABLE Voka.dbo.{model_class.__tablename__} CHECK CONSTRAINT ALL'
+    # session.execute(text(sql))  
+    # session.commit()
