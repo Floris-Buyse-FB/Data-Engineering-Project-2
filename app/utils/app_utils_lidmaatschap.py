@@ -20,6 +20,7 @@ SERVER_NAME_REMOTE="localhost"
 DB_USER="sa"
 DB_PASSWORD="Dep2Groep2-VIC"
 DWH_NAME="Voka_DWH"
+MODEL_PATH="app/models/lidmaatschap_model.pkl"
 
 def connect_db(local=True):
     if local:
@@ -196,3 +197,89 @@ def one_hot_encoding(df, col):
 
     for i in range(1, 5):
         df[f'ondernemingstype_{i}'] = df['ondernemingstype'].apply(lambda x: int(str(x)[i-1]))
+
+    #activiteitNaam
+    df['activiteitNaam'] = df['activiteitNaam'].apply(lambda x: 'unknown' if x == 'Luchthavengerelateerd' else x)
+    
+    # Primaire activiteit
+    activiteitNaam_categories = [
+      {'categorie': 'unknown', 'binary': None},
+      {'categorie': 'Farmacie', 'binary': None},
+      {'categorie': 'Diamant, edelstenen, juwelen', 'binary': None},
+      {'categorie': 'Havengerelateerd', 'binary': None},
+      {'categorie': 'Media', 'binary': None},
+      {'categorie': 'Overheid', 'binary': None},
+      {'categorie': 'Verenigingen en maatschappelijke organisaties', 'binary': None},
+      {'categorie': 'Onderwijs', 'binary': None},
+      {'categorie': 'Milieu', 'binary': None},
+      {'categorie': 'Vrije beroepen', 'binary': None},
+      {'categorie': 'Agrarische & bio-industrie', 'binary': None},
+      {'categorie': 'Hout- en meubelindustrie', 'binary': None},
+      {'categorie': 'Accountancy & boekhouding', 'binary': None},
+      {'categorie': 'Vastgoed', 'binary': None},
+      {'categorie': 'Verzekering', 'binary': None},
+      {'categorie': 'Financiële diensten', 'binary': None},
+      {'categorie': 'Grafische industrie en diensten', 'binary': None},
+      {'categorie': 'Automobiel- en Tweewielerindustrie', 'binary': None},
+      {'categorie': 'Textiel, kleding en confectie', 'binary': None},
+      {'categorie': 'Horeca & toerisme', 'binary': None},
+      {'categorie': 'Technologische industrie & diensten', 'binary': None},
+      {'categorie': 'Zorg', 'binary': None},
+      {'categorie': 'Detailhandel', 'binary': None},
+      {'categorie': 'Groothandel', 'binary': None},
+      {'categorie': 'Bouw', 'binary': None},
+      {'categorie': 'Energie', 'binary': None},
+      {'categorie': 'Consultancy', 'binary': None},
+      {'categorie': 'Papier & karton', 'binary': None},
+      {'categorie': 'Human capital', 'binary': None},
+      {'categorie': 'Chemie, petrochemie', 'binary': None},
+      {'categorie': 'Distributie, logistiek en transport', 'binary': None},
+      {'categorie': 'Telecom & IT', 'binary': None},
+      {'categorie': 'Ijzer en staal', 'binary': None},
+      {'categorie': 'Voeding', 'binary': None},
+      {'categorie': 'Overige industrie & diensten', 'binary': None}
+    ]
+    
+    df['activiteitNaam'] = df['activiteitNaam'].apply(lambda x: 'unknown' if x not in [categorie['categorie'] for categorie in activiteitNaam_categories] else x)
+
+    for i, categorie in enumerate(activiteitNaam_categories):
+        categorie['binary'] = str(bin(i)[2:].zfill(6))
+
+    category_to_binary = {categorie['categorie']: categorie['binary'] for categorie in activiteitNaam_categories}
+    df['activiteitNaam'] = df['activiteitNaam'].map(category_to_binary)
+
+    for i in range(1, 7):
+            df[f'activiteitNaam_{i}'] = df['activiteitNaam'].apply(lambda x: int(str(x)[i-1]))
+    
+    
+    
+    redenAangroei_encoder = OneHotEncoder(categories=[redenAangroei_cat], sparse=False)
+    redenVerloop_encoder = OneHotEncoder(categories=[redenVerloop_cat], sparse=False)
+    redenAangroei_1hot = redenAangroei_encoder.fit_transform(df[['redenAangroei']])
+    redenVerloop_1hot = redenVerloop_encoder.fit_transform(df[['redenVerloop']])
+
+    df = df.drop(['activiteitNaam', 'redenAangroei', 'redenVerloop', 'ondernemingstype' ], axis=1)
+
+    df = df.join(pd.DataFrame(redenAangroei_1hot), rsuffix='_redenAangroei')
+    df = df.join(pd.DataFrame(redenVerloop_1hot), rsuffix='_redenVerloop')
+
+    df.drop('lidmaatschapID', axis=1, inplace=True)
+    df.drop('plaats', axis=1, inplace=True)
+
+    df_hulp = df[['accountID', 'startDatum', 'opzegDatum']]
+
+    #drop deze uit vorige df
+    df.drop('accountID', axis=1, inplace=True)
+    df.drop('startDatum', axis=1, inplace=True)
+    df.drop('opzegDatum', axis=1, inplace=True)
+    df.drop('voorbije_jaar', axis=1, inplace=True)
+
+    df = df.astype(int)
+
+    return df
+
+#############################################################################################################################
+
+def get_model():
+    model = pd.read_pickle(MODEL_PATH)
+    return model
