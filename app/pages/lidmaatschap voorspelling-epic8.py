@@ -18,7 +18,7 @@ contactids = None
 @st.cache_data
 def get_data():
     st.write('Setting up database connection and preloading data, please wait a moment')
-    conn = connect_db()
+    conn = connect_db(local=False)
     df = one_hot_encoding(conn)
     return df
 
