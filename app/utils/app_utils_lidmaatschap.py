@@ -298,13 +298,10 @@ def get_recommendations(accountids, df):
     df = df.drop(['accountID'], axis=1)
     df = df.astype(int)
     df.columns = df.columns.astype(str)
-    print(df.info())
-    print(df['lidmaatschap_actief'].nunique())
 
     # model.fit(df.drop(['lidmaatschap_actief'], axis=1), df['lidmaatschap_actief'])
-    predictions = model.predict(df.drop(['lidmaatschap_actief'], axis=1))
-    print(predictions) 
-
+    prediction = model.predict(df.drop(['lidmaatschap_actief'], axis=1))
+    return prediction
 
 
 #############################################################################################################################
