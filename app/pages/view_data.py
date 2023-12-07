@@ -8,7 +8,6 @@ import pandas as pd
 st.set_page_config(page_title="View Data")
 
 st.markdown("# View Data")
-st.sidebar.header("View Data")
 st.write(
     """Use the buttons below to view data from the Voka Database."""
 )

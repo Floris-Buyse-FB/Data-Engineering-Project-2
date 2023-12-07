@@ -13,7 +13,7 @@ contact_id = st.text_input('Contact ID', value='0542DA63-2C64-ED11-9561-6045BD89
 
 
 # Connect to the database
-conn = connect_db(local=True)
+conn = connect_db(local=False)
 
 # Get the data from the database
 
