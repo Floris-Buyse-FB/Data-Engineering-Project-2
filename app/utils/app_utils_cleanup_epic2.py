@@ -23,8 +23,13 @@ DWH_NAME = st.secrets['DWH_NAME']
 SERVER_NAME = st.secrets['SERVER_NAME']
 SERVER_NAME_REMOTE = st.secrets['SERVER_NAME_REMOTE']
 DB_USER = st.secrets['DB_USER']
+DB_NAME = st.secrets['DB_NAME']
 DB_PASSWORD = st.secrets['DB_PASSWORD']
 LOCAL = st.secrets['LOCAL']
+if LOCAL == "True":
+    LOCAL = True
+else:
+    LOCAL = False
 
 def connect_db(local=True, engine=False):
     if local:
@@ -35,7 +40,7 @@ def connect_db(local=True, engine=False):
         conn = engine.connect()
         return conn
     else:
-        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME_REMOTE}:1438/{DWH_NAME}'
+        URL = f'mssql+pymssql://{DB_USER}:{DB_PASSWORD}@{SERVER_NAME_REMOTE}:1438/{DB_NAME}'
         engine = create_engine(URL)
         if engine:
             return engine
@@ -676,32 +681,16 @@ def clean_data(filename, data):
 
 # Function to bulk insert data from CSV into the appropriate model
 def bulk_insert_data_from_dataframe(data, model_class):
-    engine = connect_db(LOCAL, engine=True)
+    conn = connect_db(LOCAL, engine=True)
+   
+    with conn.begin() as transaction:
+        session = sessionmaker(bind=conn)()
+        session.execute(text(f'ALTER TABLE Voka.dbo.{model_class.__tablename__} NOCHECK CONSTRAINT ALL'))
+        session.bulk_insert_mappings(model_class, data.to_dict(orient="records"))
+        session.commit()
+        session.execute(text(f'ALTER TABLE Voka.dbo.{model_class.__tablename__} CHECK CONSTRAINT ALL'))
+        session.close()
 
-    data.to_sql(model_class.__tablename__, con=engine, if_exists='replace', index=False)
 
 
-
-    # engine = connect_db(LOCAL, engine=True)
-    # Session = sessionmaker(bind=engine)
-    # session = Session()
-
-    # sql = f'ALTER TABLE Voka.dbo.{model_class.__tablename__} NOCHECK CONSTRAINT ALL'
-    # session.execute(text(sql))
-    # sql = f'DELETE FROM Voka.dbo.{model_class.__tablename__}'
-    # session.execute(text(sql))
-
-    # with tempfile.NamedTemporaryFile(delete=False, suffix='.csv', mode='w') as temp_csv:
-    #     data.to_csv(temp_csv.name, index=False)
-
-    #     # Use DictReader to read from the temporary CSV file
-    #     with open(temp_csv.name, mode='r') as csv_file:
-    #         csv_reader = csv.DictReader(csv_file)
-    #         data_to_insert = [row for row in csv_reader]
-
-    # # Perform the bulk insert
-    # session.bulk_insert_mappings(model_class, data_to_insert)
     
-    # sql = f'ALTER TABLE Voka.dbo.{model_class.__tablename__} CHECK CONSTRAINT ALL'
-    # session.execute(text(sql))  
-    # session.commit()
