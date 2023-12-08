@@ -60,15 +60,15 @@ with rec_tab:
 
     rec_tab_done = False
     
-    st.info('This tab will give you the prediction whether an account will continue (1) its subscription or not (0).')
+    st.info('This tab will give you the prediction whether an account will continue (1) its membership or not (0).')
     recommended = False
     st.write("The prediction might take a while to load, please be patient")
     if data_tab_done:   
         prediction = get_recommendations(lijst, df)
         
-        st.write('Prediction about subscription renewal:')
-        prediction = ['Will CONTINUE subscription' if x == 1 else 'Will CANCEL subscription' for x in prediction]
-        data = {'accountID': lijst, 'prediction': prediction}
+        st.write('Prediction about membership renewal:')
+        prediction = ['Will CONTINUE membership' if x == 1 else 'Will CANCEL membership' for x in prediction]
+        data = {'accountID': lijst, 'membership': prediction}
         st.write(pd.DataFrame(data))
         print(prediction)
         rec_tab_done = True
