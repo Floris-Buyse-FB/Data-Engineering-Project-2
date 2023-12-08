@@ -25,9 +25,9 @@ st.markdown(
     - **Home:** This page.
     - **View Data:** View the data in the database.
     - **Add Data:** Add data to the database.
-    - **View Data:** View the data in the database.
+    - **Recommendations epic 3:** Upload a CSV file with a contact and get recommendations for campaigns.
     - **Lookalikes:** Generate lookalikes for a contact.
-    - **Recommendations:** Upload a CSV file with a campaign and get recommendations for contacts.
+    - **Recommendations epic 5:** Upload a CSV file with a campaign and get recommendations for contacts.
     - **Email Generator:** Generate a personalized email for a contact.
     - **Membership Prediction:** Predict if an account will stay a member or not.
 
