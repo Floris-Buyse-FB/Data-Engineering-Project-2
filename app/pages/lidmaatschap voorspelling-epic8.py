@@ -28,19 +28,22 @@ with data_tab:
 
     data_tab_done = False
 
-    st.info('Seperate the accountIDs with a comma.')
-    accountID = st.text_area('What is the accountID?')
+    with st.form(key='accountID'):
+        st.info('Seperate the accountIDs with a comma.')
+        accountID = st.text_area('What is the accountID(\'s)?')
+        submit_button = st.form_submit_button(label='Submit')
+
     lijst = accountID.split(',')
     lijst = [x.strip() for x in lijst]
     st.write(lijst)
     
-    if accountID is not None:
+    if accountID is not None and accountID != '':
 
         with st.status('Data tab status', expanded=True) as status:
             try:
             # init the data
                 df = get_data()
-                st.write(df)
+                st.write(df.drop(['lidmaatschap_actief'], axis=1))
                 st.success('Database connection and preloading data successful')
                 status.update(label='Done processing data', state='complete', expanded=False)
                 data_tab_done = True
