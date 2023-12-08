@@ -279,7 +279,7 @@ def get_recommendations(contactids, merged_total, df_inschrijving,top_n=10):
     recommendations = []
     custom_order = ['contactID', 'campagneID', 'campagneNaam', 'afspraak_Arbeidsmarkt', 'afspraak_Bedrijfsbeheer', 'afspraak_Duurzaamheid', 'afspraak_Familiebedrijfsmanagement', 'afspraak_Financieel', 'afspraak_Groeien en Netwerking', 'afspraak_Internationaal Ondernemen', 'afspraak_Lidmaatschap', 'afspraak_Logistiek en Transport', 'afspraak_Plato & Bryo', 'afspraak_Technologie en Innovatie', 'afspraak_Welt', 'sessie_ondernemen', 'sessie_logistiek', 'sessie_onderwijs', 'sessie_duurzaamheid', 'sessie_welt', 'sessie_lidmaatschap', 'sessie_innovatie en Technologie', 'sessie_netwerking', 'sessie_algemeen', 'sessie_juridisch', 'sessie_bryo', 'sessie_economie', 'sessie_veiligheid en communicatie', 'sessie_andere', 'marketing_pressure', 'ondernemingstype_1', 'ondernemingstype_2', 'ondernemingstype_3', 'ondernemingstype_4', 'activiteitNaam_1', 'activiteitNaam_2', 'activiteitNaam_3', 'activiteitNaam_4', 'activiteitNaam_5', 'activiteitNaam_6', 'Diensten', 'Productie', '0', '1', '2', '3', '4', '5', '0_campagne_type', '1_campagne_type', '2_campagne_type', '3_campagne_type', '4_campagne_type', '5_campagne_type', 'Online', 'Offline']
     merged_total = merged_total[custom_order]
-    extra_info = pd.DataFrame(columns=['contactID', 'campagneID', 'campagneNaam', 'zekerheid'])
+    extra_info = pd.DataFrame(columns=['contactID', 'campagneID', 'campagneNaam', 'Certainty'])
     
     for i in contactids:
         df_hulp = merged_total[merged_total['contactID'] == i]
