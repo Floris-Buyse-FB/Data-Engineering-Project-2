@@ -129,25 +129,35 @@ def load_accounts(conn):
 
     #jaar voor opzegDatum per acountID bepalen
     df_account_INACTIEF['jaar'] = df_account_INACTIEF['opzegDatum'].str[:4] 
-    df_account_INACTIEF['voorbije_jaar'] = df_account_INACTIEF['jaar'].astype(int) - 1
+    df_account_INACTIEF['boekjaar'] = df_account_INACTIEF['jaar'].astype(int) - 1
     df_account_INACTIEF.drop('jaar', axis=1, inplace=True)
 
     for i, row in df_account_INACTIEF.iterrows():
         accountID = row['accountID']
-        voorbije_jaar = row['voorbije_jaar']
-        df_account_INACTIEF.loc[i, 'aantal_inschrijvingen'] = df_inschrijving[(df_inschrijving['accountID'] == accountID) & (df_inschrijving['jaar'] == voorbije_jaar)]['accountID'].count()
+        boekjaar = row['boekjaar']
+        df_account_INACTIEF.loc[i, 'aantal_inschrijvingen'] = df_inschrijving[(df_inschrijving['accountID'] == accountID) & (df_inschrijving['jaar'] == boekjaar)]['accountID'].count()
 
 
-    df_account_ACTIEF['voorbije_jaar'] = 2022
+    df_account_ACTIEF['boekjaar'] = 2022
     for i, row in df_account_ACTIEF.iterrows():
         accountID = row['accountID']
-        voorbije_jaar = row['voorbije_jaar']
-        df_account_ACTIEF.loc[i, 'aantal_inschrijvingen'] = df_inschrijving[(df_inschrijving['accountID'] == accountID) & (df_inschrijving['jaar'] == voorbije_jaar)]['accountID'].count()
+        boekjaar = row['boekjaar']
+        df_account_ACTIEF.loc[i, 'aantal_inschrijvingen'] = df_inschrijving[(df_inschrijving['accountID'] == accountID) & (df_inschrijving['jaar'] == boekjaar)]['accountID'].count()
 
     df_account_ACTIEF['lidmaatschap_actief'] = 1
     df_account_INACTIEF['lidmaatschap_actief'] = 0
 
     df = pd.concat([df_account_INACTIEF, df_account_ACTIEF], axis=0)
+
+    #inladen fin data
+    fin_col = ['accountID', 'toegevoegdeWaarde', 'boekjaar']
+
+    # create query
+    fin_query = create_query('DimFinanciëleDataAccount', fin_col)
+    df_fin = pd.read_sql(fin_query, conn)
+
+    df = df.merge(df_fin, on=['accountID', 'boekjaar'], how='left')
+
     df.drop('accountStatus', axis=1, inplace=True)
     df.drop('ondernemingsaard', axis=1, inplace=True)
 
@@ -273,7 +283,7 @@ def one_hot_encoding(conn):
 
     df.drop('startDatum', axis=1, inplace=True)
     df.drop('opzegDatum', axis=1, inplace=True)
-    df.drop('voorbije_jaar', axis=1, inplace=True)
+    df.drop('boekjaar', axis=1, inplace=True)
 
     #alles naar int behalve accountID kolom
 
@@ -295,8 +305,9 @@ def get_recommendations(accountids, df):
     #merge
     df = df[df['accountID'].isin(accountids)]
     df = df.drop(['accountID'], axis=1)
-    df = df.astype(int)
+    df['toegevoegdeWaarde'] = df['toegevoegdeWaarde'].astype(float)
     df.columns = df.columns.astype(str)
+    df['toegevoegdeWaarde'].fillna(-1, inplace=True)
 
     # model.fit(df.drop(['lidmaatschap_actief'], axis=1), df['lidmaatschap_actief'])
     prediction = model.predict(df.drop(['lidmaatschap_actief'], axis=1))
