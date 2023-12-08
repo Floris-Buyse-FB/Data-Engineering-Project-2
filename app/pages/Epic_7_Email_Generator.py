@@ -37,10 +37,10 @@ unique_contact_ids = extra_info['contactID'].unique()
 for contact_id in unique_contact_ids:
   st.write(f"ContactID: {contact_id}")
             
-  contact_data = extra_info[extra_info['contactID'] == contact_id].drop(columns=['contactID', 'zekerheid'])
-  contact_data['zekerheid'] = (contact_data['predict_proba'] * 100).round(2)
+  contact_data = extra_info[extra_info['contactID'] == contact_id].drop(columns=['contactID', 'Certainty'])
+  contact_data['Certainty'] = (contact_data['predict_proba'] * 100).round(2)
             # add a % sign to the zekerheid column
-  contact_data['zekerheid'] = contact_data['zekerheid'].astype(str) + '%'
+  contact_data['Certainty'] = contact_data['Certainty'].astype(str) + '%'
 
   contact_data = contact_data.drop(columns=['predict_proba'])
   reversed_columns = contact_data.columns[::-1] 
