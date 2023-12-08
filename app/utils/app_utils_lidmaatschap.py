@@ -4,7 +4,6 @@ import streamlit as st
 import pyarrow.parquet as pq
 import numpy as np
 import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 import optparse
 import nltk

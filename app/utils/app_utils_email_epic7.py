@@ -9,7 +9,7 @@ DWH_NAME = st.secrets['DWH_NAME']
 SERVER_NAME = st.secrets['SERVER_NAME']
 DB_USER = st.secrets['DB_USER']
 DB_PASSWORD = st.secrets['DB_PASSWORD']
-MODEL_PATH = st.secrets['MODEL_PATH']
+MODEL_PATH = st.secrets['MODEL_PATH_EPIC_3_1']
 SERVER_NAME_REMOTE = st.secrets['SERVER_NAME_REMOTE']
 
 def connect_db(local=False):

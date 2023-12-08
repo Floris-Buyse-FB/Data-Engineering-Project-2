@@ -11,10 +11,6 @@ st.title('Generate a personalized email')
 contactid = st.text_input('naar wie wil je de mail sturen?', value='0542DA63-2C64-ED11-9561-6045BD895B5A')
 naam=contactid
         
-campagnes = ["Campagne 1", "Campagne 2", "Campagne 3"]
-campagne_doelen = ["Awareness", "Consideration", "Conversion"]
-campagne_strategieen = ["Google Ads", "Facebook Ads", "LinkedIn Ads"]
-
 if 'handtekening' not in st.session_state:
     # If not, set a default value
     default_handtekening = '[Je Naam] \n[Je Titel] \n[Bedrijfsnaam] \n[Contactgegevens]'

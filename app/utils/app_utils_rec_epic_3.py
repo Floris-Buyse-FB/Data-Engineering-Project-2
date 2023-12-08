@@ -4,12 +4,10 @@ import nltk
 import numpy as np
 import pandas as pd
 import streamlit as st
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sklearn.preprocessing import OneHotEncoder
 
 ENV_URL = os.path.join(os.getcwd(), '.env')
-load_dotenv(ENV_URL)
 
 DWH_NAME = st.secrets['DWH_NAME']
 SERVER_NAME = st.secrets['SERVER_NAME']
