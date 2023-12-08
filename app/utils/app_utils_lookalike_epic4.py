@@ -12,7 +12,7 @@ DB_PASSWORD = st.secrets["DB_PASSWORD"]
 SERVER_NAME_REMOTE = st.secrets["SERVER_NAME_REMOTE"]
 
 
-def connect_db(local=True):
+def connect_db(local=False):
     if local:
         URL_LOCAL = f'mssql+pyodbc://{SERVER_NAME}/{DWH_NAME}?trusted_connection=yes&driver=ODBC+Driver+17 for SQL Server'
         engine = create_engine(URL_LOCAL)
