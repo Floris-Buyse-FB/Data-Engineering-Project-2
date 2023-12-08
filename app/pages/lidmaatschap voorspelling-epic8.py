@@ -8,7 +8,7 @@ from utils.app_utils_lidmaatschap import *
 st.title('Voorspelling lidmaatschap - Epic 8')
 st.subheader('Follow the instructions.')
 # Tabs
-data_tab, rec_tab, download_tab = st.tabs(['Data', 'Recommendations', 'Download'])
+data_tab, rec_tab = st.tabs(['Data', 'Recommendations'])
 
 # Tab finish vars
 merged_total = None
