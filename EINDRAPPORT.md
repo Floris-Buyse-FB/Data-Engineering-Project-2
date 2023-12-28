@@ -24,15 +24,22 @@ De databank maken hebben we gedaan door het meegeven ERD goed te analyseren en z
 
 `Korte uitleg van de epic`
 
+Het mogelijk maken om nieuwe data toe te voegen aan de databank. Dit kan door middel van een gegeven CSV bestand. Dit CSV bestand wordt dan ingelezen en de data wordt toegevoegd aan de databank.
+
 `Beperkingen en uitdagingen`
+
+Het inlezen van de CSV bestanden was niet zozeer een uitdaging, maar wel dat de files de juiste namen hadden.
+Ook is er mogelijks een probleem dat er fouten in de data zitten die niet opgemerkt worden. Zoals verkeerde separators.
+Er waren ook problemen bij het toevoegen van reeds bestaande data, dit met foreign keys en primary keys.
 
 `Bepaalde keuzes door beperkingen`
 
+Doordat er problemen waren met de foreign keys en primary keys hebben we besloten om de data die al in de databank zit niet te overschrijven. Dit om geen problemen te krijgen met de databank. Waardoor deze epic enkel werkt met nieuwe data.
+
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
-`Welke data / parameters zijn er gebruikt`
-
-`Waarvan is er te weinig data`
+We hebben de oorspronkelijke manier om de databank te vullen gebruikt. Dit is door middel van een ORM. We hebben de data ingelezen en vervolgens de data toegevoegd aan de databank.
+We hebben gebruik gemaakt van het python script waar de cleanup reeds gedaan werd van de vorige epic. Dit zorgt ervoor dat de data uit het CSV bestand en de data uit de databank dezelfde structuur hebben.
 
 ## Epic 3
 
@@ -52,15 +59,49 @@ De databank maken hebben we gedaan door het meegeven ERD goed te analyseren en z
 
 `Korte uitleg van de epic`
 
+Op basis van een gegeven contactID en een gekozen campagne van dit contact worden er contact lookalikes gegenereerd. Dit zijn contactpersonen die het meest lijken op het gegeven contact. Deze worden gesorteerd van meest naar minst gelijkend op het gegeven contact.
+
 `Beperkingen en uitdagingen`
+
+Een uitdaging was het mogelijk maken dat er een lookalike gegenereerd kon worden op basis van een campagne. Dit had de klant als feedback gegeven.
 
 `Bepaalde keuzes door beperkingen`
 
+Er zijn niet superveel campagnes en contacten van Oost-Vlaanderen. Daarom hebben we gekozen om gebruik te maken van cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen te vergelijken met elkaar en zo de meest gelijkende te vinden zonder dat we een model moeten trainen.
+
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
+
+We hebben eerst alle data van contact, campagnes, afspraken en inschrijvingen samen te voegen. Daarna hebben we de dataset gevectoriseerd met TF-IDF. Vervolgens hebben we de cosinus similariteit berekend tussen de vector van het gegeven contact en alle andere contacten.
 
 `Welke data / parameters zijn er gebruikt`
 
+```Text
+De gebruikte Machine Learning technieken zijn:
+```
+
+- TFIDF-Vectorization
+- Cosinus Similariteit
+
+Voor beide technieken hebben we gebruik gemaakt van de Scikit-Learn library.
+
+```Text
+De gebruikte kolommen zijn:
+```
+
+- Account
+  - plaats, subregio, ondernemingstype, ondernemingsaard
+- Contact
+  - contactID, functietitel, functieNaam
+- Activiteit
+  - activiteitNaam
+- Campagne
+  - campagneID, campagneType, campagneNaam, campagneSoort
+- Afspraak
+  - keyphrases
+
 `Waarvan is er te weinig data`
+
+Er is niet zozeer te weinig data, maar er kan gekozen worden om meer kolommen te gebruiken worden zodat de lookalikes nog beter overeenkomen met het gegeven contact.
 
 ## Epic 5
 
@@ -158,6 +199,6 @@ Er zijn te weining campagnes en accounts van Oost-Vlaanderen.
 
 `Aangeleverde data`
 
-`Datakwaliiteit`
+`Datakwaliteit`
 
 `Mogelijkheden / beperkingen om inzichten te verkrijgen`
