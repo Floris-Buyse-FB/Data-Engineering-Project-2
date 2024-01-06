@@ -120,15 +120,15 @@ Wij hebben er dan voor gekozen om op basis van een gegeven campagneID, een aanta
 
 `Beperkingen en uitdagingen`
 
-Er was niet superveel data om een goed model mee te trainen. Ook zijn er soms meerdere contactpersonen per bedrijf wat het een extra uitdaging maakte om de data voor te bereiden voor het aanbevelingssysteem. LEG HIER KEER UIT WAAROM DA DA UITDAGING IS
+Er was niet superveel data om een goed model mee te trainen. Ook zijn er soms meerdere contactpersonen per bedrijf wat het een extra uitdaging maakte om de data voor te bereiden voor het aanbevelingssysteem. 
 
 `Bepaalde keuzes door beperkingen`
 
-Aangezien er weinig data was hebben we gekozen om gebruik te maken van cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen te vergelijken met elkaar en zo de meest geschikte te vinden zonder dat we een model moeten trainen. WAAROM
+Aangezien er weinig data was hebben we gekozen om gebruik te maken van cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen te vergelijken met elkaar en zo de meest geschikte te vinden zonder dat we een model moeten trainen. 
 
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
-Na eerst te hebben geprobeerd met Clustering models en de Surprise library hebben we uiteindelijk gekozen om gebruik te maken van TFIDF-Vectorization en Cosinus Similariteit. WAAROM
+Na eerst te hebben geprobeerd met Clustering models en de Surprise library hebben we uiteindelijk gekozen om gebruik te maken van TFIDF-Vectorization en Cosinus Similariteit. TO DO
 
 `Welke data / parameters zijn er gebruikt`
 
@@ -198,7 +198,7 @@ Het doel van epic 8 was om de mogelijkheid te creeren waarbij een key user een l
 
 `Beperkingen en uitdagingen`
 
-Een redelijke uitdaging bij deze epic was het feit dat er niet veel data was om een model mee te trainen. Dit had als effect dat de accuracy van het model niet heel hoog lag. Een uiteindelijk doel zou zijn om meer data te hebben voor accounts uit de regio Oost-Vlaanderen. Nu hadden we een train_set van iets meer dna 5000 accounts, en een test set van iets meer dan 1000 accounts.
+Een redelijke uitdaging bij deze epic was het feit dat er niet veel data was om een model mee te trainen. Dit had als effect dat de accuracy van het model niet heel hoog lag. Een uiteindelijk doel zou zijn om meer data te hebben voor accounts uit de regio Oost-Vlaanderen. Nu hadden we een train_set van iets meer dans 5000 accounts, en een test set van iets meer dan 1000 accounts.
 
 `Bepaalde keuzes door beperkingen`
 
@@ -207,6 +207,8 @@ Ondanks de beperkte hoeveelheid data voor de accounts hebben we toch gekozen voo
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
 Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juiste data ingeladen. Dit bedroeg een dataframe van de data van de tabel DimAccount en de data van de tabel DimLidmaatschap. Na analyse van deze gegevens konden we concluderen dat de hoofdreden waarom mensen hun lidmaatschap opzeggen is dat ze 'geen gebruik' maken van hun lidmaatschap. Concreet wil dat dus zeggen dat ze geen/heel weinig inschrijvingen hebben voor campagnes van Voka. Daarnaast leek het ons zo dat de financiële gegevens van de accounts ook een impact zouden moeten hebben op een eventuele stopzetting van het lidmaatschap. Omwille van die reden hebben we ook enkele kolommen van de tabel DimFinanciëleDataAccount toegevoegd aan de dataframe. Vervolgens zijn er een aantal kolommen toegevoegd/gecreerd geweest: boekjaar, aantal_inschrijvingen, lidmaatschap_actief. De lidmaatschap_actief kolom is gebaseerd op de opzegDatum kolom van DimLidmaatschap. Als deze gelijk is aan '2026-1-1' dan zal deze waarde gelijk zijn aan 1, dit wijst er dus op dat voor dit account het lidmaatschap nog actief is (anders 0). Deze kolom is dus ook hetgene dat we willen voorspellen met ons model. De kolom boekjaar bedraagt het jaar VOOR het jaar van de opzegdatum, en de kolom aantal_inschrijvingen bedraagt het aantal inschrijvingen in campagnes per account voor dat boekjaar. Dit is dus een gegeven die ons zicht geeft op het gebruik van het lidmaatschap. Na datacleaning (one hot encoding) hebben we gekozen om enkel te werken/trainen met features die een importance hebben van 0.01 of meer. Daarna hebben we een tiental modellen getraind en geëvalueerd. Na evaluatie hebben we het model gekozen met de hoogste recall-score. Dit wil zeggen dat het model het minst aantal false negatives heeft. Dit is belangrijk omdat we willen dat het model zo weinig mogelijk accounts mist die hun lidmaatschap zullen opzeggen. Beter een account te veel voorspellen die zijn lidmaatschap niet zal opzeggen, dan een account te missen die zijn lidmaatschap wel zal opzeggen. Het model die bij deze redenering uit de bus kwam was de hard voting classifier met een recall-score van 81%.
+
+![Feature Importance](image-2.png)
 
 `Welke data / parameters zijn er gebruikt`
 
@@ -239,11 +241,11 @@ Zoals eerder vermeld, is er te weinig data voor accounts uit de regio Oost-Vlaan
 
 ## Algemene reflectie
 
-`Aangeleverde data`
-
-`Datakwaliteit`
+`Aangeleverde data en Datakwaliteit`
+We hebben tijdens dit project redelijk veel problemen ervaren met de aangeleverde data. Deze was niet altijd even gestructureerd en er zaten veel fouten in. Zo was er veel data die niet bruikbaar was (NaN waarden) en er waren ook veel verschillende formaten. Om structuur toe te voegen, dienden we telkens de kolomnamen van de aangeleverde data aan te passen. Ook klopten de scheidingstekens in de CSV-files niet altijd, zo werden er verschillende scheidingstekens gebruikt in dezelfde files (; en ,), hier moesten we ook telkens handmatig dingen aanpassen. Er waren ook veel problemen met de Foreign Keys en Primary Keys. Zo waren er situaties waar er Foreign Keys waren die verwezen naar niet-bestaande Primary Keys. De data types klopten ook niet altijd en moesten we vaak zelf aanpassen. Een voorbeeld hierbij was de datums als Strings waren meegegeven idpv als DateTime-objecten. Dit nam veel tijd in beslag. Daarnaast kwamen we vaak nog extra problemen tegen bij het overzetten naar de Data Warehouse. De datakwaliteit was dus over het algemeen niet optimaal. Er zaten vrij veel NaN waarden in de data. Na data-cleaning bleef er dan ook voor sommige epics niet zoveel bruikbare data meer over. 
 
 `Mogelijkheden / beperkingen om inzichten te verkrijgen`
+<<<<<<< Updated upstream
 
 ## Sprintrapport sprint 6
 
@@ -263,3 +265,8 @@ We hebben de Streamlit applicatie niet online beschikbaar kunnen maken omdat er 
 `Team Progressie`
 
 Aangezien alle voorziene epics waren afgewerkt zoals gehoopt, konden we deze sprint gebruiken als ‘extra’ om de nodige cleanup en afwerking uit te voeren. Ook hebben we samen het einddossier geschreven waar alle details over de uitgewerkte epics in terug te vinden zijn. Over het algemeen was ook tijdens deze sprint de groepssfeer en samenwerking zeker optimaal. We hebben geen nieuwe problemen ondervonden hierbij en de communicatie over zowel de afwerking als het einddossier verliep vlot.
+=======
+Enerzijds zijn we er in geslaagd om inzichten en resultaten te verkrijgen na analyse in zowel powerBI als bij het trainen van modellen. Wel is het anderzijds belangrijk te vermelden dat wij als studenten niet de juiste achtergrond hebben om de data volledig correct te interpreteren. Ondanks de contactmomenten met de klant, kunnen wij onmogelijk de kennis toepassen die een interne specialist heeft. Verder is een algemene trend bij dit project ook dat er voor bepaalde epics te weinig data overblijft om de gewenste modellen te trainen. Dit gebrek aan data kan leiden tot een biased of een verkeerd resultaat. De testfase kon bij dit project ook niet uitgevoerd worden door ons, aangezien de data geanonimiseerd is. De klant heeft wel enkele testen uitgevoerd; al was dit vrij beperkt. Zo heeft Voka epic 5 gebruikt om campagnes aan te bevelen voor 20 van hun klanten. Eén klant heeft vervolgens op deze mail gereageerd en zich ingeschreven in de aanbevolen campagne. Dit is natuurlijk niet het gewenste resultaat van een aanbevelingssysteem. Enkele redenen hiervoor kunnen o.a. zijn: het model is niet zo optimaal als gehoopt, de klanten hebben de mail niet gelezen, de klanten zijn afschrikt door het gebruik van AI bij de aanbeveling. Hieruit kunnen we concluderen dat kwalitatief testen cruciaal is. Zonder deze testen kunnen wij niet met zekerheid zeggen dat de resultaten die wij verkregen hebben, ook effectief correct zijn.
+
+`Verkregen inzichten in PowerBI`
+>>>>>>> Stashed changes
