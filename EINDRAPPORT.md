@@ -266,7 +266,24 @@ Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juist
 `Welke data / parameters zijn er gebruikt`
 
 ```Text
-De gebruikte Machine Learning technieken zijn:
+De geteste Machine Learning modellen zijn:
+```
+
+- LinearSVC
+- SGDClassifier
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+- Voting Classifier (hard en soft voting)
+- Bagging Classifier
+- AdaBoost Classifier
+- Gradient Boosting Classifier
+- Stacking Classifier (met verschillende final estimators)
+  
+```Text
+De uiteindelijke gebruikte Machine Learning modellen zijn (voor gebruikt model):
+```
+
 - One Hot Encoding
 - Grid Search
 - Hard Voting Classifier
@@ -274,10 +291,11 @@ De gebruikte Machine Learning technieken zijn:
 - ROC Curve
 
 Voor deze technieken hebben we gebruik gemaakt van de Scikit-Learn library.
-```
 
 ```Text
 De gebruikte kolommen zijn:
+```
+
 - DimAccount
   - accountID, plaats, isVokaEntiteit, ondernemingstype, activiteitNaam
 - DimLidmaatschap
@@ -286,7 +304,7 @@ De gebruikte kolommen zijn:
   - toegevoegdeWaarde (matchend op boekjaar kolom die gecreëerd is)
 - Overige
   - boekjaar, aantal_inschrijvingen, lidmaatschap_actief
-```
+
 
 `Waarvan is er te weinig data`
 
