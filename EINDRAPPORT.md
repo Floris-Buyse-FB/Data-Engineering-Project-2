@@ -50,17 +50,61 @@ We hebben de oorspronkelijke manier om de databank te vullen gebruikt, dus aan d
 
 `Korte uitleg van de epic`
 
-Het doel van epic 3 was dat een keyuser voor een contact een lijst met toekomstige kan campagnes genereren volgens de waarschijnlijkheid dat deze zou inschrijven volgens vorige inschrijvingen, bezoekverslagen, eigenschappen van de contact zelf en zijn bedrijf, lookalikes. NOG AANVULLEN
+Op basis van de data van een gegeven contactID wordt er een lijst van toekomstige campagnes voorgesteld. Deze voorspelling wordt gemaakt door een machine learning model dat getraind is op historische data van gelijkaardige contacten en campagnes.
 
 `Beperkingen en uitdagingen`
 
+De uitdagingen lagen vooral bij het voorbereiden van de dataset waarop het model zou getraind worden. Er moesten keuzes gemaakt worden hoe de data geaggregeerd zou worden en welke kolommen er gebruikt of niet gebruikt zouden worden.
+
 `Bepaalde keuzes door beperkingen`
 
-`Gedachtengang / Hoe zijn we tot de oplossingen gekomen`
+Doordat onze focus lag op het zo veel mogelijk aggregeren van de data, hebben we een aantal kolommen niet gebruikt. Zo hebben we bijvoorbeeld de kolommen met de details van een afspraak niet gebruikt, maar enkel de thema's van de afspraken. Ook hebben we de kolommen met de details van een sessie niet gebruikt, maar enkel de thema's van de sessies. Dit hebben we gedaan omdat we de data wilden aggregeren per contact en per campagne, en niet per afspraak of per sessie.
+
+`Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
+
+Het plan bij de preprocessing was om drie geagregeerde datasets te creëren, een met alle data per contact, een met alle data per campagne en een met alle informatie over de marketing naar een contact over een campagne (de cdi tables). Omdat het doel van de epic is om campagnes te voorspellen voor een contact, is de contact dataset geagreggeerd per uniek contactID, dus alle data van een contact staat in één rij. Hetzelfde werd gedaan voor de campagne dataset maar dan op campagneID. De afspraken werden per contactID opgeteld en gegroepeerd per thema, door deze manier zijn de details per afspraak weggevallen. Omdat een campagne meerdere sessies had, en de thema's per sessie soms verschillend waren, werd hierop dezelfde methode toegepast als bij de afspraken. Bij de derde dataset werd er niks speciaals gedaan, deze was een gejoinde versie van de cdi tabellen. De volgende stap was een cross join tussen de contact en campagne dataset, zo kregen we een dataset met alle mogelijke combinaties van contactID's en campagneID's. In de tabel inschrijvingen stonden alle inschrijvingen van een contact voor een campagne, met deze informatie konden we de target kolom maken. De target kolom is een boolean die aangeeft of een contact zich heeft ingeschreven voor de gekoppelde campagne. De derde tabel, met cdi informatie, werd gejoined met de cross join tabel en er werd een 'marketing pressure' uitgerekend. Dit is de totale interactie een contact had met de gekoppelde campagne in de cross join tabel. De uiteindelijke dataframe die werd gebruikt om het model te trainen was de cross join tabel met de target kolom en de marketing pressure kolom. Deze dataframe had nu genoeg voorbeelden van contacten die zich wel en niet hebben ingeschreven voor bepaalde campagnes. Met 50% van de rijen target 0 en 50% target 1, was de dataset gebalanceerd om een model te trainen.
+
+We hebben verschillende modellen getest, zowel supervised als unsupervised. De supervised modellen die we hebben getest zijn:
+
+- LinearSVC
+- SGDClassifier
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+- Voting Classifier (hard en soft voting)
+- Bagging Classifier
+- AdaBoost Classifier
+- Gradient Boosting Classifier
+- Stacking Classifier (met verschillende final estimators)
+
+Voor al deze modellen werden de hyperparameters getuned met behulp van GridSearchCV.
+
+We hebben één unsupervised model getest, K-means. Deze hebben we niet verder uitgewerkt en getuned omdat de supervised modellen betere resultaten gaven.
+
+Bij het selecteren van het model hebben we gekeken naar accuracy en precision op de test set, die 20% van de data bevatte. Het beste model was een Random Forest Classifier met een accuracy van 86% en een precision van 85%.
+
+Bij de effectieve voorspelling in onze Streamlit applicatie wordt heel de preprocessing herhaald voor de meegegeven contacten omdat er data wordt gebruikt uit ons online datawarehouse op het vic. Voor elk meegegeven contact wordt een voorspelling gemaakt voor elke campagne in het datawarehouse. Alle voorspellingen worden gesorteerd op zekerheid en de top 10 wordt getoond aan de gebruiker.
 
 `Welke data / parameters zijn er gebruikt`
 
+- plaats
+- subregio
+- ondernemingstype
+- ondernemingsaard
+- activiteitsnaam
+- afspraak thema
+- campagne type
+- campagne soort
+- sessie thema
+- cdi visit first visit
+- cdi visit total pages
+- cdi mail sent clicks
+- cdi mail sent
+- Inschrijvings tabel (target)
+
 `Waarvan is er te weinig data`
+
+Door de cross join hebben we veel data gegenereerd, maar er mocht meer informatie zijn over campagnes en sessies ervan.
 
 ## Epic 4
 
