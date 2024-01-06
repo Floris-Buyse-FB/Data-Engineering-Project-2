@@ -26,7 +26,7 @@ We hebben de databank opgesteld aan de hand van het meegegeven ERD. Deze hebben 
 
 De data warehouse werd dan opgesteld aan de hand van een SQL-Server script. Het nodige Sterschema werd hier ook bij ontwikkeld. Tot slot wordt de data warehouse gevuld met behulp van views voor elke tabel van de DWH. De views halen de juiste data uit de relationele databank en steken deze in de DWH.
 
-![Sterschema DWH](image.png)
+![Sterschema DWH](/images_eindrapport/image.png)
 
 ## Epic 2
 
@@ -206,9 +206,18 @@ Ondanks de beperkte hoeveelheid data voor de accounts hebben we toch gekozen voo
 
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
-Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juiste data ingeladen. Dit bedroeg een dataframe van de data van de tabel DimAccount en de data van de tabel DimLidmaatschap. Na analyse van deze gegevens konden we concluderen dat de hoofdreden waarom mensen hun lidmaatschap opzeggen is dat ze 'geen gebruik' maken van hun lidmaatschap. Concreet wil dat dus zeggen dat ze geen/heel weinig inschrijvingen hebben voor campagnes van Voka. Daarnaast leek het ons zo dat de financiële gegevens van de accounts ook een impact zouden moeten hebben op een eventuele stopzetting van het lidmaatschap. Omwille van die reden hebben we ook enkele kolommen van de tabel DimFinanciëleDataAccount toegevoegd aan de dataframe. Vervolgens zijn er een aantal kolommen toegevoegd/gecreerd geweest: boekjaar, aantal_inschrijvingen, lidmaatschap_actief. De lidmaatschap_actief kolom is gebaseerd op de opzegDatum kolom van DimLidmaatschap. Als deze gelijk is aan '2026-1-1' dan zal deze waarde gelijk zijn aan 1, dit wijst er dus op dat voor dit account het lidmaatschap nog actief is (anders 0). Deze kolom is dus ook hetgene dat we willen voorspellen met ons model. De kolom boekjaar bedraagt het jaar VOOR het jaar van de opzegdatum, en de kolom aantal_inschrijvingen bedraagt het aantal inschrijvingen in campagnes per account voor dat boekjaar. Dit is dus een gegeven die ons zicht geeft op het gebruik van het lidmaatschap. Na datacleaning (one hot encoding) hebben we gekozen om enkel te werken/trainen met features die een importance hebben van 0.01 of meer. Daarna hebben we een tiental modellen getraind en geëvalueerd. Na evaluatie hebben we het model gekozen met de hoogste recall-score. Dit wil zeggen dat het model het minst aantal false negatives heeft. Dit is belangrijk omdat we willen dat het model zo weinig mogelijk accounts mist die hun lidmaatschap zullen opzeggen. Beter een account te veel voorspellen die zijn lidmaatschap niet zal opzeggen, dan een account te missen die zijn lidmaatschap wel zal opzeggen. Het model die bij deze redenering uit de bus kwam was de hard voting classifier met een recall-score van 81%.
+Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juiste data ingeladen. Dit bedroeg een dataframe van de data van de tabel DimAccount en de data van de tabel DimLidmaatschap. Na analyse van deze gegevens konden we concluderen dat de hoofdreden waarom mensen hun lidmaatschap opzeggen is dat ze 'geen gebruik' maken van hun lidmaatschap. Concreet wil dat dus zeggen dat ze geen/heel weinig inschrijvingen hebben voor campagnes van Voka. Daarnaast leek het ons zo dat de financiële gegevens van de accounts ook een impact zouden moeten hebben op een eventuele stopzetting van het lidmaatschap. Omwille van die reden hebben we ook enkele kolommen van de tabel DimFinanciëleDataAccount toegevoegd aan de dataframe. Vervolgens zijn er een aantal kolommen toegevoegd/gecreerd geweest: boekjaar, aantal_inschrijvingen, lidmaatschap_actief. De lidmaatschap_actief kolom is gebaseerd op de opzegDatum kolom van DimLidmaatschap. Als deze gelijk is aan '2026-1-1' dan zal deze waarde gelijk zijn aan 1, dit wijst er dus op dat voor dit account het lidmaatschap nog actief is (anders 0). Deze kolom is dus ook hetgene dat we willen voorspellen met ons model. De kolom boekjaar bedraagt het jaar VOOR het jaar van de opzegdatum, en de kolom aantal_inschrijvingen bedraagt het aantal inschrijvingen in campagnes per account voor dat boekjaar. Dit is dus een gegeven die ons zicht geeft op het gebruik van het lidmaatschap. Na datacleaning (one hot encoding) hebben we gekozen om enkel te werken/trainen met features die een importance hebben van 0.01 of meer.
 
-![Feature Importance](image-2.png)
+![Feature Importance](/images_eindrapport/image-2.png)
+
+ Daarna hebben we een tiental modellen getraind en geëvalueerd.
+
+ ![Getrainde modellen en hun accuracy bij testing](/images_eindrapport/image-7.png)
+
+ Na evaluatie hebben we het model gekozen met de hoogste recall-score. Dit wil zeggen dat het model het minst aantal false negatives heeft. Dit is belangrijk omdat we willen dat het model zo weinig mogelijk accounts mist die hun lidmaatschap zullen opzeggen. Beter een account te veel voorspellen die zijn lidmaatschap niet zal opzeggen, dan een account te missen die zijn lidmaatschap wel zal opzeggen. Het model die bij deze redenering uit de bus kwam was de hard voting classifier met een recall-score van 81%.
+
+![voting hard coeff](/images_eindrapport/image-8.png)
+![voting hard ROC](/images_eindrapport/image-9.png)
 
 `Welke data / parameters zijn er gebruikt`
 
@@ -249,12 +258,29 @@ We hebben tijdens dit project redelijk veel problemen ervaren met de aangeleverd
 Enerzijds zijn we er in geslaagd om inzichten en resultaten te verkrijgen na analyse in zowel powerBI als bij het trainen van modellen. Wel is het anderzijds belangrijk te vermelden dat wij als studenten niet de juiste achtergrond hebben om de data volledig correct te interpreteren. Ondanks de contactmomenten met de klant, kunnen wij onmogelijk de kennis toepassen die een interne specialist heeft. Verder is een algemene trend bij dit project ook dat er voor bepaalde epics te weinig data overblijft om de gewenste modellen te trainen. Dit gebrek aan data kan leiden tot een biased of een verkeerd resultaat. De testfase kon bij dit project ook niet uitgevoerd worden door ons, aangezien de data geanonimiseerd is. De klant heeft wel enkele testen uitgevoerd; al was dit vrij beperkt. Zo heeft Voka epic 5 gebruikt om campagnes aan te bevelen voor 20 van hun klanten. Eén klant heeft vervolgens op deze mail gereageerd en zich ingeschreven in de aanbevolen campagne. Dit is natuurlijk niet het gewenste resultaat van een aanbevelingssysteem. Enkele redenen hiervoor kunnen o.a. zijn: het model is niet zo optimaal als gehoopt, de klanten hebben de mail niet gelezen, de klanten zijn afschrikt door het gebruik van AI bij de aanbeveling. Hieruit kunnen we concluderen dat kwalitatief testen cruciaal is. Zonder deze testen kunnen wij niet met zekerheid zeggen dat de resultaten die wij verkregen hebben, ook effectief correct zijn.
 
 `Verkregen inzichten in PowerBI`
+Uit onze PowerBI-analyse zijn toch redelijk veel inzichten naar voren gekomen. Hier delen we er enkele die ons het meest zijn opgevallen, en die we het meest interessant vonden.
+
+![Reden Stopzetting Lidmaatschap](/images_eindrapport/image-3.png)
+
+Op deze grafiek zien we de verschillende redenen waarom klanten van Voka in het verleden beslist hebben de samenwerking/het lidmaatschap stop te zetten.
+
+![Aantal campagnes per type](/images_eindrapport/image-4.png)
+
+Op deze grafiek zien we de verschillende type van campagnes die Voka aanbiedt. Ook is hier een onderscheid gemaakt in online en offline campagnes.
+
+![Aantal inschrijvingen per soort](/images_eindrapport/image-5.png)
+
+Deze grafiek toont het totaal aantal inschrijvingen in campagnes opgesplitst per soort: via e-mail of via website. 
+
+![Aantal campagnes per soort](/images_eindrapport/image-6.png)
+
+Deze grafiek toont de hoeveelheid campagnes per soort.
 
 ## Sprintrapport sprint 6
 
 `Product Backlog, wat ingepland was en werd gedaan`
 
-![product backlog](image-1.png)
+![product backlog](/images_eindrapport/image-1.png)
 
 `Wat hebben we meer gedaan dan gepland en waarom?`
 
