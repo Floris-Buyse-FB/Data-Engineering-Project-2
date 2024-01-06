@@ -120,11 +120,11 @@ Wij hebben er dan voor gekozen om op basis van een gegeven campagneID, een aanta
 
 `Beperkingen en uitdagingen`
 
-Er was niet superveel data om een goed model mee te trainen. Ook zijn er soms meerdere contactpersonen per bedrijf wat het een extra uitdaging maakte om de data voor te bereiden voor het aanbevelingssysteem. 
+Er was niet superveel data om een goed model mee te trainen. Ook zijn er soms meerdere contactpersonen per bedrijf wat het een extra uitdaging maakte om de data voor te bereiden voor het aanbevelingssysteem.
 
 `Bepaalde keuzes door beperkingen`
 
-Aangezien er weinig data was hebben we gekozen om gebruik te maken van cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen te vergelijken met elkaar en zo de meest geschikte te vinden zonder dat we een model moeten trainen. 
+Aangezien er weinig data was hebben we gekozen om gebruik te maken van cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen te vergelijken met elkaar en zo de meest geschikte te vinden zonder dat we een model moeten trainen.
 
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
@@ -242,10 +242,13 @@ Zoals eerder vermeld, is er te weinig data voor accounts uit de regio Oost-Vlaan
 ## Algemene reflectie
 
 `Aangeleverde data en Datakwaliteit`
-We hebben tijdens dit project redelijk veel problemen ervaren met de aangeleverde data. Deze was niet altijd even gestructureerd en er zaten veel fouten in. Zo was er veel data die niet bruikbaar was (NaN waarden) en er waren ook veel verschillende formaten. Om structuur toe te voegen, dienden we telkens de kolomnamen van de aangeleverde data aan te passen. Ook klopten de scheidingstekens in de CSV-files niet altijd, zo werden er verschillende scheidingstekens gebruikt in dezelfde files (; en ,), hier moesten we ook telkens handmatig dingen aanpassen. Er waren ook veel problemen met de Foreign Keys en Primary Keys. Zo waren er situaties waar er Foreign Keys waren die verwezen naar niet-bestaande Primary Keys. De data types klopten ook niet altijd en moesten we vaak zelf aanpassen. Een voorbeeld hierbij was de datums als Strings waren meegegeven idpv als DateTime-objecten. Dit nam veel tijd in beslag. Daarnaast kwamen we vaak nog extra problemen tegen bij het overzetten naar de Data Warehouse. De datakwaliteit was dus over het algemeen niet optimaal. Er zaten vrij veel NaN waarden in de data. Na data-cleaning bleef er dan ook voor sommige epics niet zoveel bruikbare data meer over. 
+We hebben tijdens dit project redelijk veel problemen ervaren met de aangeleverde data. Deze was niet altijd even gestructureerd en er zaten veel fouten in. Zo was er veel data die niet bruikbaar was (NaN waarden) en er waren ook veel verschillende formaten. Om structuur toe te voegen, dienden we telkens de kolomnamen van de aangeleverde data aan te passen. Ook klopten de scheidingstekens in de CSV-files niet altijd, zo werden er verschillende scheidingstekens gebruikt in dezelfde files (; en ,), hier moesten we ook telkens handmatig dingen aanpassen. Er waren ook veel problemen met de Foreign Keys en Primary Keys. Zo waren er situaties waar er Foreign Keys waren die verwezen naar niet-bestaande Primary Keys. De data types klopten ook niet altijd en moesten we vaak zelf aanpassen. Een voorbeeld hierbij was de datums als Strings waren meegegeven idpv als DateTime-objecten. Dit nam veel tijd in beslag. Daarnaast kwamen we vaak nog extra problemen tegen bij het overzetten naar de Data Warehouse. De datakwaliteit was dus over het algemeen niet optimaal. Er zaten vrij veel NaN waarden in de data. Na data-cleaning bleef er dan ook voor sommige epics niet zoveel bruikbare data meer over.
 
 `Mogelijkheden / beperkingen om inzichten te verkrijgen`
-<<<<<<< Updated upstream
+
+Enerzijds zijn we er in geslaagd om inzichten en resultaten te verkrijgen na analyse in zowel powerBI als bij het trainen van modellen. Wel is het anderzijds belangrijk te vermelden dat wij als studenten niet de juiste achtergrond hebben om de data volledig correct te interpreteren. Ondanks de contactmomenten met de klant, kunnen wij onmogelijk de kennis toepassen die een interne specialist heeft. Verder is een algemene trend bij dit project ook dat er voor bepaalde epics te weinig data overblijft om de gewenste modellen te trainen. Dit gebrek aan data kan leiden tot een biased of een verkeerd resultaat. De testfase kon bij dit project ook niet uitgevoerd worden door ons, aangezien de data geanonimiseerd is. De klant heeft wel enkele testen uitgevoerd; al was dit vrij beperkt. Zo heeft Voka epic 5 gebruikt om campagnes aan te bevelen voor 20 van hun klanten. Eén klant heeft vervolgens op deze mail gereageerd en zich ingeschreven in de aanbevolen campagne. Dit is natuurlijk niet het gewenste resultaat van een aanbevelingssysteem. Enkele redenen hiervoor kunnen o.a. zijn: het model is niet zo optimaal als gehoopt, de klanten hebben de mail niet gelezen, de klanten zijn afschrikt door het gebruik van AI bij de aanbeveling. Hieruit kunnen we concluderen dat kwalitatief testen cruciaal is. Zonder deze testen kunnen wij niet met zekerheid zeggen dat de resultaten die wij verkregen hebben, ook effectief correct zijn.
+
+`Verkregen inzichten in PowerBI`
 
 ## Sprintrapport sprint 6
 
@@ -265,8 +268,3 @@ We hebben de Streamlit applicatie niet online beschikbaar kunnen maken omdat er 
 `Team Progressie`
 
 Aangezien alle voorziene epics waren afgewerkt zoals gehoopt, konden we deze sprint gebruiken als ‘extra’ om de nodige cleanup en afwerking uit te voeren. Ook hebben we samen het einddossier geschreven waar alle details over de uitgewerkte epics in terug te vinden zijn. Over het algemeen was ook tijdens deze sprint de groepssfeer en samenwerking zeker optimaal. We hebben geen nieuwe problemen ondervonden hierbij en de communicatie over zowel de afwerking als het einddossier verliep vlot.
-=======
-Enerzijds zijn we er in geslaagd om inzichten en resultaten te verkrijgen na analyse in zowel powerBI als bij het trainen van modellen. Wel is het anderzijds belangrijk te vermelden dat wij als studenten niet de juiste achtergrond hebben om de data volledig correct te interpreteren. Ondanks de contactmomenten met de klant, kunnen wij onmogelijk de kennis toepassen die een interne specialist heeft. Verder is een algemene trend bij dit project ook dat er voor bepaalde epics te weinig data overblijft om de gewenste modellen te trainen. Dit gebrek aan data kan leiden tot een biased of een verkeerd resultaat. De testfase kon bij dit project ook niet uitgevoerd worden door ons, aangezien de data geanonimiseerd is. De klant heeft wel enkele testen uitgevoerd; al was dit vrij beperkt. Zo heeft Voka epic 5 gebruikt om campagnes aan te bevelen voor 20 van hun klanten. Eén klant heeft vervolgens op deze mail gereageerd en zich ingeschreven in de aanbevolen campagne. Dit is natuurlijk niet het gewenste resultaat van een aanbevelingssysteem. Enkele redenen hiervoor kunnen o.a. zijn: het model is niet zo optimaal als gehoopt, de klanten hebben de mail niet gelezen, de klanten zijn afschrikt door het gebruik van AI bij de aanbeveling. Hieruit kunnen we concluderen dat kwalitatief testen cruciaal is. Zonder deze testen kunnen wij niet met zekerheid zeggen dat de resultaten die wij verkregen hebben, ook effectief correct zijn.
-
-`Verkregen inzichten in PowerBI`
->>>>>>> Stashed changes
