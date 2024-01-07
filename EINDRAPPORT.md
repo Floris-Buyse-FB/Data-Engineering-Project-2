@@ -276,7 +276,7 @@ Als laatste maar niet onbelangrijk komt de handtekening. Deze is simpelweg zelf 
 
 `Welke data / parameters zijn er gebruikt`
 
-buiten het contactId wordt er in deze epic niet rechtstreeks data gebruikt. Wel wordt er gebruikt gemaakt van epic 3 die ,zoals eerder uitgelegd werd, wel wat date gebruikt.
+Buiten het contactId wordt er in deze epic niet rechtstreeks data gebruikt. Wel wordt er gebruikt gemaakt van epic 3 die ,zoals eerder uitgelegd werd, wel wat date gebruikt.
 
 `Waarvan is er te weinig data`
 Aangezien deze epic geen data rechtstreeks gebruikt is er geen tekort aan data waar genomen.
@@ -303,7 +303,7 @@ Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juist
 
 Daarna hebben we een tiental modellen getraind en geëvalueerd.
 
-![Getrainde modellen en hun accuracy bij testing](/images_eindrapport/image-7.png)
+![Getrainde modellen en hun accuracy bij testing](./images_eindrapport/image-7.png)
 
 Na evaluatie hebben we het model gekozen met de hoogste recall-score. Dit wil zeggen dat het model het minst aantal false negatives heeft. Dit is belangrijk omdat we willen dat het model zo weinig mogelijk accounts mist die hun lidmaatschap zullen opzeggen. Beter een account te veel voorspellen die zijn lidmaatschap niet zal opzeggen, dan een account te missen die zijn lidmaatschap wel zal opzeggen. Het model die bij deze redenering uit de bus kwam was de hard voting classifier met een recall-score van 81%.
 
