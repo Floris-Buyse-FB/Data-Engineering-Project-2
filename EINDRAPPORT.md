@@ -1,4 +1,31 @@
-# Eindrapport Data-Engineering-Project 2 -- Groep 2
+# Eindrapport Data-Engineering-Project 2 | Groep 2
+
+**STUDENTEN:**
+
+- *Floris Buyse*
+- *Emma De Koster*
+- *Marlon Engels*
+- *Max Milan*
+- *Storm Tuyls*
+
+**BEGELEIDERS:**
+
+- *Johan Decorte*
+- *Giselle Vercauteren*
+
+## Inhoudstafel
+
+- [Eindrapport Data-Engineering-Project 2 | Groep 2](#eindrapport-data-engineering-project-2--groep-2)
+  - [Inhoudstafel](#inhoudstafel)
+  - [Epic 1](#epic-1)
+  - [Epic 2](#epic-2)
+  - [Epic 3](#epic-3)
+  - [Epic 4](#epic-4)
+  - [Epic 5](#epic-5)
+  - [Epic 7](#epic-7)
+  - [Epic 8](#epic-8)
+  - [Algemene reflectie](#algemene-reflectie)
+  - [Sprintrapport sprint 6](#sprintrapport-sprint-6)
 
 ## Epic 1
 
@@ -126,28 +153,24 @@ We hebben besloten om eerst alle data van contact, campagnes, afspraken en insch
 
 `Welke data / parameters zijn er gebruikt`
 
-```Text
 De gebruikte Machine Learning technieken zijn:
-```
 
 - TFIDF-Vectorization
 - Cosinus Similariteit
 
 Voor beide technieken hebben we gebruik gemaakt van de Scikit-Learn library.
 
-```Text
 De gebruikte kolommen zijn:
-```
 
-- Account
+- DimAccount
   - plaats, subregio, ondernemingstype, ondernemingsaard
-- Contact
+- DimContact
   - contactID, functietitel, functieNaam
-- Activiteit
+- DimActiviteit
   - activiteitNaam
-- Campagne
+- DimCampagne
   - campagneID, campagneType, campagneNaam, campagneSoort
-- Afspraak
+- DimAfspraak
   - keyphrases
 
 `Waarvan is er te weinig data`
@@ -180,40 +203,34 @@ Het evalueren van de effectiviteit van verschillende embeddings was beperkt omda
 
 `Welke data / parameters zijn er gebruikt`
 
-```Text
 De gebruikte Machine Learning technieken zijn:
-```
 
 - TFIDF-Vectorization
 - Cosinus Similariteit
 
 Voor beide technieken hebben we gebruik gemaakt van de Scikit-Learn library.
 
-```Text
 Om de keyphrases te maken hebben we volgende kolommen gebruikt:
-```
 
-- Account
+- DimAccount
   - plaats, subregio, ondernemingstype, ondernemingsaard
-- Activiteit
+- DimActiviteit
   - activiteitNaam
-- Functie
+- DimFunctie
   - functietitel
-- Afspraak
+- DimAfspraak
   - thema, onderwerp, keyphrases, afspraak_betreft
-- Campagne
+- DimCampagne
   - naam, type, soort
-- Mailing
+- DimMailing
   - naam, onderwerp
-- Sessie
+- DimSessie
   - thema_naam
 
 Deze keyphrases hebben we dan gecleaned door middel van de NLTK library. We verwijderden onder andere de stopwoorden, haalden herhalingen weg, zette alles in lowercase en maakten gebruik van de stemmer.
 
-```Text
 Om de marketing pressure te bereken hebben we volgende kolommen gebruikt:
 (In de user interface kan je zelf kiezen welke kolommen je wilt gebruiken)
-```
 
 - Persoon
   - alle kolommen met mail_thema en mail_type, marketingcommunicatie
@@ -271,9 +288,7 @@ Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juist
 
 `Welke data / parameters zijn er gebruikt`
 
-```Text
 De geteste Machine Learning modellen zijn:
-```
 
 - LinearSVC
 - SGDClassifier
@@ -286,9 +301,7 @@ De geteste Machine Learning modellen zijn:
 - Gradient Boosting Classifier
 - Stacking Classifier (met verschillende final estimators)
   
-```Text
 De uiteindelijke gebruikte Machine Learning modellen zijn (voor gebruikt model):
-```
 
 - One Hot Encoding
 - Grid Search
@@ -298,9 +311,7 @@ De uiteindelijke gebruikte Machine Learning modellen zijn (voor gebruikt model):
 
 Voor deze technieken hebben we gebruik gemaakt van de Scikit-Learn library.
 
-```Text
 De gebruikte kolommen zijn:
-```
 
 - DimAccount
   - accountID, plaats, isVokaEntiteit, ondernemingstype, activiteitNaam
