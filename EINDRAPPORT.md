@@ -158,21 +158,25 @@ Er is niet zozeer te weinig data, maar er kan gekozen worden om meer kolommen te
 
 `Korte uitleg van de epic`
 
-Het doel van epic 5 was dat een keyuser voor een campagne een lijst met contacten kan genereren volgens de waarschijnlijkheid om in te schrijven voor die campagne. Ook moest ervoor gezorgd worden dat bij de sortering contacten met weinig marketing pressure bevoordeeld worden ten opzichte van contacten met een hoge marketing pressure.
+Het doel van Epic 5 was dat een keyuser voor een campagne een lijst met contacten kan genereren volgens de waarschijnlijkheid om in te schrijven voor die campagne. Ook moest ervoor gezorgd worden dat bij de sortering contacten met weinig marketing pressure bevoordeeld worden ten opzichte van contacten met een hoge marketing pressure.
 
-Wij hebben er dan voor gekozen om op basis van een gegeven campagneID, een aantal contactpersonen aanbevelen die het meest geschikt zouden zijn voor deze bepaalde campagne. Deze contactpersonen worden dan gesorteerd van hoge naar lage marketing pressure.
+Wij hebben ervoor gekozen om op basis van een gegeven campagneID een aantal contactpersonen aan te bevelen die het meest geschikt zouden zijn voor deze bepaalde campagne. Deze contactpersonen worden dan gesorteerd van lage naar hoge marketing pressure.
 
 `Beperkingen en uitdagingen`
 
-Er was niet superveel data om een goed model mee te trainen. Ook zijn er soms meerdere contactpersonen per bedrijf wat het een extra uitdaging maakte om de data voor te bereiden voor het aanbevelingssysteem.
+Er was niet veel data beschikbaar om een goed model mee te trainen. Ook zijn er soms meerdere contactpersonen per bedrijf, wat het een extra uitdaging maakte om de data voor te bereiden voor het aanbevelingssysteem.
 
 `Bepaalde keuzes door beperkingen`
 
-Aangezien er weinig data was hebben we gekozen om gebruik te maken van cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen te vergelijken met elkaar en zo de meest geschikte te vinden zonder dat we een model moeten trainen.
+Vanwege het beperkte beschikbare data hebben we besloten om gebruik te maken van de cosinus similariteit van de keyphrases van de contactpersonen. Dit is een eenvoudige manier om de contactpersonen met elkaar te vergelijken en zo de meest geschikte te vinden zonder de noodzaak om een model te trainen.
 
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
-Na eerst te hebben geprobeerd met Clustering models en de Surprise library hebben we uiteindelijk gekozen om gebruik te maken van TFIDF-Vectorization en Cosinus Similariteit. TO DO
+Na het uitproberen van verschillende clustering-modellen, waaronder het K-Nearest Neighbours (KNN) algoritme en K-Means clustering, alsook de Surprise library, hebben we uiteindelijk gekozen voor TF-IDF-Vectorization en Cosinus Similariteit. Clustering-modellen vertoonden geen duidelijk onderscheid tussen de clusters, en de Surprise library was niet geschikt vanwege de vereiste ratings die niet beschikbaar waren.
+
+In eerste instantie probeerden we keyphrases te embedden met behulp van de Embedding-API van OpenAI, maar de resulterende dimensie van 1536 maakte de datapreprocessing traag en overtrof de capaciteit van onze beschikbare hardware. Vervolgens probeerden we het Tensorflow Universal Sentence Encoder, maar ook dit gaf dimensies van 512, wat nog steeds te groot was en bovendien moeilijker te implementeren dan de OpenAI API. Uiteindelijk hebben we geopteerd voor de TF-IDF Vectorizer van Scikit-Learn vanwege zijn snelle prestaties.
+
+Het evalueren van de effectiviteit van verschillende embeddings was beperkt omdat we geen uitgebreide tests konden uitvoeren op de beschikbare data, en Voka slechts een beperkt aantal tests kon uitvoeren. Voordat we de keyphrases in het aanbevelingssysteem gebruikten, pasten we enkele technieken toe om stopwoorden te verwijderen en de keyphrases te normaliseren, waarvoor we de NLTK library gebruikten.
 
 `Welke data / parameters zijn er gebruikt`
 
@@ -204,6 +208,8 @@ Om de keyphrases te maken hebben we volgende kolommen gebruikt:
 - Sessie
   - thema_naam
 
+Deze keyphrases hebben we dan gecleaned door middel van de NLTK library. We verwijderden onder andere de stopwoorden, haalden herhalingen weg, zette alles in lowercase en maakten gebruik van de stemmer.
+
 ```Text
 Om de marketing pressure te bereken hebben we volgende kolommen gebruikt:
 (In de user interface kan je zelf kiezen welke kolommen je wilt gebruiken)
@@ -218,7 +224,7 @@ Om de marketing pressure te bereken hebben we volgende kolommen gebruikt:
 
 `Waarvan is er te weinig data`
 
-Er zijn te weining campagnes en accounts van Oost-Vlaanderen.
+Er is te weinig data beschikbaar voor campagnes en accounts in Oost-Vlaanderen.
 
 ## Epic 7
 
@@ -313,11 +319,16 @@ Zoals eerder vermeld, is er te weinig data voor accounts uit de regio Oost-Vlaan
 ## Algemene reflectie
 
 `Aangeleverde data en Datakwaliteit`
-We hebben tijdens dit project redelijk veel problemen ervaren met de aangeleverde data. Deze was niet altijd even gestructureerd en er zaten veel fouten in. Zo was er veel data die niet bruikbaar was (NaN waarden) en er waren ook veel verschillende formaten. Om structuur toe te voegen, dienden we telkens de kolomnamen van de aangeleverde data aan te passen. Ook klopten de scheidingstekens in de CSV-files niet altijd, zo werden er verschillende scheidingstekens gebruikt in dezelfde files (; en ,), hier moesten we ook telkens handmatig dingen aanpassen. Er waren ook veel problemen met de Foreign Keys en Primary Keys. Zo waren er situaties waar er Foreign Keys waren die verwezen naar niet-bestaande Primary Keys. De data types klopten ook niet altijd en moesten we vaak zelf aanpassen. Een voorbeeld hierbij was de datums als Strings waren meegegeven idpv als DateTime-objecten. Dit nam veel tijd in beslag. Daarnaast kwamen we vaak nog extra problemen tegen bij het overzetten naar de Data Warehouse. De datakwaliteit was dus over het algemeen niet optimaal. Er zaten vrij veel NaN waarden in de data. Na data-cleaning bleef er dan ook voor sommige epics niet zoveel bruikbare data meer over.
+
+Tijdens dit project zijn er enkele uitdagingen ontstaan door de aangeleverde data. De data vertoonde inconsistenties en bevatte talrijke fouten, waaronder NaN-waarden en verschillende formaten. Om structuur aan te brengen, moesten we regelmatig de kolomnamen van de aangeleverde data aanpassen. Bovendien was er sprake van inconsistente scheidingstekens in de CSV-bestanden, waarbij zowel ';' als ',' werden gebruikt in dezelfde bestanden. Handmatige aanpassingen waren noodzakelijk.
+
+Ook deden zich problemen voor met Foreign Keys en Primary Keys, zoals situaties waarin Foreign Keys naar niet-bestaande Primary Keys verwezen. Daarnaast klopten de datatypes niet altijd, zoals datums die in string-formaat waren in plaats van in DateTime-formaat. Dit proces vergde aanzienlijke tijd. Bij het overzetten van de data naar het Data Warehouse deden zich extra complicaties voor, waardoor het duidelijk werd dat de algehele datakwaliteit niet optimaal was. Het aantal NaN-waarden in de data was aanzienlijk, en na het uitvoeren van data-cleaning bleef er voor sommige epics slechts beperkte bruikbare data over.
 
 `Mogelijkheden / beperkingen om inzichten te verkrijgen`
 
-Enerzijds zijn we er in geslaagd om inzichten en resultaten te verkrijgen na analyse in zowel powerBI als bij het trainen van modellen. Wel is het anderzijds belangrijk te vermelden dat wij als studenten niet de juiste achtergrond hebben om de data volledig correct te interpreteren. Ondanks de contactmomenten met de klant, kunnen wij onmogelijk de kennis toepassen die een interne specialist heeft. Verder is een algemene trend bij dit project ook dat er voor bepaalde epics te weinig data overblijft om de gewenste modellen te trainen. Dit gebrek aan data kan leiden tot een biased of een verkeerd resultaat. De testfase kon bij dit project ook niet uitgevoerd worden door ons, aangezien de data geanonimiseerd is. De klant heeft wel enkele testen uitgevoerd; al was dit vrij beperkt. Zo heeft Voka epic 5 gebruikt om campagnes aan te bevelen voor 20 van hun klanten. Eén klant heeft vervolgens op deze mail gereageerd en zich ingeschreven in de aanbevolen campagne. Dit is natuurlijk niet het gewenste resultaat van een aanbevelingssysteem. Enkele redenen hiervoor kunnen o.a. zijn: het model is niet zo optimaal als gehoopt, de klanten hebben de mail niet gelezen, de klanten zijn afschrikt door het gebruik van AI bij de aanbeveling. Hieruit kunnen we concluderen dat kwalitatief testen cruciaal is. Zonder deze testen kunnen wij niet met zekerheid zeggen dat de resultaten die wij verkregen hebben, ook effectief correct zijn.
+Aan de ene kant hebben we inzichten en resultaten verkregen door analyses in zowel PowerBI als bij het trainen van modellen. Aan de andere kant is het belangrijk op te merken dat wij als studenten niet over de juiste achtergrond beschikken om de data volledig correct te interpreteren. Ondanks onze contactmomenten met de klant, blijkt het voor ons onmogelijk om de diepgaande kennis toe te passen die een interne specialist zou hebben. Bovendien is er een algemene trend in dit project waarbij voor bepaalde epics onvoldoende data overblijft om de gewenste modellen te trainen. Dit gebrek aan data kan leiden tot een vertekend of onjuist resultaat.
+
+De testfase kon ook niet door ons worden uitgevoerd, aangezien de data geanonimiseerd is. Wel heeft de klant enkele tests uitgevoerd, zij het beperkt. Bijvoorbeeld heeft Voka epic 5 gebruikt om campagnes aan te bevelen voor 20 van hun klanten. Eén klant heeft vervolgens op deze mail gereageerd en zich ingeschreven voor de aanbevolen campagne. Dit resultaat is echter niet optimaal voor een aanbevelingssysteem. Mogelijke redenen hiervoor kunnen zijn: het model is niet zo optimaal als gehoopt, de klanten hebben de mail niet gelezen, of de klanten worden afgeschrikt door het gebruik van AI bij de aanbevelingen. Hieruit kunnen we concluderen dat kwalitatieve testen van essentieel belang zijn. Zonder deze testen kunnen we niet met zekerheid zeggen dat de verkregen resultaten ook daadwerkelijk correct zijn.
 
 `Verkregen inzichten in PowerBI`
 Uit onze PowerBI-analyse zijn toch redelijk veel inzichten naar voren gekomen. Hier delen we er enkele die ons het meest zijn opgevallen, en die we het meest interessant vonden.
@@ -332,7 +343,7 @@ Op deze grafiek zien we de verschillende type van campagnes die Voka aanbiedt. O
 
 ![Aantal inschrijvingen per soort](/images_eindrapport/image-5.png)
 
-Deze grafiek toont het totaal aantal inschrijvingen in campagnes opgesplitst per soort: via e-mail of via website. 
+Deze grafiek toont het totaal aantal inschrijvingen in campagnes opgesplitst per soort: via e-mail of via website.
 
 ![Aantal campagnes per soort](/images_eindrapport/image-6.png)
 
