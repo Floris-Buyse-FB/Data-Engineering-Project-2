@@ -2,18 +2,16 @@
 
 **STUDENTEN:**
 
-- *Floris Buyse*
-- *Emma De Koster*
-- *Marlon Engels*
-- *Max Milan*
-- *Storm Tuyls*
+- _Floris Buyse_
+- _Emma De Koster_
+- _Marlon Engels_
+- _Max Milan_
+- _Storm Tuyls_
 
 **BEGELEIDERS:**
 
-- *Johan Decorte*
-- *Giselle Vercauteren*
-
-<div class="page"/>
+- _Johan Decorte_
+- _Giselle Vercauteren_
 
 ## Inhoudstafel
 
@@ -35,7 +33,7 @@
 
 `Korte uitleg van de epic`
 
-Het doel van deze epic was dat een keyuser  de aangeleverde vokaledendata volledig kan consulteren in de omgeving van HoGent, en dat deze ad hoc queries kan uitvoeren om data kwaliteit te valideren.
+Het doel van deze epic was dat een keyuser de aangeleverde vokaledendata volledig kan consulteren in de omgeving van HoGent, en dat deze ad hoc queries kan uitvoeren om data kwaliteit te valideren.
 
 Hiervoor hebben we een relationele databank opgezet waarin de aangeleverde data wordt bijgehouden. Deze data hebben we eerst gecleaned en enkel de data van Oost-Vlaanderen behouden. Vervolgens hebben we de data in een relationele databank gestoken. Deze databank dient dus voor de toestroom aan data. Daarna hebben we een Data Warehouse opgesteld die meer geschikt is voor het ophalen en analyseren van data. Tot slot hebben we ook een User Interface gemaakt (waar de data warehouse aan gelinkt is), a.d.h.v Streamlit waarop bepaalde queries kunnen worden uitgevoerd. Deze queries kunnen zelf geschreven worden en er zijn ook enkele voorgemaakte queries beschikbaar.
 
@@ -251,15 +249,37 @@ Er is te weinig data beschikbaar voor campagnes en accounts in Oost-Vlaanderen.
 
 `Korte uitleg van de epic`
 
+In epic 7 is het de bedoeling dat de keyuser een hypergepersonaliseerde mail kan genereren voor een bepaald contact. In deze mail worden er de meest relevante campagnes en diensten weergeven voor dat contact.
+
+De keyuser kan zelf de mail nog aanpassen eens deze gegenereerd is, zelf een handtekening toevoegen die vervolgens zal worden opgeslagen in de cache en het aantal voorgestelde campagnes bepalen.
+
 `Beperkingen en uitdagingen`
+
+De grootste uitdaging voor deze epic was het gebruik van een reeds bestaand AI-model zoals ChatGPT. Ondanks de mooie zinnen dat ChatGPT kan genereren was het vrij moeilijk om deze consistent en toepasbaar te krijgen. Deze zinnen zijn vaak te lang, to complex of bevatten teveel onnodige informatie.
+
+Er is gexperimenteerd met andere AI-modellen maar geen enkele voldeed aan onze voorwaarden.
 
 `Bepaalde keuzes door beperkingen`
 
+Ondanks de tegenslag van deze modellen zijn we met het creatieve idee gekomen om een AI model na te bootsen zonder deze zelf te echt te moeten programmeren. Dit hebben we gedaan aan de hand van libraries die de zinnen die we willen gebruiken bevatten.
+
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
+
+Het idee voor deze oplossing was dus om een voorbeeld tekst te schrijven ingedeeld in enkele onderdelen. Deze onderdelen zijn belangrijk omdat we op deze manier controle hebben over de structuur en opmaak van onze email.
+De onderdelen van de email zijn: de begroeting, reden voor contact, de voorgestelde campagnes, de afsluiter en de handtekening.
+
+Voor de onderdelen: begroeting, reden voor contact en de afsluiter, wordt een random zin gekozen uit drie verschillende libraries (afhankelijk van het onderdeel). In deze library zitten zinnen die door ons gecontroleerd en gekozen zijn. We hebben deze zinnen echter niet allemaal zelf geschreven. we zijn te werk gegaan met een voorbeeldzin en aan de hand van deze zin hebben we een aantal andere zinnen laten genereren die de lengte en essentie behouden. vervolgens wordt er per gegenereerde email een random zin gekozen uit elk van deze libraries. Dit zorgt er voor dat niet elke email het zelfde is maar wel telkens dezelfde boodschap heeft.
+
+De voorgestelde campagnes is afhankelijk van de ontvanger van de mail. De keyuser geeft een contact in en kiest het aantal campagnes het in de mail wilt hebben. Aan de hand van het model uit epic 3 worden de aantal campagnes genereerd en worden deze netjes getoont in de mail.
+
+Als laatste maar niet onbelangrijk komt de handtekening. Deze is simpelweg zelf in te geven door de keyuser. Dit hoeft echter maar 1 keer te gebeuren aangezien deze input wordt opgeslagen in de cache en deze handtekening dus zal onthouden.
 
 `Welke data / parameters zijn er gebruikt`
 
+buiten het contactId wordt er in deze epic niet rechtstreeks data gebruikt. Wel wordt er gebruikt gemaakt van epic 3 die ,zoals eerder uitgelegd werd, wel wat date gebruikt.
+
 `Waarvan is er te weinig data`
+Aangezien deze epic geen data rechtstreeks gebruikt is er geen tekort aan data waar genomen.
 
 ## Epic 8
 
@@ -281,11 +301,11 @@ Om tot een model te komen die aan het einddoel voldoet, hebben we eerst de juist
 
 ![Feature Importance](./images_eindrapport/image-2.png)
 
- Daarna hebben we een tiental modellen getraind en geëvalueerd.
+Daarna hebben we een tiental modellen getraind en geëvalueerd.
 
- ![Getrainde modellen en hun accuracy bij testing](./images_eindrapport/image-7.png)
+![Getrainde modellen en hun accuracy bij testing](/images_eindrapport/image-7.png)
 
- Na evaluatie hebben we het model gekozen met de hoogste recall-score. Dit wil zeggen dat het model het minst aantal false negatives heeft. Dit is belangrijk omdat we willen dat het model zo weinig mogelijk accounts mist die hun lidmaatschap zullen opzeggen. Beter een account te veel voorspellen die zijn lidmaatschap niet zal opzeggen, dan een account te missen die zijn lidmaatschap wel zal opzeggen. Het model die bij deze redenering uit de bus kwam was de hard voting classifier met een recall-score van 81%.
+Na evaluatie hebben we het model gekozen met de hoogste recall-score. Dit wil zeggen dat het model het minst aantal false negatives heeft. Dit is belangrijk omdat we willen dat het model zo weinig mogelijk accounts mist die hun lidmaatschap zullen opzeggen. Beter een account te veel voorspellen die zijn lidmaatschap niet zal opzeggen, dan een account te missen die zijn lidmaatschap wel zal opzeggen. Het model die bij deze redenering uit de bus kwam was de hard voting classifier met een recall-score van 81%.
 
 ![voting hard coeff](./images_eindrapport/image-8.png)
 ![voting hard ROC](./images_eindrapport/image-9.png)
@@ -304,7 +324,7 @@ De geteste Machine Learning modellen zijn:
 - AdaBoost Classifier
 - Gradient Boosting Classifier
 - Stacking Classifier (met verschillende final estimators)
-  
+
 De uiteindelijke gebruikte Machine Learning modellen zijn (voor gebruikt model):
 
 - One Hot Encoding
