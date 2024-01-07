@@ -79,7 +79,7 @@ We hebben de oorspronkelijke manier om de databank te vullen gebruikt, dus aan d
 
 `Korte uitleg van de epic`
 
-Op basis van de data van een gegeven contactID wordt er een lijst van toekomstige campagnes voorgesteld. Deze voorspelling wordt gemaakt door een machine learning model dat getraind is op historische data van gelijkaardige contacten en campagnes.
+Op basis van de data van een gegeven contactID wordt er een lijst van toekomstige campagnes voorgesteld. Deze voorspelling wordt gemaakt door een machine learning model dat getraind is op historische data van gelijkaardige contacten en afgelopen campagnes.
 
 `Beperkingen en uitdagingen`
 
@@ -91,9 +91,21 @@ Doordat onze focus lag op het zo veel mogelijk aggregeren van de data, hebben we
 
 `Gedachtengang / Hoe zijn we tot de oplossingen zijn gekomen`
 
-Het plan bij de preprocessing was om drie geagregeerde datasets te creëren, een met alle data per contact, een met alle data per campagne en een met alle informatie over de marketing naar een contact over een campagne (de cdi tables). Omdat het doel van de epic is om campagnes te voorspellen voor een contact, is de contact dataset geagreggeerd per uniek contactID, dus alle data van een contact staat in één rij. Hetzelfde werd gedaan voor de campagne dataset maar dan op campagneID. De afspraken werden per contactID opgeteld en gegroepeerd per thema, door deze manier zijn de details per afspraak weggevallen. Omdat een campagne meerdere sessies had, en de thema's per sessie soms verschillend waren, werd hierop dezelfde methode toegepast als bij de afspraken. Bij de derde dataset werd er niks speciaals gedaan, deze was een gejoinde versie van de cdi tabellen. De volgende stap was een cross join tussen de contact en campagne dataset, zo kregen we een dataset met alle mogelijke combinaties van contactID's en campagneID's. In de tabel inschrijvingen stonden alle inschrijvingen van een contact voor een campagne, met deze informatie konden we de target kolom maken. De target kolom is een boolean die aangeeft of een contact zich heeft ingeschreven voor de gekoppelde campagne. De derde tabel, met cdi informatie, werd gejoined met de cross join tabel en er werd een 'marketing pressure' uitgerekend. Dit is de totale interactie een contact had met de gekoppelde campagne in de cross join tabel. De uiteindelijke dataframe die werd gebruikt om het model te trainen was de cross join tabel met de target kolom en de marketing pressure kolom. Deze dataframe had nu genoeg voorbeelden van contacten die zich wel en niet hebben ingeschreven voor bepaalde campagnes. Met 50% van de rijen target 0 en 50% target 1, was de dataset gebalanceerd om een model te trainen.
+Omdat we een lijst hadden welke contacten zich hadden ingeschreven voor welke campagnes, tabel inschrijvingen, konden we een target kolom maken. Deze target kolom is een boolean, 0 of 1, die aangeeft of een contact zich heeft ingeschreven voor een campagne. Dit betekende dat we een supervised machine learning model konden trainen, met name een binary classification model.
 
-We hebben verschillende modellen getest, zowel supervised als unsupervised. De supervised modellen die we hebben getest zijn:
+Bij de preprocessing was ons plan om drie geaggregeerde datasets te genereren. De eerste bevatte alle gegevens per contact in één rij, de tweede alle gegevens per campagne in één rij, en de derde omvatte alle informatie over de marketing, de cdi-tabellen. Aangezien het doel van de epic was om campagnes te voorspellen voor een contact, werd de contactdataset geaggregeerd per uniek contactID, waarbij alle gegevens van een contact tot één rij werden samengevoegd. Hetzelfde werd gedaan voor de campagnedataset, maar dan op campagneID.
+
+De afspraken werden per contactID opgeteld en gegroepeerd per thema, waarbij de details per afspraak verloren gingen. Aangezien een campagne meerdere sessies had en de thema's per sessie soms verschilden, werd dezelfde methode toegepast als bij de afspraken.
+
+Voor de derde dataset werd niets speciaals gedaan, deze was een gejoinde versie van de cdi-tabellen. De volgende stap omvatte een cross-join tussen de contact- en campagnedataset, resulterend in een dataset met alle mogelijke combinaties van contactID's en campagneID's.
+
+In de tabel 'inschrijvingen' stonden alle inschrijvingen van een contact voor een campagne, waarmee de target kolom kon worden gemaakt. Deze kolom was een boolean die aangaf of een contact zich had ingeschreven voor de gekoppelde campagne.
+
+De derde tabel, met cdi-informatie, werd gejoined met de cross-join tabel, en er werd een 'marketing pressure' berekend. Dit vertegenwoordigde de totale interactie die een contact had met de gekoppelde campagne in de cross-join tabel.
+
+Het uiteindelijke dataframe dat werd gebruikt om het model te trainen, omvatte de cross-join tabel met de target kolom en de marketing pressure kolom. Deze dataframe bevatte voldoende voorbeelden van contacten die zich wel en niet hadden ingeschreven voor bepaalde campagnes, met een verdeling van 50% target 0 en 50% target 1 om een evenwichtig model te trainen.
+
+We hebben verschillende modellen getest, zowel supervised als unsupervised. De supervised modellen die zijn getest zijn:
 
 - LinearSVC
 - SGDClassifier
@@ -112,7 +124,7 @@ We hebben één unsupervised model getest, K-means. Deze hebben we niet verder u
 
 Bij het selecteren van het model hebben we gekeken naar accuracy en precision op de test set, die 20% van de data bevatte. Het beste model was een Random Forest Classifier met een accuracy van 86% en een precision van 85%.
 
-Bij de effectieve voorspelling in onze Streamlit applicatie wordt heel de preprocessing herhaald voor de meegegeven contacten omdat er data wordt gebruikt uit ons online datawarehouse op het vic. Voor elk meegegeven contact wordt een voorspelling gemaakt voor elke campagne in het datawarehouse. Alle voorspellingen worden gesorteerd op zekerheid en de top 10 wordt getoond aan de gebruiker.
+Bij de effectieve voorspelling in onze Streamlit applicatie wordt heel de preprocessing herhaald voor de meegegeven contacten omdat er data wordt gebruikt uit ons online datawarehouse op het vic. Voor elk meegegeven contact wordt een voorspelling gemaakt voor elke campagne in het datawarehouse. De voorspellingen gegenereerd door het model worden gesorteerd op zekerheid, de top 10 wordt aan de gebruiker gepresenteerd.
 
 `Welke data / parameters zijn er gebruikt`
 
@@ -131,9 +143,17 @@ Bij de effectieve voorspelling in onze Streamlit applicatie wordt heel de prepro
 - cdi mail sent
 - Inschrijvings tabel (target)
 
+De belangrijkste parameters tijdens het beslissen of een contact zich zal inschrijven voor een campagne zijn:
+
+- sessie thema
+- campagne type
+- campagne soort
+- onderemingstype
+- afspraak thema
+
 `Waarvan is er te weinig data`
 
-Door de cross join hebben we veel data gegenereerd, maar er mocht meer informatie zijn over campagnes en sessies ervan.
+Door de cross join hebben we veel data gegenereerd.
 
 ## Epic 4
 
