@@ -305,12 +305,11 @@ De gebruikte kolommen zijn:
 - DimAccount
   - accountID, plaats, isVokaEntiteit, ondernemingstype, activiteitNaam
 - DimLidmaatschap
-  - redenAangroei, redenVerloop, startDatum, opzegDatum, 
+  - redenAangroei, redenVerloop, startDatum, opzegDatum,
 - DimFinanciëleDataAccount
   - toegevoegdeWaarde (matchend op boekjaar kolom die gecreëerd is)
 - Overige
   - boekjaar, aantal_inschrijvingen, lidmaatschap_actief
-
 
 `Waarvan is er te weinig data`
 
