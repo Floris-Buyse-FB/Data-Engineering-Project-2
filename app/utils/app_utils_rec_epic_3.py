@@ -125,7 +125,8 @@ def load_accounts(contactids, conn):
 
 def load_campaigns(conn):
     campagne_cols = ['campagneID', 'campagneNaam', 'campagneType', 'campagneSoort']
-    campagne_query = create_query('DimCampagne', campagne_cols)
+    campagne_condition = "campagneStartdatum >= '2023-09-01'"
+    campagne_query = create_query('DimCampagne', campagne_cols, campagne_condition)
     df_campagne = pd.read_sql(campagne_query, conn)
 
     sessie_cols = ['campaignID', 'themaNaam']
